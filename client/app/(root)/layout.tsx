@@ -10,7 +10,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Kickstart JS | Root",
+  title: "Edulingo | Root",
   description: "build your own project fast with kickstartJS",
   icons: {
     icon: "/icons/icon.svg",

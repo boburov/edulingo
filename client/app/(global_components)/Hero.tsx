@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Author from "./Author";
 import Link from "next/link";
 
 export default function Hero() {
@@ -12,7 +11,6 @@ export default function Hero() {
 
   return (
     <div className="w-full space-y-5">
-      <Author />
       <div className="w-full flex justify-between items-center gap-5">
         <div className="flex-1 space-y-4">
           <h1 className="text-5xl font-semibold">
