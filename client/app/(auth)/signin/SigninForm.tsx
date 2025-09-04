@@ -64,18 +64,18 @@ export default function SigninForm() {
           id="check"
           checked={acception}
           onCheckedChange={handleCheckbox}
-          className="border-gray-400 data-[state=checked]:bg-violet-600 data-[state=checked]:text-white data-[state=checked]:border-violet-600"
+          className="border-gray-400 data-[state=checked]:body_color data-[state=checked]:text-white data-[state=checked]:border_color"
         />
         <label htmlFor="check">
           Accept all{" "}
-          <Link href={"/terms"} className="inline-block text-violet-600">
+          <Link href={"/terms"} className="inline-block text_color">
             terms
           </Link>
         </label>
       </div>
       <button
         type="submit"
-        className="bg-violet-600 text-white font-medium py-2 rounded-xl cursor-pointer w-full flex justify-center items-center h-10"
+        className="body_color text-white font-medium py-2 rounded-xl cursor-pointer w-full flex justify-center items-center h-10"
       >
         {!loading ? "Sign in" : <BeatLoader color="#ffffff" size={10} />}
       </button>

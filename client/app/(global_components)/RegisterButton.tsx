@@ -39,21 +39,21 @@ export default function RegisterButton() {
     <div className="space-x-3">
       <Link
         href={"/signin"}
-        className="inline-block border-2 border-violet-600 px-4 py-2 rounded-xl"
+        className="inline-block border-2 border_color px-4 py-2 rounded-xl"
       >
         Sign in
       </Link>
       {!isRegistered ? (
         <Link
           href={"/signup"}
-          className="inline-block border-2 border-violet-600 px-4 py-2 rounded-xl bg-violet-600 text-white"
+          className="inline-block border-2 border_color px-4 py-2 rounded-xl body_color text-white"
         >
           Sign up
         </Link>
       ) : (
         <Link
           href={"/panel"}
-          className="inline-block border-2 border-violet-600 px-4 py-2 rounded-xl bg-violet-600 text-white"
+          className="inline-block border-2 border_color px-4 py-2 rounded-xl body_color text-white"
         >
           Dashboard
         </Link>

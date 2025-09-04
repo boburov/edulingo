@@ -10,14 +10,14 @@ export default function Hero() {
         <div className="flex-1 space-y-4">
           <h1 className="text-5xl font-semibold">
             Now you can focus on{" "}
-            <span className="text-violet-600">Your own project</span> instead of
+            <span className="text_color">Your own project</span> instead of
             configuration,{" "}
-            <span className="text-violet-600">enjoy Kickstart JS</span>
+            <span className="text_color">enjoy Kickstart JS</span>
           </h1>
           <p>With pre-built Authentication with Github and Google Providers</p>
           <Link
             href={"/panel"}
-            className="py-2 px-4 font-medium text-white bg-violet-600 inline-block rounded-xl"
+            className="py-2 px-4 font-medium text-white body_color inline-block rounded-xl"
           >
             Navigate to panel
           </Link>

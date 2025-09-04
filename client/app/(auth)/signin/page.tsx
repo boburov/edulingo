@@ -18,7 +18,7 @@ export default function SignIn() {
       <div className="flex text_color justify-center">
         <p>
           New to Svolve?{" "}
-          <Link href={"/signup"} className="text-violet-600">
+          <Link href={"/signup"} className="text_color">
             Sign up
           </Link>
         </p>

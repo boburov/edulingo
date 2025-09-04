@@ -16,7 +16,7 @@ export default function SignUp() {
       <SignupForm />
       <Socials />
       <div className="flex text_color justify-center">
-        <p>Already have an account? <Link href={"/signin"} className="text-violet-600">Sign in</Link></p>
+        <p>Already have an account? <Link href={"/signin"} className="text_color">Sign in</Link></p>
       </div>
     </div>
   );

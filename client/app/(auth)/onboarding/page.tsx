@@ -14,7 +14,7 @@ export default function Onboarding() {
         height={120}
       />
       <BoardingMessage />
-      <Link href={"/"} className="text-violet-600 inline-block">
+      <Link href={"/"} className="text_color inline-block">
         go to main page
       </Link>
     </div>

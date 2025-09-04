@@ -134,3 +134,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+.text_color {
+  @apply text-[#26a269];
+}
+
+.body_color {
+  @apply bg-[#26a269];
+}
+
+.border_color {
+  @apply border-[#26a269];
+}

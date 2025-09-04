@@ -52,7 +52,7 @@ export default function Verification() {
       {loading1 && <p>Verifying your email and setting your accaunt...</p>}
       {loading2 && <p>Receiving and saving you account data...</p>}
       {!loading1 && !loading2 && <p>Welcome to Svolve!</p>}
-      <p className="text-violet-600">Do not close the page</p>
+      <p className="text_color">Do not close the page</p>
     </div>
   );
 }
