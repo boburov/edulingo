@@ -22,11 +22,11 @@ export default function RegisterButton() {
         <Link
           href={"/signin"}
           className="inline-block border-2 px-4 py-2 rounded-xl bg-black/5 border-black/bg-black/5 text-black/5"
-        > 
-          Loading 
-        </Link> 
-        <Link 
-          href={"/signin"} 
+        >
+          Loading
+        </Link>
+        <Link
+          href={"/signin"}
           className="inline-block border-2 px-4 py-2 rounded-xl bg-black/5 border-black/bg-black/5 text-black/5"
         >
           Loading
@@ -41,21 +41,21 @@ export default function RegisterButton() {
         href={"/signin"}
         className="inline-block border-2 border_color px-4 py-2 rounded-xl"
       >
-        Sign in
+        Kirish
       </Link>
       {!isRegistered ? (
         <Link
           href={"/signup"}
           className="inline-block border-2 border_color px-4 py-2 rounded-xl body_color text-white"
         >
-          Sign up
+          Roixatdan otish
         </Link>
       ) : (
         <Link
           href={"/panel"}
           className="inline-block border-2 border_color px-4 py-2 rounded-xl body_color text-white"
         >
-          Dashboard
+          Panel
         </Link>
       )}
     </div>

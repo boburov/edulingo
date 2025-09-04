@@ -11,7 +11,7 @@ export default function Home() {
     <div className="w-full py-10">
       <Hero />
       <div className="py-10 flex justify-center items-center">
-        <p className={`${boren.className} text-xl`}>if you like it support it in github</p>
+        <p className={`${boren.className} text-xl`}>Hamkorlarimiz</p>
       </div>
     </div>
   );
