@@ -5,18 +5,23 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Svolve | Sign Up",
+  title: "Edulingo | Sign Up",
   description: "Easy to use payment API for startups | sign up page",
 };
 
 export default function SignUp() {
   return (
     <div className="w-full space-y-4">
-      <Heading text="Sign up to Svolve" />
+      <Heading text="Ro'yxatdan o'tish" />
       <SignupForm />
       <Socials />
-      <div className="flex text_color justify-center">
-        <p>Already have an account? <Link href={"/signin"} className="text_color">Sign in</Link></p>
+      <div className="flex justify-center">
+        <p className="text-gray-800">
+          O'quvchi hisobingiz bormi?{" "}
+          <Link href={"/signin"} className="base_color">
+            Tizimga kiring
+          </Link>
+        </p>
       </div>
     </div>
   );

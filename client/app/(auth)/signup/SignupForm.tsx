@@ -49,7 +49,7 @@ export default function SignupForm() {
         </p>
       )}
       <div className="flex flex-col space-x-0.5">
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">Ism & familiya</label>
         <input
           type="text"
           name="name"
@@ -61,7 +61,7 @@ export default function SignupForm() {
         />
       </div>
       <div className="flex flex-col space-x-0.5">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">E-po'chta</label>
         <input
           type="email"
           name="email"
@@ -79,18 +79,18 @@ export default function SignupForm() {
           onCheckedChange={handleCheckbox}
           className="border-gray-400 data-[state=checked]:body_color data-[state=checked]:text-white data-[state=checked]:border_color"
         />
-        <label htmlFor="check">
-          Accept all{" "}
-          <Link href={"/terms"} className="inline-block text_color">
-            terms
+        <label htmlFor="check" className="flex gap-1">
+          <Link href={"/terms"} className="inline-block base_color">
+            Shartlarga
           </Link>
+          <p className="text-gray-800">rozi boling</p>
         </label>
       </div>
       <button
         type="submit"
         className="body_color text-white font-medium py-2 rounded-xl cursor-pointer w-full"
       >
-        {!loading ? "Sign up" : <BeatLoader color="#ffffff" size={10} />}
+        {!loading ? "Ro'yxatdan o'tish" : <BeatLoader color="#ffffff" size={10} />}
       </button>
     </form>
   );

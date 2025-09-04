@@ -55,7 +55,7 @@ export default function Github({ setErrorMessage }: any) {
         width={22}
         height={0}
       />{" "}
-      Continue with Github
+      Github
     </button>
   );
 }

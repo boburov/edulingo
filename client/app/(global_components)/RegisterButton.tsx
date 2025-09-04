@@ -48,7 +48,7 @@ export default function RegisterButton() {
           href={"/signup"}
           className="inline-block border-2 border_color px-4 py-2 rounded-xl body_color text-white"
         >
-          Roixatdan otish
+          Ro'yxatdan o'tish
         </Link>
       ) : (
         <Link

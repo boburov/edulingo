@@ -135,7 +135,7 @@
   }
 }
 
-.text_color {
+.base_color {
   @apply text-[#26a269];
 }
 

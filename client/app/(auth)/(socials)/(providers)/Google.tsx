@@ -53,7 +53,7 @@ export default function Google({ setErrorMessage }: any) {
         width={22}
         height={0}
       />{" "}
-      Continue with Google
+      Google
     </button>
   );
 }

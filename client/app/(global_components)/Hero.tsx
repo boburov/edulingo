@@ -17,8 +17,8 @@ export default function Hero() {
         <div className="flex-1 space-y-4">
           <h1 className="text-5xl font-semibold">
             Edulingo - Sizning{" "}
-            <span className="text_color">Bilim Yo‘lingiz</span> Shu Yerdan{" "}
-            <span className="text_color">Boshlanadi</span>
+            <span className="base_color">Bilim Yo‘lingiz</span> Shu Yerdan{" "}
+            <span className="base_color">Boshlanadi</span>
           </h1>
           <p>
             Zamonaviy ta’lim orqali orzularingizga bir qadam yaqinlashing. Biz

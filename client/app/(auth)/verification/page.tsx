@@ -51,7 +51,7 @@ export default function Verification() {
       <HashLoader color="#7c3aed" size={80} />
       {loading1 && <p>Verifying your email and setting your accaunt...</p>}
       {loading2 && <p>Receiving and saving you account data...</p>}
-      {!loading1 && !loading2 && <p>Welcome to Svolve!</p>}
+      {!loading1 && !loading2 && <p>Welcome to Edulingo!</p>}
       <p className="text_color">Do not close the page</p>
     </div>
   );

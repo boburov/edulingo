@@ -48,7 +48,7 @@ export default function SigninForm() {
         </p>
       )}
       <div className="flex flex-col space-x-0.5">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">E-po'chta</label>
         <input
           type="email"
           name="email"
@@ -66,11 +66,11 @@ export default function SigninForm() {
           onCheckedChange={handleCheckbox}
           className="border-gray-400 data-[state=checked]:body_color data-[state=checked]:text-white data-[state=checked]:border_color"
         />
-        <label htmlFor="check">
-          Accept all{" "}
-          <Link href={"/terms"} className="inline-block text_color">
-            terms
+        <label htmlFor="check" className="flex gap-1">
+          <Link href={"/terms"} className="inline-block base_color">
+            Shartlarga
           </Link>
+          <p className="text-gray-800">rozi boling</p>
         </label>
       </div>
       <button
