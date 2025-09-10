@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { RoleGuard } from 'src/guards/guards.guard';
-import { AuthGuard } from 'src/guards/roles.decorator';
+import { GoogleAuthGuard } from 'src/guards/google-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -13,14 +13,24 @@ export class AuthController {
     return this.authService.create(createAuthDto);
   }
 
-  @Get('google')
-  @UseGuards()
-  googleLogin() {
-    // Google ga yo'naltiradi
+  @Get("users")
+  @UseGuards(RoleGuard)
+  async getAllUser() {
+    return this.authService.findAll()
   }
 
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
+  googleCallback(@Req() req) {
+    return {
+      message: 'Google login successful',
+      user: req.user,
+    };
+  }
+
+
   @Get('dashboard')
-  @UseGuards(AuthGuard, new RoleGuard('admin'))
+  @UseGuards()
   getDashboard() {
     return 'Admin paneli';
   }
