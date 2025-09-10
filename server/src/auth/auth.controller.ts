@@ -34,8 +34,6 @@ export class AuthController {
     return this.authService.generateToken(req.user);
   }
 
-
-
   @Get('dashboard')
   @UseGuards()
   getDashboard() {
