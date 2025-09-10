@@ -1,13 +1,18 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   let token: string | null = null;
 
   if (typeof window !== "undefined") {
     token = localStorage.getItem("access_token");
   }
+
+  if (!mounted) return null;
 
   return (
     <div className="w-full space-y-5">
