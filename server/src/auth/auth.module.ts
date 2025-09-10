@@ -4,14 +4,17 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
-import { GoogleStrategy } from './google.strategy';  // ✅ strategy import qiling
+import { GoogleStrategy } from './strategies/google.strategies';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
     PrismaModule,
+    MailModule,
+    MailModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
+      secret: process.env.JWT_SECRET || 'super_secret',
+      signOptions: { expiresIn: '7d' },
     }),
     PassportModule.register({ session: false }),
   ],
@@ -22,4 +25,4 @@ import { GoogleStrategy } from './google.strategy';  // ✅ strategy import qili
   controllers: [AuthController],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

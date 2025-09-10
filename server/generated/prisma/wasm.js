@@ -94,10 +94,50 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  username: 'username',
+  name: 'name',
   surname: 'surname',
   email: 'email',
-  role: 'role'
+  profile_pic: 'profile_pic',
+  google_id: 'google_id',
+  role: 'role',
+  is_verified: 'is_verified',
+  coin: 'coin',
+  created_at: 'created_at'
+};
+
+exports.Prisma.CoursesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  course_id: 'course_id',
+  userId: 'userId'
+};
+
+exports.Prisma.Show_historyScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  lesson_id: 'lesson_id',
+  showed_at: 'showed_at',
+  userId: 'userId'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  thumbnail: 'thumbnail'
+};
+
+exports.Prisma.LessonsScalarFieldEnum = {
+  id: 'id',
+  video_url: 'video_url',
+  title: 'title',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.VocabularyScalarFieldEnum = {
+  id: 'id',
+  word: 'word',
+  org_version: 'org_version',
+  lessonsId: 'lessonsId'
 };
 
 exports.Prisma.SortOrder = {
@@ -109,13 +149,24 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Courses: 'Courses',
+  show_history: 'show_history',
+  category: 'category',
+  lessons: 'lessons',
+  vocabulary: 'vocabulary'
 };
 /**
  * Create the Client
@@ -156,7 +207,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -165,13 +215,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  username String\n  surname  String\n  email    String @unique\n  role     Role   @default(USER)\n}\n",
-  "inlineSchemaHash": "7c552dab8ef1045bd3d28a0fd73697d73b50d51d3e4cc6d856467bd26dda2585",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  OWNER\n  ADMIN\n  USER\n}\n\nmodel User {\n  id           String         @id @default(uuid())\n  name         String\n  surname      String?\n  email        String         @unique\n  profile_pic  String?\n  google_id    String         @unique\n  role         Role           @default(USER)\n  is_verified  Boolean        @default(false)\n  show_history show_history[]\n  coin         Int            @default(0)\n  courses      Courses[]\n  created_at   DateTime       @default(now())\n}\n\nmodel Courses {\n  id        String @id @default(uuid())\n  title     String @unique\n  course_id String @unique\n\n  User   User?   @relation(fields: [userId], references: [id])\n  userId String?\n}\n\nmodel show_history {\n  id          String   @id @default(uuid())\n  category_id String\n  lesson_id   String\n  showed_at   DateTime @default(now())\n  User        User?    @relation(fields: [userId], references: [id])\n  userId      String?\n}\n\nmodel category {\n  id        String    @id @default(uuid())\n  title     String    @unique\n  thumbnail String\n  lessons   lessons[]\n}\n\nmodel lessons {\n  id         String       @id @default(uuid())\n  video_url  String       @unique\n  title      String\n  vocabulary vocabulary[]\n  category   category?    @relation(fields: [categoryId], references: [id])\n  categoryId String?\n}\n\nmodel vocabulary {\n  id          String   @id @default(uuid())\n  word        String\n  org_version String\n  lessons     lessons? @relation(fields: [lessonsId], references: [id])\n  lessonsId   String?\n}\n",
+  "inlineSchemaHash": "6016b3b4a90cbf70c201586a09301a030111210836bf5f714d8bbd0e2c12ce97",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"surname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"surname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profile_pic\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"google_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"is_verified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"show_history\",\"kind\":\"object\",\"type\":\"show_history\",\"relationName\":\"UserToshow_history\"},{\"name\":\"coin\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"courses\",\"kind\":\"object\",\"type\":\"Courses\",\"relationName\":\"CoursesToUser\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Courses\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"course_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"User\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CoursesToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"show_history\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lesson_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"showed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"User\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToshow_history\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"thumbnail\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"lessons\",\"relationName\":\"categoryTolessons\"}],\"dbName\":null},\"lessons\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"video_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vocabulary\",\"kind\":\"object\",\"type\":\"vocabulary\",\"relationName\":\"lessonsTovocabulary\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"category\",\"relationName\":\"categoryTolessons\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"vocabulary\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"word\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"org_version\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lessons\",\"kind\":\"object\",\"type\":\"lessons\",\"relationName\":\"lessonsTovocabulary\"},{\"name\":\"lessonsId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
