@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28global_components%29/Logo.tsx"],"sourcesContent":["import Image from \"next/image\";\nimport Link from \"next/link\";\n\ninterface LogoProps {\n  link?: string;\n}\n\nexport default function Logo({ link }: LogoProps) {\n  return (\n    <Link href={link ? link : \"/\"}>\n      <Image\n        src={\"/icons/logo.svg\"}\n        alt=\"Logotype svolve\"\n        width={140}\n        height={38.5}\n      />\n    </Link>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;AACA;;;;AAMe,SAAS,KAAK,EAAE,IAAI,EAAa;IAC9C,qBACE,8OAAC,4JAAA,CAAA,UAAI;QAAC,MAAM,OAAO,OAAO;kBACxB,cAAA,8OAAC,6HAAA,CAAA,UAAK;YACJ,KAAK;YACL,KAAI;YACJ,OAAO;YACP,QAAQ;;;;;;;;;;;AAIhB","debugId":null}}]
+}

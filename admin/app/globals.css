@@ -134,3 +134,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+.base_bg {
+  background-color: #26a269;
+}
+
+.base_text {
+  color: #26a269;
+}
+
+.basic_button {
+  @apply text-white bg-[#26a269] py-2 px-4 rounded-lg cursor-pointer;
+}
+
+.basic_field {
+  @apply py-2 px-4 rounded-lg outline-none border border-gray-300;
+}
