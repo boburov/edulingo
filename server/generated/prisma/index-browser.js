@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.15.0
- * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
+ * Prisma Client JS version: 6.16.0
+ * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
  */
 Prisma.prismaVersion = {
-  client: "6.15.0",
-  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
+  client: "6.16.0",
+  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -122,10 +122,50 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  username: 'username',
+  name: 'name',
   surname: 'surname',
   email: 'email',
-  role: 'role'
+  profile_pic: 'profile_pic',
+  google_id: 'google_id',
+  role: 'role',
+  is_verified: 'is_verified',
+  coin: 'coin',
+  created_at: 'created_at'
+};
+
+exports.Prisma.CoursesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  course_id: 'course_id',
+  userId: 'userId'
+};
+
+exports.Prisma.Show_historyScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  lesson_id: 'lesson_id',
+  showed_at: 'showed_at',
+  userId: 'userId'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  thumbnail: 'thumbnail'
+};
+
+exports.Prisma.LessonsScalarFieldEnum = {
+  id: 'id',
+  video_url: 'video_url',
+  title: 'title',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.VocabularyScalarFieldEnum = {
+  id: 'id',
+  word: 'word',
+  org_version: 'org_version',
+  lessonsId: 'lessonsId'
 };
 
 exports.Prisma.SortOrder = {
@@ -137,13 +177,24 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Courses: 'Courses',
+  show_history: 'show_history',
+  category: 'category',
+  lessons: 'lessons',
+  vocabulary: 'vocabulary'
 };
 
 /**

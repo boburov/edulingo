@@ -17,3 +17,5 @@ yarn-error.log*
 .vscode/
 coverage/
 .nyc_output
+
+/generated/prisma
