@@ -1,17 +1,13 @@
-<<<<<<< HEAD
 import {
   Controller,
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   UseGuards,
+  Req,
+  BadRequestException,
+  Query,
 } from '@nestjs/common';
-=======
-import { Controller, Get, Post, Body, UseGuards, Req, BadRequestException, Query } from '@nestjs/common';
->>>>>>> refs/remotes/origin/main
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -19,14 +15,14 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get("users")
+  @Get('users')
   async getAllUser() {
-    return this.authService.findAll()
+    return this.authService.findAll();
   }
 
   @Get('verify-token')
   async verifyToken(@Query('token') token: string) {
-    return this.authService.veriyf_token(token)
+    return this.authService.veriyf_token(token);
   }
 
   @Post('send-msg')
@@ -37,8 +33,7 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req) {
-  }
+  async googleAuth(@Req() req) {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
