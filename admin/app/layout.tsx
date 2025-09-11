@@ -10,8 +10,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Svolve | Payment SaaS of Uzbekistan",
-  description: "Easy to use payment API for startups",
+  title: "Edulingo | Admin panel",
+  description: "Only for staff of Edulingo",
   icons: {
     icon: "/icons/icon.svg",
   },

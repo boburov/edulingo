@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/store/index.ts"],"sourcesContent":["import { configureStore } from \"@reduxjs/toolkit\";\nimport userSlice from \"./slices/userSlice\";\n\nconst store = configureStore({\n  reducer: {\n    user: userSlice,\n  },\n});\n\nexport default store;\n"],"names":[],"mappings":";;;AAAA;;;;;;;;AAGA,MAAM,QAAQ,CAAA,GAAA,8LAAA,CAAA,iBAAc,AAAD,EAAE;IAC3B,SAAS;QACP,MAAM;IACR;AACF;uCAEe","debugId":null}},
+    {"offset": {"line": 33, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/store/StoreProvider.tsx"],"sourcesContent":["\"use client\";\nimport store from \"./index\";\nimport { Provider } from \"react-redux\";\n\nexport const StoreProvider = ({ children }: { children: React.ReactNode }) => {\n  return <Provider store={store}>{children}</Provider>;\n};\n"],"names":[],"mappings":";;;;AACA;AACA;AAFA;;;;AAIO,MAAM,gBAAgB,CAAC,EAAE,QAAQ,EAAiC;IACvE,qBAAO,6LAAC,4JAAA,CAAA,WAAQ;QAAC,OAAO,wHAAA,CAAA,UAAK;kBAAG;;;;;;AAClC;KAFa","debugId":null}}]
+}

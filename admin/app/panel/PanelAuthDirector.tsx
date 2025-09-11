@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HashLoader } from "react-spinners";
 import authService from "../api/services/authService";
-import { updateUser } from "../store/slices/userSlice";
+import { updateUser } from "../store/slices/adminSlice";
 
 export default function PanelAuthDirector() {
   const [loading, setloading] = useState(true);
