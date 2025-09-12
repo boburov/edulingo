@@ -70,3 +70,9 @@ model vocabulary {
   lessons     lessons? @relation(fields: [lessonsId], references: [id])
   lessonsId   String?
 }
+
+model Admin {
+  id         String   @id @default(uuid())
+  password   String
+  created_at DateTime @default(now())
+}
