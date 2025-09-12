@@ -10,16 +10,23 @@ export class SeedProcessor extends WorkerHost {
     super();
   }
 
-  async process(job: Job, password: string): Promise<any> {
+  async process(job: Job<any, any, string>): Promise<any> {
     if (job.name === 'seed_admin') {
+      const { password } = job.data;
+
+      console.log('in processor');
+
       const existing_admin = await this.prisma.admin.findFirst();
+
       if (!existing_admin) {
         const hashed_password = bcryptjs.hashSync(password, 10);
+
         await this.prisma.admin.create({
           data: {
             password: hashed_password,
           },
         });
+
         console.log('New admin seeded');
       } else {
         console.log('Admin already present');

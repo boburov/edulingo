@@ -4,12 +4,15 @@ import { SeedQueue } from './jobs/processors/admin_seed/seed.queue';
 @Injectable()
 export class AppService implements OnModuleInit {
   constructor(private readonly seedQueue: SeedQueue) {}
-  onModuleInit() {
+
+  async onModuleInit() {
+    console.log('getting admin password');
+
     const password: string = String(process.env.DEFAULT_ADMIN_PASSWORD);
-    this.seedQueue.SeedAdmin(password);
+    await this.seedQueue.SeedAdmin(password);
   }
 
   getHello(): string {
-    return 'Buving AMi';
+    return 'Hello World!';
   }
 }
