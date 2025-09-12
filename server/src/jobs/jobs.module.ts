@@ -5,6 +5,8 @@ import { MailQueue } from './processors/mail/mail.queue';
 import { MailProcessor } from './processors/mail/mail.processor';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { QUEUE_NAME } from 'src/constants';
+import { SeedProcessor } from './processors/admin_seed/seed.processor';
+import { SeedQueue } from './processors/admin_seed/seed.queue';
 
 @Module({
   imports: [
@@ -20,8 +22,8 @@ import { QUEUE_NAME } from 'src/constants';
     }),
     PrismaModule,
   ],
-  providers: [MailQueue, MailProcessor],
-  exports: [MailQueue],
+  providers: [MailQueue, MailProcessor, SeedProcessor, SeedQueue],
+  exports: [MailQueue, SeedQueue],
 })
 export class JobsModule {}
 ``;
