@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "@/app/globals.css";
 import { useSelector } from "react-redux";
 import ValidationDirector from "./ValidationDirector";
+import Header from "./(components)/Header";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
         <ValidationDirector />
       ) : (
         <div className={`${roboto.className} antialiased`}>
+          <Header />
           <main className="main_body">{children}</main>
         </div>
       )}
