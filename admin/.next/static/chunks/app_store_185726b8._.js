@@ -60,8 +60,8 @@ const PlaylistSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_m
     name: "playlists",
     initialState,
     reducers: {
-        setLoading: (state)=>{
-            state.is_loading = true;
+        setLoading: (state, action)=>{
+            state.is_loading = action.payload;
         },
         updateplaylists: (state, action)=>{
             state.playlists = action.payload;

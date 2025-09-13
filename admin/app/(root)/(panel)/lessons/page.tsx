@@ -1,6 +1,7 @@
 import Heading from "@/app/(global_components)/Heading";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import Playlists from "./Playlist";
 
 export default function LessonsPage() {
   return (
@@ -11,6 +12,7 @@ export default function LessonsPage() {
           Dars yaratish <Plus />
         </Link>
       </div>
+      <Playlists />
     </div>
   );
 }

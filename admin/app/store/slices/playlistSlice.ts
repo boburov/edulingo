@@ -15,8 +15,8 @@ const PlaylistSlice = createSlice({
   name: "playlists",
   initialState,
   reducers: {
-    setLoading: (state) => {
-      state.is_loading = true;
+    setLoading: (state, action: PayloadAction<Boolean>) => {
+      state.is_loading = action.payload;
     },
 
     updateplaylists: (state, action: PayloadAction<Playlist[]>) => {
