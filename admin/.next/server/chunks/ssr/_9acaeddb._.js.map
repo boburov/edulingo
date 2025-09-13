@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28global_components%29/Heading.tsx"],"sourcesContent":["import React from \"react\";\n\nexport default function Heading({ children }: { children: React.ReactNode }) {\n  return <h1 className=\"text-2xl font-semibold text_color\">{children}</h1>;\n}\n"],"names":[],"mappings":";;;;;AAEe,SAAS,QAAQ,EAAE,QAAQ,EAAiC;IACzE,qBAAO,8OAAC;QAAG,WAAU;kBAAqC;;;;;;AAC5D","debugId":null}},
+    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/page.tsx"],"sourcesContent":["import Heading from \"@/app/(global_components)/Heading\";\nimport { Plus } from \"lucide-react\";\nimport Link from \"next/link\";\n\nexport default function LessonsPage() {\n  return (\n    <div className=\"space-y-5\">\n      <div className=\"flex justify-between items-center w-full\">\n        <Heading>Darslar</Heading>\n        <Link href={\"/lessons/new\"} className=\"basic_button\">\n          Dars yaratish <Plus />\n        </Link>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;AACA;AACA;;;;;AAEe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BACb,8OAAC,wIAAA,CAAA,UAAO;8BAAC;;;;;;8BACT,8OAAC,4JAAA,CAAA,UAAI;oBAAC,MAAM;oBAAgB,WAAU;;wBAAe;sCACrC,8OAAC,kMAAA,CAAA,OAAI;;;;;;;;;;;;;;;;;;;;;;AAK7B","debugId":null}}]
+}

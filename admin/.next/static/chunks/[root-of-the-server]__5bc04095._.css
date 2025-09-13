@@ -261,6 +261,7 @@
     --color-gray-400: oklch(70.7% .022 261.325);
     --color-gray-500: oklch(55.1% .027 264.364);
     --color-gray-600: oklch(44.6% .03 256.802);
+    --color-gray-700: oklch(37.3% .034 259.733);
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
@@ -270,6 +271,8 @@
     --text-sm--line-height: calc(1.25 / .875);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --radius-xs: .125rem;
@@ -786,6 +789,10 @@
     border-color: var(--input);
   }
 
+  .border-b-gray-300 {
+    border-bottom-color: var(--color-gray-300);
+  }
+
   .bg-background {
     background-color: var(--background);
   }
@@ -862,12 +869,17 @@
     padding-block: calc(var(--spacing) * 2);
   }
 
-  .py-4 {
-    padding-block: calc(var(--spacing) * 4);
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
   }
 
   .text-center {
     text-align: center;
+  }
+
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
 
   .text-lg {
@@ -1599,11 +1611,32 @@
 
 .basic_button {
   cursor: pointer;
-  border-radius: var(--radius);
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
   padding-inline: calc(var(--spacing) * 4);
   padding-block: calc(var(--spacing) * 2);
   color: var(--color-white);
   background-color: #26a269;
+  border-radius: 3.40282e38px;
+  display: flex;
+}
+
+.basic_button2 {
+  cursor: pointer;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 4);
+  padding-block: calc(var(--spacing) * 2);
+  color: var(--color-gray-700);
+  background-color: #3641530d;
+  border-radius: 3.40282e38px;
+  display: flex;
+}
+
+@supports (color: color-mix(in lab, red, red)) {
+  .basic_button2 {
+    background-color: color-mix(in oklab, var(--color-gray-700) 5%, transparent);
+  }
 }
 
 .basic_field {

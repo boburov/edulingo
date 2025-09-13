@@ -25,7 +25,7 @@ export default function RootLayout({
       ) : (
         <div className={`${roboto.className} antialiased`}>
           <Header />
-          <main className="main_body">{children}</main>
+          <main className="main_body py-5">{children}</main>
         </div>
       )}
     </>

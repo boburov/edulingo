@@ -207,9 +207,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$2
 ;
 function Header() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-        className: "flex items-center justify-center w-full px-5",
+        className: "flex items-center justify-center w-full px-5 border-b border-b-gray-300",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-            className: "py-4 w-full flex justify-between items-center",
+            className: "py-2 w-full flex justify-between items-center",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex gap-2 items-center",
@@ -303,7 +303,7 @@ function RootLayout({ children }) {
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                    className: "main_body",
+                    className: "main_body py-5",
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/app/(root)/(panel)/layout.tsx",
