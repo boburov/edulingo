@@ -7,6 +7,7 @@ import { MailModule } from './mail/mail.module';
 import { UploadModule } from './upload/upload.module';
 import { AdminModule } from './admin/admin.module';
 import { JobsModule } from './jobs/jobs.module';
+import { PlaylistsModule } from './playlists/playlists.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JobsModule } from './jobs/jobs.module';
     UploadModule,
     AdminModule,
     JobsModule,
+    PlaylistsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
