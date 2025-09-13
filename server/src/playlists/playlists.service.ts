@@ -26,9 +26,9 @@ export class PlaylistsService {
     return await this.prisma.playlist.findMany();
   }
 
-  async findOne(id: string) {
+  async findOne(unique_name: string) {
     const the_playlist = await this.prisma.playlist.findUnique({
-      where: { id: id },
+      where: { unique_name: unique_name },
     });
     if (the_playlist) {
       throw new HttpException('playlist not found', 404);

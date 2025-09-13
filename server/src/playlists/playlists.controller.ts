@@ -28,9 +28,9 @@ export class PlaylistsController {
     return this.playlistsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.playlistsService.findOne(id);
+  @Get(':unique_name')
+  findOne(@Param('unique_name') unique_name: string) {
+    return this.playlistsService.findOne(unique_name);
   }
 
   @Patch(':id')
