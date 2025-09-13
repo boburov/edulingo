@@ -25,7 +25,7 @@ export default function ValidationForm() {
       if (error.response && error.response.data) {
         setError(
           error.response.data.message ||
-            "An error occurred while validating the pincode."
+            "An error occurred while validating the password."
         );
       }
       setLoading(false);
