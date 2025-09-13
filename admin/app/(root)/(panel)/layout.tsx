@@ -17,13 +17,15 @@ export default function RootLayout({
 }>) {
   const { token, validated } = useSelector((state: any) => state.admin);
 
-  if (!token && !validated) {
-    <ValidationDirector />;
-  } else {
-    return (
-      <div className={`${roboto.className} antialiased`}>
-        <main className="main_body">{children}</main>
-      </div>
-    );
-  }
+  return (
+    <>
+      {!token && !validated ? (
+        <ValidationDirector />
+      ) : (
+        <div className={`${roboto.className} antialiased`}>
+          <main className="main_body">{children}</main>
+        </div>
+      )}
+    </>
+  );
 }

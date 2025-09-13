@@ -31,15 +31,25 @@ if (__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$r
 }
 const __TURBOPACK__default__export__ = fontData;
 }}),
-"[project]/app/(root)/(panel)/layout.tsx [app-ssr] (ecmascript)": (function(__turbopack_context__) {
+"[project]/app/(root)/(panel)/layout.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
 
-var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
-const e = new Error(`Could not parse module '[project]/app/(root)/(panel)/layout.tsx'
-
-Unexpected token `Valida`. Expected jsx identifier`);
-e.code = 'MODULE_UNPARSEABLE';
-throw e;}}),
+__turbopack_context__.s({
+    "default": (()=>RootLayout)
+});
+var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$roboto_b76959d5$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[next]/internal/font/google/roboto_b76959d5.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-ssr] (ecmascript)");
+"use client";
+;
+;
+;
+function RootLayout({ children }) {
+    const { token, validated } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSelector"])((state)=>state.admin);
+    const {};
+}
+}}),
 
 };
 

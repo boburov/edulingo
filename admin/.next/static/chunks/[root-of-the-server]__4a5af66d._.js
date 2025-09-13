@@ -59,7 +59,12 @@ function OrgValidator() {
     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useEffect({
         "OrgValidator.useEffect": ()=>{
             dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$adminSlice$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearValidation"])());
-            router.push(`/validation/?page=${pathname}`);
+            localStorage.removeItem("access_token");
+            if (pathname === "/") {
+                router.push(`/validation/`);
+            } else {
+                router.push(`/validation/?page=${pathname}`);
+            }
         }
     }["OrgValidator.useEffect"], [
         pathname,
@@ -105,29 +110,27 @@ function RootLayout({ children }) {
     const { token, validated } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
         "RootLayout.useSelector": (state)=>state.admin
     }["RootLayout.useSelector"]);
-    if (!token && !validated) {
-        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$292f$ValidationDirector$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: !token && !validated ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$292f$ValidationDirector$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/app/(root)/(panel)/layout.tsx",
-            lineNumber: 21,
-            columnNumber: 5
-        }, this);
-    } else {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            lineNumber: 23,
+            columnNumber: 9
+        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: `${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$roboto_b76959d5$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].className} antialiased`,
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "main_body",
                 children: children
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/layout.tsx",
-                lineNumber: 25,
-                columnNumber: 9
+                lineNumber: 26,
+                columnNumber: 11
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/(root)/(panel)/layout.tsx",
-            lineNumber: 24,
-            columnNumber: 7
-        }, this);
-    }
+            lineNumber: 25,
+            columnNumber: 9
+        }, this)
+    }, void 0, false);
 }
 _s(RootLayout, "S/oJrJo+AwDzh+bQ8zBeLb+ob5w=", false, function() {
     return [

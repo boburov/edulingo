@@ -194,6 +194,7 @@ function ValidationForm() {
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSearchParams"])();
     const page = searchParams.get("page");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        localStorage.removeItem("access_token");
         dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$adminSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["clearValidation"])());
     }, []);
     // data
@@ -210,6 +211,7 @@ function ValidationForm() {
             if (!token) {
                 return setError("Token is not valid please try again later");
             }
+            localStorage.setItem("access_token", token);
             dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$adminSlice$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["validateAdmin"])(token));
             if (page) {
                 router.push(page);
@@ -237,7 +239,7 @@ function ValidationForm() {
                         children: "Paro'lni kiriting*"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                        lineNumber: 57,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -252,7 +254,7 @@ function ValidationForm() {
                                 autoFocus: true
                             }, void 0, false, {
                                 fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                                lineNumber: 59,
+                                lineNumber: 61,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -261,19 +263,19 @@ function ValidationForm() {
                                 children: "Submit"
                             }, void 0, false, {
                                 fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                                lineNumber: 67,
+                                lineNumber: 69,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                        lineNumber: 58,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                lineNumber: 56,
+                lineNumber: 58,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -282,7 +284,7 @@ function ValidationForm() {
                 children: show ? "Paro'lni yashirish" : "Paro'lni korsatish"
             }, void 0, false, {
                 fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                lineNumber: 72,
+                lineNumber: 74,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -292,18 +294,18 @@ function ValidationForm() {
                     children: error
                 }, void 0, false, {
                     fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                    lineNumber: 80,
+                    lineNumber: 82,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-                lineNumber: 78,
+                lineNumber: 80,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/(root)/validation/ValidationForm.tsx",
-        lineNumber: 55,
+        lineNumber: 57,
         columnNumber: 5
     }, this);
 }

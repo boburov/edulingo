@@ -15,6 +15,7 @@ export default function ValidationForm() {
   const page = searchParams.get("page");
 
   useEffect(() => {
+    localStorage.removeItem("access_token");
     dispatch(clearValidation());
   }, []);
 
@@ -33,6 +34,7 @@ export default function ValidationForm() {
       if (!token) {
         return setError("Token is not valid please try again later");
       }
+      localStorage.setItem("access_token", token);
       dispatch(validateAdmin(token));
       if (page) {
         router.push(page);

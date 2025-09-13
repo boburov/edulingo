@@ -11,7 +11,12 @@ export default function OrgValidator() {
 
   React.useEffect(() => {
     dispatch(clearValidation());
-    router.push(`/validation/?page=${pathname}`);
+    localStorage.removeItem("access_token");
+    if (pathname === "/") {
+      router.push(`/validation/`);
+    } else {
+      router.push(`/validation/?page=${pathname}`);
+    }
   }, [pathname, router]);
 
   return <></>;
