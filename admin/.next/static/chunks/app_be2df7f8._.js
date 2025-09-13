@@ -50,7 +50,11 @@ __turbopack_context__.s({
 const apiEndpoints = {
     home: "/",
     // admin
-    verifyAdmin: "/admin/verify"
+    verifyAdmin: "/admin/verify",
+    // playlists
+    createplaylist: "/playlists/new",
+    getPlaylistByName: (unique_name)=>`/playlists/${unique_name}`,
+    getAllPlaylists: "/playlists"
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
