@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { UpdatePlaylistDto } from './dto/update-playlist.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -22,12 +22,18 @@ export class PlaylistsService {
     return newPlaylist;
   }
 
-  findAll() {
-    return `This action returns all playlists`;
+  async findAll() {
+    return await this.prisma.playlist.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} playlist`;
+  async findOne(id: string) {
+    const the_playlist = await this.prisma.playlist.findUnique({
+      where: { id: id },
+    });
+    if (the_playlist) {
+      throw new HttpException('playlist not found', 404);
+    }
+    return the_playlist;
   }
 
   update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
