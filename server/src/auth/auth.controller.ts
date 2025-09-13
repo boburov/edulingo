@@ -10,10 +10,21 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { emailQueue } from 'src/mail/email.module';
+import { addEmailJob } from 'src/mail/emial.queu';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get('hello')
+  async getHello() {
+    const email = 'boburovdev@gmail.com';
+    const link = `https://example.com/verify?token=12345`;
+
+    await addEmailJob(email, link);
+    return { message: 'Job qo‘shildi' };
+  }
 
   @Get('users')
   async getAllUser() {

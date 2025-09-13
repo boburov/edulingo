@@ -9,9 +9,13 @@ import { AdminModule } from './admin/admin.module';
 import { JobsModule } from './jobs/jobs.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { GlobalModule } from './global/global.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule,
     PrismaModule,
     MailModule,

@@ -20,7 +20,7 @@ export class AuthService {
   async veriyf_token(token) {
     try {
       const payload = this.jwtService.verify(token);
-
+      
       let user = await this.prisma.user.findUnique({ where: { email: payload.email } });
       if (!user) {
         throw new NotFoundException("User topilmadi")

@@ -76,6 +76,7 @@ model vocabulary {
   lessonsId   String?
 }
 
+
 model Admin {
   id         String   @id @default(uuid())
   password   String
