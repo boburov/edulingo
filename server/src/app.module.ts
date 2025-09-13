@@ -8,6 +8,7 @@ import { UploadModule } from './upload/upload.module';
 import { AdminModule } from './admin/admin.module';
 import { JobsModule } from './jobs/jobs.module';
 import { PlaylistsModule } from './playlists/playlists.module';
+import { GlobalModule } from './global/global.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PlaylistsModule } from './playlists/playlists.module';
     AdminModule,
     JobsModule,
     PlaylistsModule,
+    GlobalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

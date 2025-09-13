@@ -3,6 +3,7 @@ import { PlaylistsService } from './playlists.service';
 import { PlaylistsController } from './playlists.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
+import { GlobalModule } from 'src/global/global.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: process.env.JWT_SECRET || 'super_secret',
       signOptions: { expiresIn: '7d' },
     }),
+    GlobalModule,
   ],
   controllers: [PlaylistsController],
   providers: [PlaylistsService],

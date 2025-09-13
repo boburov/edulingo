@@ -49,7 +49,8 @@ model show_history {
 
 model playlist {
   id          String    @id @default(uuid())
-  title       String    @unique
+  title       String
+  unique_name String    @unique
   description String
   thumbnail   String
   lessons     lessons[]
