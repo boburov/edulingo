@@ -47,20 +47,24 @@ model show_history {
   userId      String?
 }
 
-model category {
-  id        String    @id @default(uuid())
-  title     String    @unique
-  thumbnail String
-  lessons   lessons[]
+model playlist {
+  id          String    @id @default(uuid())
+  title       String    @unique
+  description String
+  thumbnail   String
+  lessons     lessons[]
+  created_at  DateTime  @default(now())
 }
 
 model lessons {
   id         String       @id @default(uuid())
   video_url  String       @unique
   title      String
+  order      Int
   vocabulary vocabulary[]
-  category   category?    @relation(fields: [categoryId], references: [id])
-  categoryId String?
+  playlist   playlist?    @relation(fields: [playlistId], references: [id])
+  playlistId String?
+  created_at DateTime     @default(now())
 }
 
 model vocabulary {
