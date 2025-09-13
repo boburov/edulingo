@@ -14,6 +14,7 @@ module.exports = mod;
 var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
+    "clearValidation": (()=>clearValidation),
     "default": (()=>__TURBOPACK__default__export__),
     "validateAdmin": (()=>validateAdmin)
 });
@@ -30,10 +31,14 @@ const AdminSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modu
         validateAdmin: (state, action)=>{
             state.token = action.payload;
             state.validated = true;
+        },
+        clearValidation: (state)=>{
+            state.validated = false;
+            state.token = null;
         }
     }
 });
-const { validateAdmin } = AdminSlice.actions;
+const { validateAdmin, clearValidation } = AdminSlice.actions;
 const __TURBOPACK__default__export__ = AdminSlice.reducer;
 }}),
 "[project]/app/store/index.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {

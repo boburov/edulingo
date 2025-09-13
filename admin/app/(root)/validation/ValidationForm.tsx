@@ -1,11 +1,22 @@
 "use client";
 import validationService from "@/app/api/services/verificationService";
-import { useState } from "react";
+import { clearValidation, validateAdmin } from "@/app/store/slices/adminSlice";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function ValidationForm() {
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page");
+
+  useEffect(() => {
+    dispatch(clearValidation());
+  }, []);
 
   // data
   const [password, setPassword] = useState("");
@@ -18,7 +29,16 @@ export default function ValidationForm() {
         return setError("Iltimos paro'lni kiriting");
       }
       const res: any = await validationService.verify_admin(password);
-      console.log(res);
+      const token: string = res.access_token;
+      if (!token) {
+        return setError("Token is not valid please try again later");
+      }
+      dispatch(validateAdmin(token));
+      if (page) {
+        router.push(page);
+      } else {
+        router.push("/");
+      }
       setError("");
       setLoading(false);
     } catch (error: any) {

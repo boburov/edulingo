@@ -18,8 +18,13 @@ const AdminSlice = createSlice({
       state.token = action.payload;
       state.validated = true;
     },
+
+    clearValidation: (state) => {
+      state.validated = false;
+      state.token = null;
+    },
   },
 });
 
-export const { validateAdmin } = AdminSlice.actions;
+export const { validateAdmin, clearValidation } = AdminSlice.actions;
 export default AdminSlice.reducer;
