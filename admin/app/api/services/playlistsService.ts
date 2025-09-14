@@ -3,7 +3,7 @@ import apiEndpoints from "../api.endpoint";
 import { CreatePlaylistData } from "./utils/playlistTypes";
 
 const playlistService = {
-  create: (data: CreatePlaylistData) => {
+  create: (data: FormData) => {
     try {
       return api.post(apiEndpoints.createplaylist, data);
     } catch (error) {
