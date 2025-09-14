@@ -1,8 +1,7 @@
 import { IsString } from 'class-validator';
 
 export class CreatePlaylistDto {
-  @IsString()
-  thumbnail: string;
+  thumbnail: Express.Multer.File;
 
   @IsString()
   title: string;
