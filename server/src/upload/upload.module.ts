@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UploadService } from './upload.service';
+import { GlobalModule } from 'src/global/global.module';
 
 @Module({
-  providers: [UploadService]
+  imports: [GlobalModule],
+  providers: [UploadService],
+  exports: [UploadService],
 })
 export class UploadModule {}
