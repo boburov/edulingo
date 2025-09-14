@@ -6,6 +6,6 @@ import { NameSanitizerService } from './name_sanitizer/name_sanitizer.service';
 @Module({
   imports: [PrismaModule],
   providers: [GenerateUniquenameService, NameSanitizerService],
-  exports: [GenerateUniquenameService],
+  exports: [GenerateUniquenameService, NameSanitizerService],
 })
 export class GlobalModule {}
