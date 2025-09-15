@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   const { unique_name } = useParams();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //   main
   const [playlist, setPlaylist] = useState<Playlist | null>(null);
@@ -36,7 +36,6 @@ export default function RootLayout({
       return;
     }
     try {
-      setLoading(true);
       const res: any = await playlistService.getByUniqueName(
         String(unique_name)
       );
@@ -70,7 +69,11 @@ export default function RootLayout({
           {error}
         </p>
       )}
-      {!loading ? (
+      {loading ? (
+        <div className="w-full flex justify-center items-center py-20">
+          <Loader />
+        </div>
+      ) : (
         <>
           {playlist ? (
             <main className="main_body flex gap-5">
@@ -86,10 +89,6 @@ export default function RootLayout({
             </div>
           )}
         </>
-      ) : (
-        <div className="w-full flex justify-center items-center py-20">
-          <Loader />
-        </div>
       )}
     </div>
   );
