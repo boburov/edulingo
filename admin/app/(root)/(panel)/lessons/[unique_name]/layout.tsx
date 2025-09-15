@@ -12,12 +12,15 @@ import playlistService from "@/app/api/services/playlistsService";
 import { Playlist } from "@/app/types/User";
 import PageMessage from "@/app/(global_components)/PageMessage";
 import Loader from "@/app/(global_components)/Loader";
+import { createContext } from "react";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-roboto",
 });
+
+export const GlobalContext = createContext<any>(null);
 
 export default function RootLayout({
   children,
@@ -78,7 +81,11 @@ export default function RootLayout({
           {playlist ? (
             <main className="main_body flex gap-5">
               <PlaylistDetails playlist={playlist} />
-              <div className="flex-1">{children}</div>
+              <div className="flex-1">
+                <GlobalContext.Provider value={{ playlist }}>
+                  {children}
+                </GlobalContext.Provider>
+              </div>
             </main>
           ) : (
             <div className="w-full items-center justify-center py-20">

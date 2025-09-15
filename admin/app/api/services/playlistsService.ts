@@ -1,6 +1,5 @@
 import api from "../api.config";
 import apiEndpoints from "../api.endpoint";
-import { CreatePlaylistData } from "./utils/playlistTypes";
 
 const playlistService = {
   create: (data: FormData) => {
@@ -23,6 +22,22 @@ const playlistService = {
   getByUniqueName: (unique_name: string) => {
     try {
       return api.get(apiEndpoints.getPlaylistByName(unique_name));
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  update: (unique_name: string, data: FormData) => {
+    try {
+      return api.patch(apiEndpoints.getPlaylistByName(unique_name), data);
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  delete: (unique_name: string) => {
+    try {
+      return api.delete(apiEndpoints.getPlaylistByName(unique_name));
     } catch (error) {
       throw error;
     }

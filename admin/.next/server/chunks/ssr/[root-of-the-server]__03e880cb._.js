@@ -273,6 +273,20 @@ const playlistService = {
         } catch (error) {
             throw error;
         }
+    },
+    update: (unique_name, data)=>{
+        try {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].patch(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].getPlaylistByName(unique_name), data);
+        } catch (error) {
+            throw error;
+        }
+    },
+    delete: (unique_name)=>{
+        try {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].delete(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].getPlaylistByName(unique_name));
+        } catch (error) {
+            throw error;
+        }
     }
 };
 const __TURBOPACK__default__export__ = playlistService;
