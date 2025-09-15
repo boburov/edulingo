@@ -13,7 +13,7 @@ export class PlaylistsService {
     private readonly upload: UploadService,
   ) {}
 
-  async create(data: CreatePlaylistDto, thumbnail) {
+  async create(data: CreatePlaylistDto, thumbnail: Express.Multer.File) {
     const unique_name = await this.unique_name.generate(data.title);
     const UploadedThumbnail = await this.upload.image(thumbnail, {
       q: 80,
@@ -31,7 +31,15 @@ export class PlaylistsService {
   }
 
   async findAll() {
-    return await this.prisma.playlist.findMany();
+    return await this.prisma.playlist.findMany({
+      include: {
+        _count: {
+          select: {
+            lessons: true,
+          },
+        },
+      },
+    });
   }
 
   async findOne(unique_name: string) {
@@ -44,11 +52,30 @@ export class PlaylistsService {
     return the_playlist;
   }
 
-  update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return `This action updates a #${id} playlist`;
+  async update(
+    unique_name: string,
+    updatePlaylistDto: UpdatePlaylistDto,
+    thumbnail: Express.Multer.File,
+  ) {
+    let up_th: string | null = null;
+    if (thumbnail) {
+      up_th = await this.upload.image(thumbnail, {
+        q: 80,
+        h: 1280,
+        w: 720,
+      });
+    }
+
+    const updating = await this.prisma.playlist.update({
+      where: { unique_name: unique_name },
+      data: { ...updatePlaylistDto, ...(up_th && { thumbnail: up_th }) },
+    });
+
+    return updating;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} playlist`;
+  async remove(unique_name: string) {
+    await this.prisma.playlist.delete({ where: { unique_name: unique_name } });
+    return { deleted: true };
   }
 }

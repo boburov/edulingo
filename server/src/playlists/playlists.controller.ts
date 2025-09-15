@@ -31,26 +31,36 @@ export class PlaylistsController {
     return this.playlistsService.create(data, thumbnail);
   }
 
+  @UseGuards(AdminAccessGuard)
   @Get()
   findAll() {
     return this.playlistsService.findAll();
   }
 
+  @UseGuards(AdminAccessGuard)
   @Get(':unique_name')
   findOne(@Param('unique_name') unique_name: string) {
     return this.playlistsService.findOne(unique_name);
   }
 
-  @Patch(':id')
+  @UseGuards(AdminAccessGuard)
+  @UseInterceptors(FileInterceptor('thumbnail', multerOptions))
+  @Patch(':unique_name')
   update(
-    @Param('id') id: string,
+    @Param('unique_name') unique_name: string,
     @Body() updatePlaylistDto: UpdatePlaylistDto,
+    @UploadedFile() thumbnail: Express.Multer.File,
   ) {
-    return this.playlistsService.update(+id, updatePlaylistDto);
+    return this.playlistsService.update(
+      unique_name,
+      updatePlaylistDto,
+      thumbnail,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.playlistsService.remove(+id);
+  @UseGuards(AdminAccessGuard)
+  @Delete(':unique_name')
+  remove(@Param('unique_name') unique_name: string) {
+    return this.playlistsService.remove(unique_name);
   }
 }
