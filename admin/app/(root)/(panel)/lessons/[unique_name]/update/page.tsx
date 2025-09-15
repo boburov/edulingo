@@ -1,11 +1,10 @@
 "use client";
-
 import Heading from "@/app/(global_components)/Heading";
 
-export default function PlaylistDetailsPage() {
+export default function PlaylistUpdatePage() {
   return (
     <div>
-      <Heading>Seriyalar</Heading>
+      <Heading>Tahrirlash</Heading>
     </div>
   );
 }

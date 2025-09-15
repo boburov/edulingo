@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/%5Bunique_name%5D/remove/page.tsx"],"sourcesContent":["\"use client\";\n\nimport Heading from \"@/app/(global_components)/Heading\";\n\nexport default function PlaylistRemovePage() {\n  return (\n    <div>\n      <Heading>Olib tashlash</Heading>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAEA;AAFA;;;AAIe,SAAS;IACtB,qBACE,6LAAC;kBACC,cAAA,6LAAC,2IAAA,CAAA,UAAO;sBAAC;;;;;;;;;;;AAGf;KANwB","debugId":null}}]
+}

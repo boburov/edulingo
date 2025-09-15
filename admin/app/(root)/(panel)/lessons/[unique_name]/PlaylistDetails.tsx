@@ -1,19 +1,21 @@
 import { Playlist } from "@/app/types/User";
 import { Edit, Trash2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function PlaylistDetails({ playlist }: { playlist: Playlist }) {
   return (
     <div className="max-w-sm w-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg transition p-4 space-y-3">
       {/* Thumbnail */}
-      <div className="w-full aspect-video bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden relative">
+      <Link
+        href={`/lessons/${playlist.unique_name}`}
+        className="w-full aspect-video bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden relative flex"
+      >
         <img
           src={playlist.thumbnail}
           alt={playlist.title}
           className="w-full h-full object-cover transition-transform duration-300"
         />
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="space-y-2">

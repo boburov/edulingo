@@ -2,10 +2,10 @@
 
 import Heading from "@/app/(global_components)/Heading";
 
-export default function PlaylistDetailsPage() {
+export default function PlaylistRemovePage() {
   return (
     <div>
-      <Heading>Seriyalar</Heading>
+      <Heading>Olib tashlash</Heading>
     </div>
   );
 }

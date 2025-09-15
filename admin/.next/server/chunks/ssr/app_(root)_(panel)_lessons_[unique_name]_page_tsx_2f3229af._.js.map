@@ -2,5 +2,5 @@
   "version": 3,
   "sources": [],
   "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/%5Bunique_name%5D/page.tsx"],"sourcesContent":["\"use client\"\nimport Heading from \"@/app/(global_components)/Heading\";\nimport { Undo2 } from \"lucide-react\";\nimport Link from \"next/link\";\n\nexport default function PlaylistDetailsPage() {\n  return (\n    <div>\n        <p>page one</p>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;;AAKe,SAAS;IACtB,qBACE,8OAAC;kBACG,cAAA,8OAAC;sBAAE;;;;;;;;;;;AAGX","debugId":null}}]
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/%5Bunique_name%5D/page.tsx"],"sourcesContent":["\"use client\";\n\nimport Heading from \"@/app/(global_components)/Heading\";\n\nexport default function PlaylistDetailsPage() {\n  return (\n    <div>\n      <Heading>Seriyalar</Heading>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAEA;AAFA;;;AAIe,SAAS;IACtB,qBACE,8OAAC;kBACC,cAAA,8OAAC,wIAAA,CAAA,UAAO;sBAAC;;;;;;;;;;;AAGf","debugId":null}}]
 }
