@@ -5,6 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
 import { GlobalModule } from 'src/global/global.module';
 import { UploadModule } from 'src/upload/upload.module';
+import { LessonsModule } from './lessons/lessons.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UploadModule } from 'src/upload/upload.module';
     }),
     GlobalModule,
     UploadModule,
+    LessonsModule,
   ],
   controllers: [PlaylistsController],
   providers: [PlaylistsService],
