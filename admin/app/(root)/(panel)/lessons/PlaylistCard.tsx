@@ -1,5 +1,6 @@
 // PlaylistCard.tsx
 import { Playlist } from "@/app/types/User";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -10,9 +11,10 @@ export default function PlaylistCard({ playlists }: Props) {
   return (
     <div className="space-y-4">
       {playlists.map((p) => (
-        <article
+        <Link
+          href={`/lessons/${p.unique_name}`}
           key={p.id}
-          className="flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition"
+          className="flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition border border-gray-300"
         >
           {/* Thumbnail */}
           <div className="w-44 h-28 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
@@ -69,7 +71,7 @@ export default function PlaylistCard({ playlists }: Props) {
               </div>
             </div>
           </div>
-        </article>
+        </Link>
       ))}
     </div>
   );

@@ -226,12 +226,15 @@ __turbopack_context__.s({
     "default": (()=>PlaylistCard)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
+;
 ;
 function PlaylistCard({ playlists }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-4",
-        children: playlists.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
-                className: "flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition",
+        children: playlists.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                href: `/lessons/${p.unique_name}`,
+                className: "flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition border border-gray-300",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-44 h-28 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100",
@@ -244,12 +247,12 @@ function PlaylistCard({ playlists }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                            lineNumber: 19,
+                            lineNumber: 21,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                        lineNumber: 18,
+                        lineNumber: 20,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,7 +269,7 @@ function PlaylistCard({ playlists }) {
                                                 children: p.title
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                                lineNumber: 34,
+                                                lineNumber: 36,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -277,13 +280,13 @@ function PlaylistCard({ playlists }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                                lineNumber: 37,
+                                                lineNumber: 39,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                        lineNumber: 33,
+                                        lineNumber: 35,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -291,13 +294,13 @@ function PlaylistCard({ playlists }) {
                                         children: "Open"
                                     }, void 0, false, {
                                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                        lineNumber: 42,
+                                        lineNumber: 44,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                lineNumber: 32,
+                                lineNumber: 34,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -305,7 +308,7 @@ function PlaylistCard({ playlists }) {
                                 children: p.description
                             }, void 0, false, {
                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                lineNumber: 48,
+                                lineNumber: 50,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -319,7 +322,7 @@ function PlaylistCard({ playlists }) {
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                        lineNumber: 54,
+                                        lineNumber: 56,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -330,7 +333,7 @@ function PlaylistCard({ playlists }) {
                                                 children: "Edit"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                                lineNumber: 63,
+                                                lineNumber: 65,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -338,36 +341,36 @@ function PlaylistCard({ playlists }) {
                                                 children: "Delete"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                                lineNumber: 66,
+                                                lineNumber: 68,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                        lineNumber: 62,
+                                        lineNumber: 64,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                                lineNumber: 53,
+                                lineNumber: 55,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                        lineNumber: 31,
+                        lineNumber: 33,
                         columnNumber: 11
                     }, this)
                 ]
             }, p.id, true, {
                 fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-                lineNumber: 13,
+                lineNumber: 14,
                 columnNumber: 9
             }, this))
     }, void 0, false, {
         fileName: "[project]/app/(root)/(panel)/lessons/PlaylistCard.tsx",
-        lineNumber: 11,
+        lineNumber: 12,
         columnNumber: 5
     }, this);
 }
