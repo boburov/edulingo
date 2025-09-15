@@ -1,5 +1,5 @@
 (globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([typeof document === "object" ? document.currentScript : undefined,
-"[project]/app/api/api.config.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"[project]/app/api/services/authService.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
@@ -8,105 +8,26 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
-const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: "http://localhost:8000",
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-    }
-});
-api.interceptors.request.use((config)=>{
-    const token = localStorage.getItem("access_token");
-    if (token) {
-        config.headers.Authorization = "Bearer ".concat(token);
-    }
-    return config;
-}, (error)=>{
-    return Promise.reject(error);
-});
-api.interceptors.response.use((response)=>{
-    return response.data;
-}, (error)=>{
-    var _error_response;
-    if (error.response && ((_error_response = error.response) === null || _error_response === void 0 ? void 0 : _error_response.status) === 404) {
-        localStorage.removeItem("token");
-    }
-    return Promise.reject(error);
-});
-const __TURBOPACK__default__export__ = api;
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
-}),
-"[project]/app/api/api.endpoint.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-const apiEndpoints = {
-    home: "/",
-    // auth
-    signup: "/auth/signup",
-    signin: "auth/singin",
-    profile: "/auth/profile",
-    resetToken: (token)=>"/auth/reset/?token=".concat(token),
-    verify_magic_link: (token)=>"/auth/verify-token/?token=".concat(token),
-    google: "/auth/google"
-};
-const __TURBOPACK__default__export__ = apiEndpoints;
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
-}),
-"[project]/app/api/services/authService.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/api.config.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/api.endpoint.ts [app-client] (ecmascript)");
-;
-;
+const API_URL = "http://localhost:8000/auth"; // NestJS API
 const authService = {
-    login: async (data)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].signin, data);
-        } catch (error) {
-            throw error;
-        }
-    },
     signup: async (data)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].signup, data);
-        } catch (error) {
-            throw error;
-        }
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("".concat(API_URL, "/signup"), data);
+        return res.data;
     },
-    verifyEmail: async (token)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].verify_magic_link(token));
-        } catch (error) {
-            throw error;
+    signin: async (email)=>{
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("".concat(API_URL, "/signin"), {
+            email
+        });
+        if (res.data.access_token) {
+            localStorage.setItem("access_token", res.data.access_token);
         }
+        return res.data;
     },
-    getProfile: async ()=>{
-        try {
-            const user = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].profile);
-            return user;
-        } catch (error) {
-            throw error;
-        }
-    },
-    resetToken: async (reset_token)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].resetToken(reset_token));
-        } catch (error) {
-            throw error;
-        }
+    verifyToken: async ()=>{
+        const token = localStorage.getItem("access_token");
+        if (!token) return null;
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("".concat(API_URL, "/verify-token?token=").concat(token));
+        return res.data.user;
     }
 };
 const __TURBOPACK__default__export__ = authService;
@@ -604,4 +525,4 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 ]);
 
-//# sourceMappingURL=_fda57160._.js.map
+//# sourceMappingURL=_5722d0d4._.js.map

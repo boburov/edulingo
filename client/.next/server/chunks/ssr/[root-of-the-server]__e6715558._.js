@@ -65,7 +65,7 @@ const mod = __turbopack_context__.x("events", () => require("events"));
 
 module.exports = mod;
 }),
-"[project]/app/api/api.config.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"[project]/app/api/services/authService.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
@@ -74,98 +74,26 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 ;
-const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: "http://localhost:8000",
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-    }
-});
-api.interceptors.request.use((config)=>{
-    const token = localStorage.getItem("access_token");
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-}, (error)=>{
-    return Promise.reject(error);
-});
-api.interceptors.response.use((response)=>{
-    return response.data;
-}, (error)=>{
-    if (error.response && error.response?.status === 404) {
-        localStorage.removeItem("token");
-    }
-    return Promise.reject(error);
-});
-const __TURBOPACK__default__export__ = api;
-}),
-"[project]/app/api/api.endpoint.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-const apiEndpoints = {
-    home: "/",
-    // auth
-    signup: "/auth/signup",
-    signin: "auth/singin",
-    profile: "/auth/profile",
-    resetToken: (token)=>`/auth/reset/?token=${token}`,
-    verify_magic_link: (token)=>`/auth/verify-token/?token=${token}`,
-    google: "/auth/google"
-};
-const __TURBOPACK__default__export__ = apiEndpoints;
-}),
-"[project]/app/api/services/authService.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
-
-__turbopack_context__.s([
-    "default",
-    ()=>__TURBOPACK__default__export__
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/api.config.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/api.endpoint.ts [app-ssr] (ecmascript)");
-;
-;
+const API_URL = "http://localhost:8000/auth"; // NestJS API
 const authService = {
-    login: async (data)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].signin, data);
-        } catch (error) {
-            throw error;
-        }
-    },
     signup: async (data)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].signup, data);
-        } catch (error) {
-            throw error;
-        }
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(`${API_URL}/signup`, data);
+        return res.data;
     },
-    verifyEmail: async (token)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].verify_magic_link(token));
-        } catch (error) {
-            throw error;
+    signin: async (email)=>{
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(`${API_URL}/signin`, {
+            email
+        });
+        if (res.data.access_token) {
+            localStorage.setItem("access_token", res.data.access_token);
         }
+        return res.data;
     },
-    getProfile: async ()=>{
-        try {
-            const user = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].profile);
-            return user;
-        } catch (error) {
-            throw error;
-        }
-    },
-    resetToken: async (reset_token)=>{
-        try {
-            return await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].resetToken(reset_token));
-        } catch (error) {
-            throw error;
-        }
+    verifyToken: async ()=>{
+        const token = localStorage.getItem("access_token");
+        if (!token) return null;
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`${API_URL}/verify-token?token=${token}`);
+        return res.data.user;
     }
 };
 const __TURBOPACK__default__export__ = authService;
@@ -606,4 +534,4 @@ function Socials() {
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__b51719ee._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__e6715558._.js.map

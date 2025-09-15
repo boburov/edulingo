@@ -6,36 +6,45 @@ import {
   Post,
   Query,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-  @Get('google')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth() {
-    return 'Goolge Auth';
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private config: ConfigService,
+  ) {}
 
   @Post('signup')
-  async regsiter_user(@Body() dto: CreateAuthDto) {
-    return await this.authService.register(dto);
+  async signup(@Body() dto: CreateAuthDto) {
+    return this.authService.register(dto);
   }
 
   @Post('signin')
-  async login(@Body() email: string) {
+  async signin(@Body('email') email: string) {
     return this.authService.login(email);
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth() {
+    return 'Redirecting to Google...';
   }
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req) {
+  async googleAuthRedirect(@Req() req, @Res() res: Response) {
     const jwt = await this.authService.generateJwt(req.user);
-    return { token: jwt, user: req.user };
+    const frontendUrl =
+      this.config.get('FRONTEND_URL') || 'http://localhost:5173';
+    return res.redirect(`${frontendUrl}/auth/success?token=${jwt}`);
   }
 
   @Get('verify-token')
