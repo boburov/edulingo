@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[next]/internal/font/google/borel_e6138c05.module.css"],"sourcesContent":["@font-face {\n    font-family: 'Borel Fallback';\n    src: local(\"Arial\");\n    ascent-override: 82.31%;\ndescent-override: 84.65%;\nline-gap-override: 0.00%;\nsize-adjust: 119.78%;\n\n}\n.className {\n    font-family: 'Borel', 'Borel Fallback';\n    font-weight: 400;\nfont-style: normal;\n\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;AASA","ignoreList":[0],"debugId":null}}]
+}

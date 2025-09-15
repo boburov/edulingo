@@ -1,0 +1,17 @@
+/* [next]/internal/font/google/borel_e6138c05.module.css [app-client] (css) */
+@font-face {
+  font-family: Borel Fallback;
+  src: local(Arial);
+  ascent-override: 82.31%;
+  descent-override: 84.65%;
+  line-gap-override: 0.0%;
+  size-adjust: 119.78%;
+}
+
+.borel_e6138c05-module__Du7P0W__className {
+  font-family: Borel, Borel Fallback;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=%5Bnext%5D_internal_font_google_borel_e6138c05_module_b328a4e0.css.map*/

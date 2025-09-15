@@ -3,20 +3,20 @@ import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class MailService {
-    private transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: "boburovshukurullo@gmail.com",
-            pass: "sbhzpnzxdfvvympv",
-        },
-    });
+  private transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'boburovshukurullo@gmail.com',
+      pass: 'sbhzpnzxdfvvympv',
+    },
+  });
 
-    async sendVerificationLink(email: string, link: string): Promise<void> {
-        const html = `
+  async sendVerificationLink(email: string, link: string): Promise<void> {
+    const html = `
   <div style="font-family: Arial, sans-serif; padding: 20px; background: #f9fafb; color: #111827;">
-    <h2 style="color: #2563eb;">7EDU Learning Center</h2>
+    <h2 style="color: #2563eb;">Edulingo</h2>
     <p>Salom 👋,</p>
     <p>Hisobingizni tasdiqlash uchun quyidagi tugmani bosing:</p>
 
@@ -37,12 +37,11 @@ export class MailService {
   </div>
 `;
 
-        await this.transporter.sendMail({
-            from: `"EDULINGO" <boburovshukurullo@gmail.com>`,
-            to: email,
-            subject: 'Hisobni tasdiqlash',
-            html,
-        });
-
-    }
+    await this.transporter.sendMail({
+      from: `"EDULINGO" <boburovshukurullo@gmail.com>`,
+      to: email,
+      subject: 'Hisobni tasdiqlash',
+      html,
+    });
+  }
 }

@@ -1,0 +1,20 @@
+/* [next]/internal/font/google/roboto_3ee9d23.module.css [app-client] (css) */
+@font-face {
+  font-family: Roboto Fallback;
+  src: local(Arial);
+  ascent-override: 92.98%;
+  descent-override: 24.47%;
+  line-gap-override: 0.0%;
+  size-adjust: 99.78%;
+}
+
+.roboto_3ee9d23-module__s30B1G__className {
+  font-family: Roboto, Roboto Fallback;
+  font-style: normal;
+}
+
+.roboto_3ee9d23-module__s30B1G__variable {
+  --font-roboto: "Roboto", "Roboto Fallback";
+}
+
+/*# sourceMappingURL=%5Bnext%5D_internal_font_google_roboto_3ee9d23_module_css_bad6b30c._.single.css.map*/

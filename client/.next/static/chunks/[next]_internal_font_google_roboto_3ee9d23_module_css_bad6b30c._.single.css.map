@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[next]/internal/font/google/roboto_3ee9d23.module.css"],"sourcesContent":["@font-face {\n    font-family: 'Roboto Fallback';\n    src: local(\"Arial\");\n    ascent-override: 92.98%;\ndescent-override: 24.47%;\nline-gap-override: 0.00%;\nsize-adjust: 99.78%;\n\n}\n.className {\n    font-family: 'Roboto', 'Roboto Fallback';\n    font-style: normal;\n\n}\n.variable {\n    --font-roboto: 'Roboto', 'Roboto Fallback';\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;AAKA","ignoreList":[0]}}]
+}

@@ -11,6 +11,7 @@ export default function SignupForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
 
   const [acception, setAcception] = useState(false);
@@ -27,6 +28,13 @@ export default function SignupForm() {
         setLoading(false);
         return setErrorMessage("pleace read and accept the terms");
       }
+      const data = {
+        name: name,
+        surname: surname,
+        email: email,
+      };
+      console.log(data);
+
       const register_data = { name, email };
       await authService.signup(register_data);
       router.push(`/onboarding?email=${email}`);
@@ -48,17 +56,31 @@ export default function SignupForm() {
           {errorMessage}
         </p>
       )}
-      <div className="flex flex-col space-x-0.5">
-        <label htmlFor="name">Ism & familiya</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          className="global_input"
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <div className="flex gap-5 justify-between">
+        <div className="flex flex-col space-x-0.5 w-full">
+          <label htmlFor="name">Ism</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className="global_input"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col space-x-0.5 w-full">
+          <label htmlFor="name">Familiya</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className="global_input"
+            required
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+          />
+        </div>
       </div>
       <div className="flex flex-col space-x-0.5">
         <label htmlFor="email">E-po'chta</label>
@@ -90,7 +112,11 @@ export default function SignupForm() {
         type="submit"
         className="body_color text-white font-medium py-2 rounded-xl cursor-pointer w-full"
       >
-        {!loading ? "Ro'yxatdan o'tish" : <BeatLoader color="#ffffff" size={10} />}
+        {!loading ? (
+          "Ro'yxatdan o'tish"
+        ) : (
+          <BeatLoader color="#ffffff" size={10} />
+        )}
       </button>
     </form>
   );

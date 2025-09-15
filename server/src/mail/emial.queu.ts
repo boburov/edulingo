@@ -1,9 +1,0 @@
-import { Queue } from 'bullmq';
-
-const connection = { host: '127.0.0.1', port: 6379 };
-
-export const emailQueue = new Queue('email', { connection });
-
-export async function addEmailJob(email: string, link: string) {
-  await emailQueue.add('send-verification', { email, link });
-}

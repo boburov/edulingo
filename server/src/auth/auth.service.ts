@@ -1,56 +1,89 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateAuthDto } from './dto/create-auth.dto';
 import { MailService } from 'src/mail/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService, private jwtService: JwtService, private mailService: MailService,) { }
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+    private mailService: MailService,
+    private config: ConfigService,
+  ) {}
 
+  async register(dto: CreateAuthDto) {
+    const { email, name, surname } = dto;
 
-  async generateToken(user: any) {
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    const user = await this.prisma.user.findFirst({ where: { email } });
+
+    if (!user) {
+      const new_user = await this.prisma.user.create({
+        data: {
+          name,
+          surname,
+          email,
+          google_id: '',
+        },
+      });
+    } else {
+      throw new HttpException('This email already used', 403);
+    }
+    const token = this.generateJwt(user);
+    const link = `${this.config.getOrThrow('FRONTEND_URL')}/auth/verify-token?token=${token}`;
+    this.mailService.sendVerificationLink(email, link);
     return {
-      access_token: this.jwtService.sign(payload),
-      user,
+      message: 'accaount created',
+      access_token: token,
+      user: user,
     };
   }
 
+  async login(email: string) {
+    const user = await this.prisma.user.findFirst({ where: { email } });
 
-  async veriyf_token(token) {
-    try {
-      const payload = this.jwtService.verify(token);
-      
-      let user = await this.prisma.user.findUnique({ where: { email: payload.email } });
-      if (!user) {
-        throw new NotFoundException("User topilmadi")
-      }
+    if (!user) {
+      throw new HttpException('User not Found', 404);
+    } else {
+      const token = this.generateJwt(user);
 
-      if (!user.is_verified) {
-        await this.prisma.user.update({
-          where: { email: user.email },
-          data: { is_verified: true },
-        });
-      }
-
-
-      return this.generateToken(user);
-    } catch (e) {
-      throw new BadRequestException("Token noto‘g‘ri yoki muddati tugagan");
+      return {
+        message: 'login succesfull',
+        access_token: token,
+        user,
+      };
     }
   }
 
-  async sendLoginLink(email: string) {
-    console.log("📩 Email qabul qilindi:", email);
-    const token = this.jwtService.sign({ email }, { expiresIn: '15m' });
-    const link = `${process.env.FRONTEND_URL}/auth/verify-token?token=${token}`;
-
-    await this.mailService.sendVerificationLink(email, link);
-    return { message: 'Email yuborildi' };
+  async generateJwt(user) {
+    const payload = { sub: user.id, email: user.email };
+    return this.jwtService.signAsync(payload, { expiresIn: '7d' });
   }
-
-  async findAll() {
-    return this.prisma.user.findMany({})
+  async verifyJwt(token: string) {
+    try {
+      const payload: any = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
+      const user = await this.prisma.user.findUnique({
+        where: { email: payload.email },
+      });
+      if (user) {
+        user.is_verified = true;
+        await this.prisma.user.update({
+          where: { id: user.id },
+          data: { is_verified: true },
+        });
+      }
+      return user;
+    } catch (err) {
+      return null; // token invalid yoki expired
+    }
   }
-
 }

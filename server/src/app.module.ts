@@ -10,6 +10,7 @@ import { JobsModule } from './jobs/jobs.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { GlobalModule } from './global/global.module';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ConfigModule } from '@nestjs/config';
     JobsModule,
     PlaylistsModule,
     GlobalModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

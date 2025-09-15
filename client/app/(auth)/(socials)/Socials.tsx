@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Github from "./(providers)/Github";
 import Google from "./(providers)/Google";
 
 export default function Socials() {
@@ -16,7 +15,6 @@ export default function Socials() {
       )}
       <div className="space-y-3">
         <Google setErrorMessage={setErrorMessage} />
-        <Github setErrorMessage={setErrorMessage} />
       </div>
     </div>
   );

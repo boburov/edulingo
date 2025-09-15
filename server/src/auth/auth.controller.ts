@@ -1,61 +1,49 @@
 import {
+  BadRequestException,
+  Body,
   Controller,
   Get,
   Post,
-  Body,
-  UseGuards,
-  Req,
-  BadRequestException,
   Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { emailQueue } from 'src/mail/email.module';
-import { addEmailJob } from 'src/mail/emial.queu';
+import { CreateAuthDto } from './dto/create-auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
-  @Get('hello')
-  async getHello() {
-    const email = 'boburovdev@gmail.com';
-    const link = `https://example.com/verify?token=12345`;
-
-    await addEmailJob(email, link);
-    return { message: 'Job qo‘shildi' };
-  }
-
-  @Get('users')
-  async getAllUser() {
-    return this.authService.findAll();
-  }
-
-  @Get('verify-token')
-  async verifyToken(@Query('token') token: string) {
-    return this.authService.veriyf_token(token);
-  }
-
-  @Post('send-msg')
-  async sendLogin(@Body('email') email: string) {
-    if (!email) throw new BadRequestException('Email required');
-    return this.authService.sendLoginLink(email);
-  }
-
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req) {}
+  async googleAuth() {
+    return 'Goolge Auth';
+  }
+
+  @Post('signup')
+  async regsiter_user(@Body() dto: CreateAuthDto) {
+    return await this.authService.register(dto);
+  }
+
+  @Post('signin')
+  async login(@Body() email: string) {
+    return this.authService.login(email);
+  }
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleAuthRedirect(@Req() req) {
-    console.log('📌 Callback req.user:', req.user);
-    return this.authService.generateToken(req.user);
+    const jwt = await this.authService.generateJwt(req.user);
+    return { token: jwt, user: req.user };
   }
 
-  @Get('dashboard')
-  @UseGuards()
-  getDashboard() {
-    return 'Admin paneli';
+  @Get('verify-token')
+  async verifyToken(@Query('token') token: string) {
+    if (!token) throw new BadRequestException('Token topilmadi');
+    const user = await this.authService.verifyJwt(token);
+    if (!user)
+      throw new BadRequestException('Token noto‘g‘ri yoki muddati o‘tgan');
+    return { success: true, user };
   }
 }
