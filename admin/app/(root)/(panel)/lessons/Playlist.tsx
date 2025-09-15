@@ -6,6 +6,7 @@ import { setLoading, updateplaylists } from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PlaylistCard from "./PlaylistCard";
 
 export default function Playlists() {
   const [error, setError] = useState("");
@@ -38,6 +39,8 @@ export default function Playlists() {
     GetPlaylists();
   }, []);
 
+  console.log(playlists);
+
   return (
     <div>
       {is_loading ? (
@@ -48,7 +51,9 @@ export default function Playlists() {
         <div>
           {playlists && playlists.length > 0 ? (
             <div>
-              <p>List of playlists</p>
+              <PlaylistCard
+                playlists={playlists}
+              />
             </div>
           ) : (
             <div className="py-20">

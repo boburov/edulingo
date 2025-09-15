@@ -32,6 +32,7 @@ export class UploadService {
     params: { w: number; h: number; q: number },
   ) {
     const folder = 'thumbnails';
+    console.log(file);
     const filename = this.sanitizer.sanitize(file.originalname);
     const key = `${folder}/${randomUUID()}-${params.h}px-${filename}`;
 

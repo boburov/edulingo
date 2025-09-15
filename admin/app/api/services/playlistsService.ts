@@ -5,6 +5,7 @@ import { CreatePlaylistData } from "./utils/playlistTypes";
 const playlistService = {
   create: (data: FormData) => {
     try {
+      console.log(data);
       return api.post(apiEndpoints.createplaylist, data);
     } catch (error) {
       throw error;

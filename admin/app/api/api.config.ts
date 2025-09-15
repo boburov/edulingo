@@ -4,7 +4,6 @@ const api = axios.create({
   baseURL: "http://localhost:8000",
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
   },
 });
 
@@ -16,18 +15,14 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 api.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
+  (response) => response.data,
   (error) => {
-    if (error.response && error.response?.status === 404) {
-      localStorage.removeItem("token");
+    if (error.response?.status === 404) {
+      localStorage.removeItem("access_token");
     }
     return Promise.reject(error);
   }

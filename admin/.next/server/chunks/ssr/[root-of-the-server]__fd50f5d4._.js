@@ -101,8 +101,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: "http://localhost:8000",
     headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: "application/json"
     }
 });
 api.interceptors.request.use((config)=>{
@@ -111,14 +110,10 @@ api.interceptors.request.use((config)=>{
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-}, (error)=>{
-    return Promise.reject(error);
-});
-api.interceptors.response.use((response)=>{
-    return response.data;
-}, (error)=>{
-    if (error.response && error.response?.status === 404) {
-        localStorage.removeItem("token");
+}, (error)=>Promise.reject(error));
+api.interceptors.response.use((response)=>response.data, (error)=>{
+    if (error.response?.status === 404) {
+        localStorage.removeItem("access_token");
     }
     return Promise.reject(error);
 });

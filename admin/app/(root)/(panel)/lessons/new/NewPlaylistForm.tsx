@@ -1,19 +1,29 @@
 "use client";
+
 import playlistService from "@/app/api/services/playlistsService";
 import { CreatePlaylistData } from "@/app/api/services/utils/playlistTypes";
 import { pushPlaylist } from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 export default function CreatePlaylistForm() {
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  // Clean up preview URL on unmount
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -32,56 +42,64 @@ export default function CreatePlaylistForm() {
     }
   };
 
+  const validateForm = () => {
+    if (!title || title.length < 10 || title.length > 140) {
+      setError("Sarlavha 10 dan 140 ta belgigacha bo‘lishi kerak.");
+      return false;
+    }
+    if (!description || description.length < 50 || description.length > 270) {
+      setError("Tavsif 50 dan 270 ta belgigacha bo‘lishi kerak.");
+      return false;
+    }
+    if (!thumbnail) {
+      setError("Iltimos, sarlavha uchun rasm yuklang.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+
+    if (!validateForm()) return;
 
     if (!thumbnail) {
-      alert("Iltimos sarlavha rasmini joylang");
-      return;
+      return setError("Iltimos, sarlavha uchun rasm yuklang");
     }
 
-    const data: CreatePlaylistData = {
-      title,
-      description,
-      thumbnail,
-    };
-
+    const data: CreatePlaylistData = { title, description, thumbnail };
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("file", data.thumbnail);
+    formData.append("thumbnail", data.thumbnail);
 
     try {
       setLoading(true);
       const res: any = await playlistService.create(formData);
-      console.log(res);
       const res_playlist: Playlist = res;
-      console.log(res_playlist);
       dispatch(pushPlaylist(res_playlist));
-      setLoading(false);
-      alert("Playlist created!");
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        setError(
-          error.response.data.message ||
-            "An error occurred while validating the password."
-        );
+      router.push("lessons");
+    } catch (err: any) {
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Xatolik yuz berdi. Iltimos, qaytadan urinib ko‘ring.");
       }
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 w-full">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <h2 className="text-2xl font-semibold text-gray-800">
-        Malumotlarni kiriting
+        Yangi Playlist Yaratish
       </h2>
 
       {/* Title */}
-      <div className="w-full flex flex-col gap-2">
-        <label className="block text-sm font-medium text-gray-900">
-          Dars nomi*
-        </label>
+      <div className="flex flex-col gap-2">
+        <label className=" font-medium text-gray-900">Dars nomi*</label>
         <input
           type="text"
           value={title}
@@ -91,37 +109,33 @@ export default function CreatePlaylistForm() {
           minLength={10}
           autoFocus
           className="global_input"
+          placeholder="Masalan: Frontend asoslari"
         />
-        <p className="block text-sm font-medium text-gray-700">
-          10 dan 140 tagacha harf ishlatish mumkin!
-        </p>
+        <p className="text-gray-500">10–140 ta belgi ishlatish mumkin</p>
       </div>
 
       {/* Description */}
-      <div className="w-full flex flex-col gap-2">
-        <label className="block text-sm font-medium text-gray-900">
-          Darslar haqida*
-        </label>
+      <div className="flex flex-col gap-2">
+        <label className=" font-medium text-gray-900">Darslar haqida*</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
           minLength={50}
           maxLength={270}
-          className="global_input resize-none"
+          className="global_input resize-none h-28"
+          placeholder="Playlist tavsifi..."
         />
-        <p className="block text-sm font-medium text-gray-700">
-          50 dan 270 tagacha harf ishlatish mumkin!
-        </p>
+        <p className="text-gray-500">50–270 ta belgi ishlatish mumkin</p>
       </div>
 
       {/* Thumbnail Upload */}
       <div
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
-        className="border-2 border-dashed border-gray-300 space-y-2 rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#26a269] transition"
+        className="border-2 border-dashed border-gray-300 rounded-xl space-y-2 p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#26a269] transition"
       >
-        <label className="block text-sm font-medium text-gray-900">
+        <label className=" font-medium text-gray-900">
           Dars sarlavha rasmi*
         </label>
         <input
@@ -131,39 +145,44 @@ export default function CreatePlaylistForm() {
           className="hidden"
           id="thumbnail"
         />
-        <label htmlFor="thumbnail" className="cursor-pointer text-center">
+        <label
+          htmlFor="thumbnail"
+          className="flex flex-col items-center gap-3 text-center w-full"
+        >
           {preview ? (
             <img
               src={preview}
               alt="Thumbnail preview"
-              className="w-full aspect-video object-cover rounded-xl mx-auto"
+              className="w-full aspect-video object-cover rounded-xl"
             />
           ) : (
-            <div className="text-gray-500">
-              Drag & Drop your thumbnail or{" "}
-              <span className="text-blue-500 underline">Browse</span>
-            </div>
+            <>
+              <span className="text-gray-500">
+                Drag & Drop yoki{" "}
+                <span className="text-blue-500 underline">Browse</span>
+              </span>
+            </>
           )}
         </label>
-        <p className="block text-sm font-medium text-gray-700">
-          rasm "16x9" formatida saqlanadi!
+        <p className="text-gray-500">Rasm 16:9 formatida bo‘lishi kerak</p>
+      </div>
+
+      <label className="font-medium text-gray-900 flex">Saqlang*</label>
+
+      {/* Error */}
+      {error && (
+        <p className="text-red-600 bg-red-50 rounded-xl px-4 py-2 text-center">
+          {error}
         </p>
-      </div>
+      )}
 
-      <div className="w-full">
-        {error !== "" && (
-          <p className="text-red-600 bg-red-600/10 rounded-xl px-4 py-2 text-center">
-            {error}
-          </p>
-        )}
-      </div>
-
-      <label className="block text-sm font-medium text-gray-900">
-        Saqlang*
-      </label>
       {/* Submit */}
-      <button type="submit" className="basic_button w-full">
-        {loading ? "yaratilmoqda..." : "Darslarni yaratish"}
+      <button
+        type="submit"
+        className="basic_button w-full disabled:opacity-70 disabled:cursor-not-allowed"
+        disabled={loading}
+      >
+        {loading ? "Yaratilmoqda..." : "Playlistni yaratish"}
       </button>
     </form>
   );

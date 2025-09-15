@@ -13,9 +13,8 @@ export class PlaylistsService {
     private readonly upload: UploadService,
   ) {}
 
-  async create(data: CreatePlaylistDto) {
+  async create(data: CreatePlaylistDto, thumbnail) {
     const unique_name = await this.unique_name.generate(data.title);
-    const { thumbnail, ...FormData } = data;
     const UploadedThumbnail = await this.upload.image(thumbnail, {
       q: 80,
       h: 1280,
@@ -23,7 +22,7 @@ export class PlaylistsService {
     });
     const newPlaylist = await this.prisma.playlist.create({
       data: {
-        ...FormData,
+        ...data,
         thumbnail: UploadedThumbnail,
         unique_name: unique_name,
       },

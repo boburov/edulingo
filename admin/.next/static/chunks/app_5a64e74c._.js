@@ -13,8 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: "http://localhost:8000",
     headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: "application/json"
     }
 });
 api.interceptors.request.use((config)=>{
@@ -23,14 +22,10 @@ api.interceptors.request.use((config)=>{
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-}, (error)=>{
-    return Promise.reject(error);
-});
-api.interceptors.response.use((response)=>{
-    return response.data;
-}, (error)=>{
-    if (error.response && error.response?.status === 404) {
-        localStorage.removeItem("token");
+}, (error)=>Promise.reject(error));
+api.interceptors.response.use((response)=>response.data, (error)=>{
+    if (error.response?.status === 404) {
+        localStorage.removeItem("access_token");
     }
     return Promise.reject(error);
 });
@@ -76,6 +71,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoin
 const playlistService = {
     create: (data)=>{
         try {
+            console.log(data);
             return __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].createplaylist, data);
         } catch (error) {
             throw error;
@@ -112,6 +108,7 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$services$2f$playlistsService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/services/playlistsService.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$playlistSlice$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/store/slices/playlistSlice.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 ;
@@ -121,15 +118,29 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 function CreatePlaylistForm() {
     _s();
-    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [thumbnail, setThumbnail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [preview, setPreview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [title, setTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [description, setDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    // Clean up preview URL on unmount
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CreatePlaylistForm.useEffect": ()=>{
+            return ({
+                "CreatePlaylistForm.useEffect": ()=>{
+                    if (preview) URL.revokeObjectURL(preview);
+                }
+            })["CreatePlaylistForm.useEffect"];
+        }
+    }["CreatePlaylistForm.useEffect"], [
+        preview
+    ]);
     const handleDrop = (e)=>{
         e.preventDefault();
         const file = e.dataTransfer.files[0];
@@ -145,11 +156,27 @@ function CreatePlaylistForm() {
             setPreview(URL.createObjectURL(file));
         }
     };
+    const validateForm = ()=>{
+        if (!title || title.length < 10 || title.length > 140) {
+            setError("Sarlavha 10 dan 140 ta belgigacha bo‘lishi kerak.");
+            return false;
+        }
+        if (!description || description.length < 50 || description.length > 270) {
+            setError("Tavsif 50 dan 270 ta belgigacha bo‘lishi kerak.");
+            return false;
+        }
+        if (!thumbnail) {
+            setError("Iltimos, sarlavha uchun rasm yuklang.");
+            return false;
+        }
+        return true;
+    };
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        setError(null);
+        if (!validateForm()) return;
         if (!thumbnail) {
-            alert("Iltimos sarlavha rasmini joylang");
-            return;
+            return setError("Iltimos, sarlavha uchun rasm yuklang");
         }
         const data = {
             title,
@@ -159,44 +186,44 @@ function CreatePlaylistForm() {
         const formData = new FormData();
         formData.append("title", data.title);
         formData.append("description", data.description);
-        formData.append("file", data.thumbnail);
+        formData.append("thumbnail", data.thumbnail);
         try {
             setLoading(true);
             const res = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$services$2f$playlistsService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create(formData);
-            console.log(res);
             const res_playlist = res;
-            console.log(res_playlist);
             dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$playlistSlice$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["pushPlaylist"])(res_playlist));
-            setLoading(false);
-            alert("Playlist created!");
-        } catch (error) {
-            if (error.response && error.response.data) {
-                setError(error.response.data.message || "An error occurred while validating the password.");
+            router.push("lessons");
+        } catch (err) {
+            if (err.response?.data?.message) {
+                setError(err.response.data.message);
+            } else {
+                setError("Xatolik yuz berdi. Iltimos, qaytadan urinib ko‘ring.");
             }
+        } finally{
             setLoading(false);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
         onSubmit: handleSubmit,
-        className: "space-y-5 w-full",
+        className: "space-y-5",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-2xl font-semibold text-gray-800",
-                children: "Malumotlarni kiriting"
+                children: "Yangi Playlist Yaratish"
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 76,
+                lineNumber: 96,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-full flex flex-col gap-2",
+                className: "flex flex-col gap-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "block text-sm font-medium text-gray-900",
+                        className: " font-medium text-gray-900",
                         children: "Dars nomi*"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 82,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -207,55 +234,19 @@ function CreatePlaylistForm() {
                         maxLength: 140,
                         minLength: 10,
                         autoFocus: true,
-                        className: "global_input"
+                        className: "global_input",
+                        placeholder: "Masalan: Frontend asoslari"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 85,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "block text-sm font-medium text-gray-700",
-                        children: "10 dan 140 tagacha harf ishlatish mumkin!"
+                        className: "text-gray-500",
+                        children: "10–140 ta belgi ishlatish mumkin"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 95,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 81,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-full flex flex-col gap-2",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "block text-sm font-medium text-gray-900",
-                        children: "Darslar haqida*"
-                    }, void 0, false, {
-                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 102,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                        value: description,
-                        onChange: (e)=>setDescription(e.target.value),
-                        required: true,
-                        minLength: 50,
-                        maxLength: 270,
-                        className: "global_input resize-none"
-                    }, void 0, false, {
-                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 105,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "block text-sm font-medium text-gray-700",
-                        children: "50 dan 270 tagacha harf ishlatish mumkin!"
-                    }, void 0, false, {
-                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 113,
+                        lineNumber: 114,
                         columnNumber: 9
                     }, this)
                 ]
@@ -265,16 +256,54 @@ function CreatePlaylistForm() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                onDrop: handleDrop,
-                onDragOver: (e)=>e.preventDefault(),
-                className: "border-2 border-dashed border-gray-300 space-y-2 rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#26a269] transition",
+                className: "flex flex-col gap-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "block text-sm font-medium text-gray-900",
+                        className: " font-medium text-gray-900",
+                        children: "Darslar haqida*"
+                    }, void 0, false, {
+                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                        lineNumber: 119,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                        value: description,
+                        onChange: (e)=>setDescription(e.target.value),
+                        required: true,
+                        minLength: 50,
+                        maxLength: 270,
+                        className: "global_input resize-none h-28",
+                        placeholder: "Playlist tavsifi..."
+                    }, void 0, false, {
+                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                        lineNumber: 120,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-500",
+                        children: "50–270 ta belgi ishlatish mumkin"
+                    }, void 0, false, {
+                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                        lineNumber: 129,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                lineNumber: 118,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onDrop: handleDrop,
+                onDragOver: (e)=>e.preventDefault(),
+                className: "border-2 border-dashed border-gray-300 rounded-xl space-y-2 p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#26a269] transition",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        className: " font-medium text-gray-900",
                         children: "Dars sarlavha rasmi*"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 124,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -285,100 +314,97 @@ function CreatePlaylistForm() {
                         id: "thumbnail"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 127,
+                        lineNumber: 141,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                         htmlFor: "thumbnail",
-                        className: "cursor-pointer text-center",
+                        className: "flex flex-col items-center gap-3 text-center w-full",
                         children: preview ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                             src: preview,
                             alt: "Thumbnail preview",
-                            className: "w-full aspect-video object-cover rounded-xl mx-auto"
+                            className: "w-full aspect-video object-cover rounded-xl"
                         }, void 0, false, {
                             fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                            lineNumber: 136,
+                            lineNumber: 153,
                             columnNumber: 13
-                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-gray-500",
-                            children: [
-                                "Drag & Drop your thumbnail or",
-                                " ",
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-blue-500 underline",
-                                    children: "Browse"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                                    lineNumber: 144,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                            lineNumber: 142,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                        lineNumber: 134,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "block text-sm font-medium text-gray-700",
-                        children: 'rasm "16x9" formatida saqlanadi!'
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-500",
+                                children: [
+                                    "Drag & Drop yoki",
+                                    " ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-blue-500 underline",
+                                        children: "Browse"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                                        lineNumber: 162,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                                lineNumber: 160,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false)
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
                         lineNumber: 148,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-500",
+                        children: "Rasm 16:9 formatida bo‘lishi kerak"
+                    }, void 0, false, {
+                        fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 119,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-full",
-                children: error !== "" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-red-600 bg-red-600/10 rounded-xl px-4 py-2 text-center",
-                    children: error
-                }, void 0, false, {
-                    fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                    lineNumber: 155,
-                    columnNumber: 11
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 153,
+                lineNumber: 133,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block text-sm font-medium text-gray-900",
+                className: "font-medium text-gray-900 flex",
                 children: "Saqlang*"
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 161,
+                lineNumber: 170,
                 columnNumber: 7
+            }, this),
+            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-red-600 bg-red-50 rounded-xl px-4 py-2 text-center",
+                children: error
+            }, void 0, false, {
+                fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
+                lineNumber: 174,
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 type: "submit",
-                className: "basic_button w-full",
-                children: loading ? "yaratilmoqda..." : "Darslarni yaratish"
+                className: "basic_button w-full disabled:opacity-70 disabled:cursor-not-allowed",
+                disabled: loading,
+                children: loading ? "Yaratilmoqda..." : "Playlistni yaratish"
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-                lineNumber: 165,
+                lineNumber: 180,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/(root)/(panel)/lessons/new/NewPlaylistForm.tsx",
-        lineNumber: 75,
+        lineNumber: 95,
         columnNumber: 5
     }, this);
 }
-_s(CreatePlaylistForm, "2DWrPCtsWGXMAiKUfgnK5gDTDwU=", false, function() {
+_s(CreatePlaylistForm, "BkljEo+HtaqCEY9OeROZ3AQGu3c=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = CreatePlaylistForm;
