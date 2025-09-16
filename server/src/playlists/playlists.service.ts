@@ -17,8 +17,8 @@ export class PlaylistsService {
     const unique_name = await this.unique_name.generate(data.title);
     const UploadedThumbnail = await this.upload.image(thumbnail, {
       q: 80,
-      h: 1280,
-      w: 720,
+      w: 1280,
+      h: 720,
     });
     const newPlaylist = await this.prisma.playlist.create({
       data: {
@@ -61,8 +61,8 @@ export class PlaylistsService {
     if (thumbnail) {
       up_th = await this.upload.image(thumbnail, {
         q: 80,
-        h: 1280,
-        w: 720,
+        w: 1280,
+        h: 720,
       });
     }
 
