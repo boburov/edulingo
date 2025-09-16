@@ -2,21 +2,28 @@
 
 import playlistService from "@/app/api/services/playlistsService";
 import { CreatePlaylistData } from "@/app/api/services/utils/playlistTypes";
-import { pushPlaylist } from "@/app/store/slices/playlistSlice";
+import {
+  pushPlaylist,
+  replacePlaylist,
+} from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { GlobalContext } from "../layout";
 
-export default function CreatePlaylistForm() {
+export default function UpdatePlaylistForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
+  const { playlist, setPlaylist } = useContext(GlobalContext);
+
+  // form data
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(playlist.thumbnail);
+  const [title, setTitle] = useState(playlist.title);
+  const [description, setDescription] = useState(playlist.description);
 
   // Clean up preview URL on unmount
   useEffect(() => {
@@ -51,10 +58,6 @@ export default function CreatePlaylistForm() {
       setError("Tavsif 50 dan 270 ta belgigacha bo‘lishi kerak.");
       return false;
     }
-    if (!thumbnail) {
-      setError("Iltimos, sarlavha uchun rasm yuklang.");
-      return false;
-    }
     return true;
   };
 
@@ -64,21 +67,27 @@ export default function CreatePlaylistForm() {
 
     if (!validateForm()) return;
 
-    if (!thumbnail) {
-      return setError("Iltimos, sarlavha uchun rasm yuklang");
-    }
-
-    const data: CreatePlaylistData = { title, description, thumbnail };
+    const data: any = {
+      title,
+      description,
+      ...(thumbnail && { thumbnail }),
+    };
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("thumbnail", data.thumbnail);
+    if (thumbnail) {
+      formData.append("thumbnail", data.thumbnail);
+    }
 
     try {
       setLoading(true);
-      const res: any = await playlistService.create(formData);
+      const res: any = await playlistService.update(
+        playlist.unique_name,
+        formData
+      );
       const res_playlist: Playlist = res;
-      dispatch(pushPlaylist(res_playlist));
+      dispatch(replacePlaylist(res_playlist));
+      setPlaylist(res_playlist);
       router.push(`/lessons/${res_playlist.unique_name}`);
     } catch (err: any) {
       if (err.response?.data?.message) {
@@ -93,10 +102,6 @@ export default function CreatePlaylistForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <h2 className="text-2xl font-semibold text-gray-800">
-        Yangi Playlist Yaratish
-      </h2>
-
       {/* Title */}
       <div className="flex flex-col gap-2">
         <label className=" font-medium text-gray-900">Dars nomi*</label>
@@ -182,7 +187,7 @@ export default function CreatePlaylistForm() {
         className="basic_button w-full disabled:opacity-70 disabled:cursor-not-allowed"
         disabled={loading}
       >
-        {loading ? "Yaratilmoqda..." : "Playlistni yaratish"}
+        {loading ? "Tahrirlanmoqda..." : "Playlistni tahrirlash"}
       </button>
     </form>
   );

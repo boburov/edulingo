@@ -82,7 +82,7 @@ export default function RootLayout({
             <main className="main_body flex gap-5">
               <PlaylistDetails playlist={playlist} />
               <div className="flex-1">
-                <GlobalContext.Provider value={{ playlist }}>
+                <GlobalContext.Provider value={{ playlist, setPlaylist }}>
                   {children}
                 </GlobalContext.Provider>
               </div>

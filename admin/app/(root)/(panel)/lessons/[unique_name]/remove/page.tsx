@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../layout";
 import playlistService from "@/app/api/services/playlistsService";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { deletePlaylist } from "@/app/store/slices/playlistSlice";
 
 export default function PlaylistRemovePage() {
   const [uniqueName, setUniqueName] = useState("");
@@ -11,6 +13,7 @@ export default function PlaylistRemovePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const { playlist } = useContext(GlobalContext);
 
@@ -30,6 +33,7 @@ export default function PlaylistRemovePage() {
       const resData: { deleted: boolean } = res;
       if (resData.deleted) {
         alert("Darslar toplami olib tashlandi!");
+        dispatch(deletePlaylist(playlist));
         router.push("/lessons");
       }
     } catch (err: any) {
