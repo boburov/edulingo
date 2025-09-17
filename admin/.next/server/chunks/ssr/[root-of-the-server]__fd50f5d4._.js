@@ -134,7 +134,9 @@ const apiEndpoints = {
     // playlists
     createplaylist: "/playlists/new",
     getPlaylistByName: (unique_name)=>`/playlists/${unique_name}`,
-    getAllPlaylists: "/playlists"
+    getAllPlaylists: "/playlists",
+    // lessons
+    createNewLesson: (unique_name)=>`/playlists/${unique_name}/lessons/new`
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 }}),

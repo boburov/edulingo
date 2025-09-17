@@ -281,7 +281,9 @@ const apiEndpoints = {
     // playlists
     createplaylist: "/playlists/new",
     getPlaylistByName: (unique_name)=>`/playlists/${unique_name}`,
-    getAllPlaylists: "/playlists"
+    getAllPlaylists: "/playlists",
+    // lessons
+    createNewLesson: unique
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 }}),

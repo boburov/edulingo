@@ -11,36 +11,10 @@ import { useDispatch } from "react-redux";
 export default function NewLessonForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-
-  // Clean up preview URL on unmount
-  useEffect(() => {
-    return () => {
-      if (preview) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setThumbnail(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      setThumbnail(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
 
   const validateForm = () => {
     if (!title || title.length < 10 || title.length > 140) {
@@ -49,10 +23,6 @@ export default function NewLessonForm() {
     }
     if (!description || description.length < 50 || description.length > 270) {
       setError("Tavsif 50 dan 270 ta belgigacha bo‘lishi kerak.");
-      return false;
-    }
-    if (!thumbnail) {
-      setError("Iltimos, sarlavha uchun rasm yuklang.");
       return false;
     }
     return true;
@@ -64,11 +34,7 @@ export default function NewLessonForm() {
 
     if (!validateForm()) return;
 
-    if (!thumbnail) {
-      return setError("Iltimos, sarlavha uchun rasm yuklang");
-    }
-
-    const data: CreatePlaylistData = { title, description, thumbnail };
+    const data: any = { title, description };
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
@@ -123,44 +89,6 @@ export default function NewLessonForm() {
           placeholder="Playlist tavsifi..."
         />
         <p className="text-gray-500">50–270 ta belgi ishlatish mumkin</p>
-      </div>
-
-      {/* Thumbnail Upload */}
-      <div
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-        className="border-2 border-dashed border-gray-300 rounded-xl space-y-2 p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#26a269] transition"
-      >
-        <label className=" font-medium text-gray-900">
-          Dars sarlavha rasmi*
-        </label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="hidden"
-          id="thumbnail"
-        />
-        <label
-          htmlFor="thumbnail"
-          className="flex flex-col items-center gap-3 text-center w-full"
-        >
-          {preview ? (
-            <img
-              src={preview}
-              alt="Thumbnail preview"
-              className="w-full aspect-video object-cover rounded-xl"
-            />
-          ) : (
-            <>
-              <span className="text-gray-500">
-                Drag & Drop yoki{" "}
-                <span className="text-blue-500 underline">Browse</span>
-              </span>
-            </>
-          )}
-        </label>
-        <p className="text-gray-500">Rasm 16:9 formatida bo‘lishi kerak</p>
       </div>
 
       <label className="font-medium text-gray-900 flex">Saqlang*</label>
