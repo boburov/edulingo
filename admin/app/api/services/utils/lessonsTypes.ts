@@ -1,5 +1,5 @@
 export type CreateLessonData = {
   title: string;
   description: string;
-  thumbnail: File;
+  video_url: string;
 };

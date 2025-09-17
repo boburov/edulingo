@@ -956,6 +956,10 @@
     background-color: var(--color-gray-100);
   }
 
+  .bg-gray-300 {
+    background-color: var(--color-gray-300);
+  }
+
   .bg-primary {
     background-color: var(--primary);
   }
