@@ -20,7 +20,7 @@ export class LessonsController {
   @UseGuards(AdminAccessGuard)
   @Post('new')
   create(
-    @Param('unqiue_name') unique_name: string,
+    @Param('unique_name') unique_name: string,
     @Body() data: CreateLessonDto,
   ) {
     return this.lessonsService.create(unique_name, data);
