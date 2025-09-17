@@ -11,7 +11,6 @@ import { MailModule } from 'src/mail/mail.module';
   imports: [
     PrismaModule,
     MailModule,
-    MailModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'super_secret',
       signOptions: { expiresIn: '7d' },
@@ -20,9 +19,12 @@ import { MailModule } from 'src/mail/mail.module';
   ],
   providers: [
     AuthService,
-    GoogleStrategy,   // ✅ strategy provider sifatida qo‘shildi
+    GoogleStrategy,
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [
+    AuthService,
+    JwtModule, 
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

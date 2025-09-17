@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { ConfigService } from '@nestjs/config';
+import { JwtAuthGuard } from './strategies/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -38,13 +39,20 @@ export class AuthController {
     return 'Redirecting to Google...';
   }
 
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  async getProfile(@Req() req) {
+    return req.user;
+  }
+
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleAuthRedirect(@Req() req, @Res() res: Response) {
     const jwt = await this.authService.generateJwt(req.user);
     const frontendUrl =
-      this.config.get('FRONTEND_URL') || 'http://localhost:5173';
-    return res.redirect(`${frontendUrl}/auth/success?token=${jwt}`);
+      this.config.get('FRONTEND_URL') || 'http://localhost:3000';
+
+    return res.redirect(`${frontendUrl}/auth/callback?token=${jwt}`);
   }
 
   @Get('verify-token')

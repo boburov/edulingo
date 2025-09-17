@@ -35,7 +35,7 @@ export default function SignupForm() {
       };
       console.log(data);
 
-      const register_data = { name, email };
+      const register_data = { name, surname, email };
       await authService.signup(register_data);
       router.push(`/onboarding?email=${email}`);
       setLoading(false);

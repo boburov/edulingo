@@ -22,22 +22,25 @@ export class AuthService {
   async register(dto: CreateAuthDto) {
     const { email, name, surname } = dto;
 
-    const user = await this.prisma.user.findFirst({ where: { email } });
+    let user = await this.prisma.user.findFirst({ where: { email } });
 
-    if (!user) {
-      const new_user = await this.prisma.user.create({
-        data: {
-          name,
-          surname,
-          email,
-          google_id: '',
-        },
-      });
-    } else {
+    if (user) {
       throw new HttpException('This email already used', 403);
     }
-    const token = this.generateJwt(user);
+
+    user = await this.prisma.user.create({
+      data: {
+        name,
+        surname,
+        email,
+        google_id: '',
+      },
+    });
+
+    const token = await this.generateJwt(user);
+
     const link = `${this.config.getOrThrow('FRONTEND_URL')}/auth/verify-token?token=${token}`;
+
     this.mailService.sendVerificationLink(email, link);
     return {
       message: 'accaount created',
@@ -75,7 +78,6 @@ export class AuthService {
         where: { email: payload.email },
       });
       if (user) {
-        user.is_verified = true;
         await this.prisma.user.update({
           where: { id: user.id },
           data: { is_verified: true },
