@@ -59,6 +59,8 @@ export default function RootLayout({
     GetPlaylist();
   }, []);
 
+  console.log(playlist);
+
   return (
     <div className={`${roboto.className} antialiased w-full space-y-5`}>
       <div className="flex justify-between items-center w-full">

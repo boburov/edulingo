@@ -1,23 +1,20 @@
 "use client";
 
 import { CreateLessonData } from "@/app/api/services/utils/lessonsTypes";
-import { pushPlaylist } from "@/app/store/slices/playlistSlice";
-import { Playlist } from "@/app/types/User";
-import { Divide, MailWarning, Youtube } from "lucide-react";
+import { Lesson, Playlist } from "@/app/types/User";
+import { MailWarning, Youtube } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useContext } from "react";
 import { GlobalContext } from "../layout";
 import lessonService from "@/app/api/services/lessonService";
 
 export default function NewLessonForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { playlist } = useContext(GlobalContext);
+  const { playlist, setplaylist } = useContext(GlobalContext);
   const playlistTyped: Playlist = playlist;
-  const epNumber = playlistTyped.lessons.length + 1
+  const epNumber = playlistTyped.lessons.length + 1;
+  const router = useRouter()
 
   const [youtubeVideo, setYoutubeVideo] = useState("");
 
@@ -61,13 +58,13 @@ export default function NewLessonForm() {
     try {
       setLoading(true);
       const res: any = await lessonService.create(playlist.unique_name, data);
-      console.log(res);
-      
-      const res_lesson: Playlist = res;
-      console.log(res_lesson);
-      
-      // dispatch(pushPlaylist(res_playlist));
-      // router.push(`/lessons/${res_playlist.unique_name}`);
+      const res_lesson: Lesson = res;
+
+      setplaylist((prev: Playlist) => ({
+        ...prev,
+        lessons: [...prev.lessons, res_lesson],
+      }));
+      router.push(`/lessons/${playlist.unique_name}`);
     } catch (err: any) {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
@@ -89,7 +86,9 @@ export default function NewLessonForm() {
         >
           <MailWarning /> Seriya raqami tartibli ekanligiga etibor bering*
         </label>
-        <h2 className="text-xl font-semibold">Seriya raqami <span className="base_text">#{epNumber}</span></h2>
+        <h2 className="text-xl font-semibold">
+          Seriya raqami <span className="base_text">#{epNumber}</span>
+        </h2>
       </div>
       <label className=" font-medium text-gray-900" htmlFor="video_url">
         YouTube video url*
