@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   name: string;
   username: string;
   email: string;
@@ -9,10 +9,21 @@ export interface User {
 }
 
 export interface Playlist {
-  id: number;
+  id: string;
   unique_name: string;
   title: string;
   description: string;
   thumbnail: string;
+  created_at: Date;
+  lessons: Lesson[];
+}
+
+export interface Lesson {
+  id: string;
+  video_url: string;
+  title: string;
+  description: string;
+  order: number;
+  playlistId: string;
   created_at: Date;
 }

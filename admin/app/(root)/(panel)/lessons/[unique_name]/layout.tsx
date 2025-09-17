@@ -42,7 +42,6 @@ export default function RootLayout({
       const res: any = await playlistService.getByUniqueName(
         String(unique_name)
       );
-      console.log(res);
       const ResPlaylist: Playlist = res;
       setPlaylist(ResPlaylist);
     } catch (err: any) {
@@ -80,7 +79,7 @@ export default function RootLayout({
       ) : (
         <>
           {playlist ? (
-            <main className="main_body flex gap-5">
+            <main className="main_body flex gap-5 items-start">
               <PlaylistDetails playlist={playlist} />
               <div className="flex-1">
                 <GlobalContext.Provider value={{ playlist, setPlaylist }}>

@@ -1,10 +1,9 @@
 "use client";
 
-import playlistService from "@/app/api/services/playlistsService";
 import { CreateLessonData } from "@/app/api/services/utils/lessonsTypes";
 import { pushPlaylist } from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
-import { Divide, Youtube } from "lucide-react";
+import { Divide, MailWarning, Youtube } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
@@ -17,6 +16,8 @@ export default function NewLessonForm() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { playlist } = useContext(GlobalContext);
+  const playlistTyped: Playlist = playlist;
+  const epNumber = playlistTyped.lessons.length + 1
 
   const [youtubeVideo, setYoutubeVideo] = useState("");
 
@@ -60,9 +61,13 @@ export default function NewLessonForm() {
     try {
       setLoading(true);
       const res: any = await lessonService.create(playlist.unique_name, data);
-      const res_playlist: Playlist = res;
-      dispatch(pushPlaylist(res_playlist));
-      router.push(`/lessons/${res_playlist.unique_name}`);
+      console.log(res);
+      
+      const res_lesson: Playlist = res;
+      console.log(res_lesson);
+      
+      // dispatch(pushPlaylist(res_playlist));
+      // router.push(`/lessons/${res_playlist.unique_name}`);
     } catch (err: any) {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
@@ -77,6 +82,15 @@ export default function NewLessonForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Title */}
+      <div className="space-y-3">
+        <label
+          className=" font-medium text-gray-900 flex items-center gap-2"
+          htmlFor="video_url"
+        >
+          <MailWarning /> Seriya raqami tartibli ekanligiga etibor bering*
+        </label>
+        <h2 className="text-xl font-semibold">Seriya raqami <span className="base_text">#{epNumber}</span></h2>
+      </div>
       <label className=" font-medium text-gray-900" htmlFor="video_url">
         YouTube video url*
       </label>
