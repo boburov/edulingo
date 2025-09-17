@@ -42,6 +42,7 @@ export default function RootLayout({
       const res: any = await playlistService.getByUniqueName(
         String(unique_name)
       );
+      console.log(res);
       const ResPlaylist: Playlist = res;
       setPlaylist(ResPlaylist);
     } catch (err: any) {

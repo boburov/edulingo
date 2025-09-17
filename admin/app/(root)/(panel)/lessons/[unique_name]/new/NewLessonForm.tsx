@@ -6,24 +6,29 @@ import { pushPlaylist } from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
 import { Divide, Youtube } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { GlobalContext } from "../layout";
+import lessonService from "@/app/api/services/lessonService";
 
 export default function NewLessonForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { playlist } = useContext(GlobalContext);
 
-  const [youtubeVideo, setYoutubeVideo] = useState<null | string>(null);
+  const [youtubeVideo, setYoutubeVideo] = useState("");
 
-  const [video_url, setVideoUrl] = useState("");
+  const [video_url, setVideoUrl] = useState<null | string>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   function SetYoutube() {
-    const ID = video_url.split("https://youtu.be/")[1];
-    setYoutubeVideo(ID);
+    const ID = youtubeVideo.split("https://youtu.be/")[1];
+    const url = "https://www.youtube.com/embed";
+    const iFrameURL = `${url}/${ID}`;
+    setVideoUrl(iFrameURL);
   }
 
   const validateForm = () => {
@@ -44,11 +49,17 @@ export default function NewLessonForm() {
 
     if (!validateForm()) return;
 
+    if (!video_url) {
+      return setError(
+        "Iltimos YouTube video ni ulashish bolimidagi video linkini kiriting"
+      );
+    }
+
     const data: CreateLessonData = { title, description, video_url };
 
     try {
       setLoading(true);
-      const res: any = await playlistService.create(data);
+      const res: any = await lessonService.create(playlist.unique_name, data);
       const res_playlist: Playlist = res;
       dispatch(pushPlaylist(res_playlist));
       router.push(`/lessons/${res_playlist.unique_name}`);
@@ -73,8 +84,8 @@ export default function NewLessonForm() {
         <Youtube />
         <input
           type="text"
-          value={video_url}
-          onChange={(e) => setVideoUrl(e.target.value)}
+          value={youtubeVideo}
+          onChange={(e) => setYoutubeVideo(e.target.value)}
           required
           maxLength={1000}
           id="video_url"
@@ -86,24 +97,31 @@ export default function NewLessonForm() {
           Check
         </button>
       </div>
-      <div className="w-full aspect-video rounded-xl bg-gray-300 flex items-center justify-center text-gray-400 overflow-hidden">
-        {youtubeVideo ? (
+      <p className="text-gray-600">
+        YouTube platformasidan video darslikni tanlang va{" "}
+        <span className="text-gray-900 font-semibold">"Ulashish"</span>{" "}
+        tugmasini bosing va Link ni kochirib olib yuqoridagi maydonga kiriting!
+      </p>
+      <div className="w-full aspect-video rounded-xl bg-gray-300 flex items-center justify-center overflow-hidden">
+        {video_url ? (
           <iframe
             width="560"
             height="315"
-            src={`https://www.youtube.com/embed/${youtubeVideo}`}
+            src={video_url}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             className="w-full h-full"
             allowFullScreen
           ></iframe>
         ) : (
-          <Youtube size={80} />
+          <div className="flex items-center justify-center flex-col text-center p-20 text-gray-400">
+            <Youtube size={80} />
+          </div>
         )}
       </div>
       {/* Title */}
       <div className="flex flex-col gap-2">
-        <label className=" font-medium text-gray-900">Dars nomi*</label>
+        <label className=" font-medium text-gray-900">Seriya nomi*</label>
         <input
           type="text"
           value={title}
@@ -120,7 +138,7 @@ export default function NewLessonForm() {
 
       {/* Description */}
       <div className="flex flex-col gap-2">
-        <label className=" font-medium text-gray-900">Darslar haqida*</label>
+        <label className=" font-medium text-gray-900">Seriya haqida*</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -148,7 +166,7 @@ export default function NewLessonForm() {
         className="basic_button w-full disabled:opacity-70 disabled:cursor-not-allowed"
         disabled={loading}
       >
-        {loading ? "Yaratilmoqda..." : "Playlistni yaratish"}
+        {loading ? "Yaratilmoqda..." : "Seriyani yaratish"}
       </button>
     </form>
   );
