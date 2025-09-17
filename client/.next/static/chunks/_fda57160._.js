@@ -95,8 +95,12 @@ const authService = {
     },
     getProfile: async ()=>{
         try {
-            const user = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].profile);
-            return user;
+            const res = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].profile, {
+                headers: {
+                    Authorization: "Bearer ".concat(localStorage.getItem("access_token"))
+                }
+            });
+            return res.data;
         } catch (error) {
             throw error;
         }
@@ -237,6 +241,7 @@ function SignupForm() {
             console.log(data);
             const register_data = {
                 name,
+                surname,
                 email
             };
             await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$services$2f$authService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].signup(register_data);
@@ -448,48 +453,16 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 __turbopack_context__.s([
     "default",
-    ()=>Google
+    ()=>GoogleLoginButton
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$services$2f$authService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/api/services/authService.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$userSlice$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/store/slices/userSlice.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
-;
-var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
-;
-;
-;
-function Google(param) {
-    let { setErrorMessage } = param;
-    _s();
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+function GoogleLoginButton() {
     const handleGoogleLogin = ()=>{
-        try {
-            const popup = window.open("http://localhost:8000/auth/google", "_blank", "width=900,height=600");
-            const receiveMessage = async (event)=>{
-                if (event.origin !== "http://localhost:8080") return;
-                if (event.data.reset_token && event.data.access_token) {
-                    localStorage.setItem("access_token", event.data.access_token);
-                    localStorage.setItem("reset_token", event.data.reset_token);
-                }
-                if (event.data.is_ok == false) {
-                    return setErrorMessage(event.data.message ? event.data.message : "Something went wrong, please try again later");
-                }
-                // toast.success("Registered successfully");
-                const user = await __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$services$2f$authService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].getProfile();
-                dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$store$2f$slices$2f$userSlice$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateUser"])(user));
-                router.push("/panel");
-            };
-            window.addEventListener("message", receiveMessage, false);
-        } catch (error) {
-            setErrorMessage("Something went wrong, please try again later");
-        }
+        window.location.href = "http://localhost:8000/auth/google";
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
         onClick: handleGoogleLogin,
@@ -499,30 +472,23 @@ function Google(param) {
                 src: "/social_icons/Google.svg",
                 alt: "google icon",
                 width: 22,
-                height: 0
+                height: 22
             }, void 0, false, {
                 fileName: "[project]/app/(auth)/(socials)/(providers)/Google.tsx",
-                lineNumber: 50,
+                lineNumber: 14,
                 columnNumber: 7
             }, this),
-            " ",
-            "Google"
+            "Google bilan kirish"
         ]
     }, void 0, true, {
         fileName: "[project]/app/(auth)/(socials)/(providers)/Google.tsx",
-        lineNumber: 46,
+        lineNumber: 10,
         columnNumber: 5
     }, this);
 }
-_s(Google, "zXnflAqd4rnyBpogtdAc6I4Vk2A=", false, function() {
-    return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
-    ];
-});
-_c = Google;
+_c = GoogleLoginButton;
 var _c;
-__turbopack_context__.k.register(_c, "Google");
+__turbopack_context__.k.register(_c, "GoogleLoginButton");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
