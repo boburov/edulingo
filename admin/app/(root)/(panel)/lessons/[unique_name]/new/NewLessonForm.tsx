@@ -1,27 +1,22 @@
 "use client";
 
 import playlistService from "@/app/api/services/playlistsService";
-import {
-  replacePlaylist,
-} from "@/app/store/slices/playlistSlice";
+import { CreatePlaylistData } from "@/app/api/services/utils/playlistTypes";
+import { pushPlaylist } from "@/app/store/slices/playlistSlice";
 import { Playlist } from "@/app/types/User";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GlobalContext } from "../layout";
 
-export default function UpdatePlaylistForm() {
+export default function NewLessonForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
-  const { playlist, setPlaylist } = useContext(GlobalContext);
-
-  // form data
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(playlist.thumbnail);
-  const [title, setTitle] = useState(playlist.title);
-  const [description, setDescription] = useState(playlist.description);
 
   // Clean up preview URL on unmount
   useEffect(() => {
@@ -56,6 +51,10 @@ export default function UpdatePlaylistForm() {
       setError("Tavsif 50 dan 270 ta belgigacha bo‘lishi kerak.");
       return false;
     }
+    if (!thumbnail) {
+      setError("Iltimos, sarlavha uchun rasm yuklang.");
+      return false;
+    }
     return true;
   };
 
@@ -65,27 +64,21 @@ export default function UpdatePlaylistForm() {
 
     if (!validateForm()) return;
 
-    const data: any = {
-      title,
-      description,
-      ...(thumbnail && { thumbnail }),
-    };
+    if (!thumbnail) {
+      return setError("Iltimos, sarlavha uchun rasm yuklang");
+    }
+
+    const data: CreatePlaylistData = { title, description, thumbnail };
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
-    if (thumbnail) {
-      formData.append("thumbnail", data.thumbnail);
-    }
+    formData.append("thumbnail", data.thumbnail);
 
     try {
       setLoading(true);
-      const res: any = await playlistService.update(
-        playlist.unique_name,
-        formData
-      );
+      const res: any = await playlistService.create(formData);
       const res_playlist: Playlist = res;
-      dispatch(replacePlaylist(res_playlist));
-      setPlaylist(res_playlist);
+      dispatch(pushPlaylist(res_playlist));
       router.push(`/lessons/${res_playlist.unique_name}`);
     } catch (err: any) {
       if (err.response?.data?.message) {
@@ -185,7 +178,7 @@ export default function UpdatePlaylistForm() {
         className="basic_button w-full disabled:opacity-70 disabled:cursor-not-allowed"
         disabled={loading}
       >
-        {loading ? "Tahrirlanmoqda..." : "Playlistni tahrirlash"}
+        {loading ? "Yaratilmoqda..." : "Playlistni yaratish"}
       </button>
     </form>
   );

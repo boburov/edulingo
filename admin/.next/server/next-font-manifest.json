@@ -1,15 +1,9 @@
 {
   "app": {
+    "[project]/app/(root)/(panel)/lessons/[unique_name]/new/page": [
+      "static/media/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ-s.p.a797655c.woff2"
+    ],
     "[project]/app/(root)/(panel)/lessons/[unique_name]/page": [
-      "static/media/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ-s.p.a797655c.woff2"
-    ],
-    "[project]/app/(root)/(panel)/lessons/[unique_name]/remove/page": [
-      "static/media/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ-s.p.a797655c.woff2"
-    ],
-    "[project]/app/(root)/(panel)/lessons/[unique_name]/update/page": [
-      "static/media/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ-s.p.a797655c.woff2"
-    ],
-    "[project]/app/(root)/(panel)/lessons/new/page": [
       "static/media/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ-s.p.a797655c.woff2"
     ],
     "[project]/app/(root)/(panel)/lessons/page": [
