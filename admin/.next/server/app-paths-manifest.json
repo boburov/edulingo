@@ -1,4 +1,5 @@
 {
+  "/(root)/(panel)/lessons/[unique_name]/ep/[order]/page": "app/(root)/(panel)/lessons/[unique_name]/ep/[order]/page.js",
   "/(root)/(panel)/lessons/[unique_name]/new/page": "app/(root)/(panel)/lessons/[unique_name]/new/page.js",
   "/(root)/(panel)/lessons/[unique_name]/page": "app/(root)/(panel)/lessons/[unique_name]/page.js",
   "/(root)/(panel)/lessons/page": "app/(root)/(panel)/lessons/page.js",

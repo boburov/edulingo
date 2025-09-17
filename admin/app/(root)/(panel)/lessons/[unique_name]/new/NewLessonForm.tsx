@@ -11,7 +11,7 @@ import lessonService from "@/app/api/services/lessonService";
 export default function NewLessonForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const { playlist, setplaylist } = useContext(GlobalContext);
+  const { playlist, setPlaylist } = useContext(GlobalContext);
   const playlistTyped: Playlist = playlist;
   const epNumber = playlistTyped.lessons.length + 1;
   const router = useRouter()
@@ -60,7 +60,7 @@ export default function NewLessonForm() {
       const res: any = await lessonService.create(playlist.unique_name, data);
       const res_lesson: Lesson = res;
 
-      setplaylist((prev: Playlist) => ({
+      setPlaylist((prev: Playlist) => ({
         ...prev,
         lessons: [...prev.lessons, res_lesson],
       }));
