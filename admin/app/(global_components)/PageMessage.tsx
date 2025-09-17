@@ -1,4 +1,4 @@
-import { ListX } from "lucide-react";
+import EmptyLottie from "../lottie/Empty";
 import Heading from "./Heading";
 
 export default function PageMessage({
@@ -10,7 +10,7 @@ export default function PageMessage({
 }) {
   return (
     <div className="w-full flex flex-col justify-between items-center space-y-5">
-      <ListX size={140} color="#26a269"/>
+      <EmptyLottie />
       <div className="space-y-2 text-center text_color">
         <Heading>{title}</Heading>
         <p>{message}</p>
