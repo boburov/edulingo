@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
@@ -9,12 +8,9 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { CreateAuthDto } from './dto/create-auth.dto';
 import { ConfigService } from '@nestjs/config';
-import { JwtAuthGuard } from './strategies/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -23,44 +19,36 @@ export class AuthController {
     private config: ConfigService,
   ) {}
 
-  @Post('signup')
-  async signup(@Body() dto: CreateAuthDto) {
-    return this.authService.register(dto);
+  @Post('register')
+  async register(@Req() req) {
+    return this.authService.register(req.body);
   }
 
-  @Post('signin')
-  async signin(@Body('email') email: string) {
-    return this.authService.login(email);
+  @Post('login')
+  async login(@Req() req) {
+    return this.authService.login(req.body);
+  }
+
+  @Get('verify')
+  async verify(@Query('token') token: string) {
+    return this.authService.verify(token);
+  }
+
+  @Post('refresh')
+  async refresh(@Body('refresh') refresh: string) {
+    return this.authService.refresh(refresh);
   }
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth() {
-    return 'Redirecting to Google...';
-  }
-
-  @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  async getProfile(@Req() req) {
-    return req.user;
-  }
+  async googleAuth(@Req() req) {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req, @Res() res: Response) {
-    const jwt = await this.authService.generateJwt(req.user);
-    const frontendUrl =
-      this.config.get('FRONTEND_URL') || 'http://localhost:3000';
-
-    return res.redirect(`${frontendUrl}/auth/callback?token=${jwt}`);
-  }
-
-  @Get('verify-token')
-  async verifyToken(@Query('token') token: string) {
-    if (!token) throw new BadRequestException('Token topilmadi');
-    const user = await this.authService.verifyJwt(token);
-    if (!user)
-      throw new BadRequestException('Token noto‘g‘ri yoki muddati o‘tgan');
-    return { success: true, user };
+  async googleRedirect(@Req() req, @Res() res) {
+    const tokens = await this.authService.generateTokens(req.user);
+    res.redirect(
+      `${this.config.get('FRONTEND_URL')}/auth/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
+    );
   }
 }

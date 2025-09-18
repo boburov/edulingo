@@ -1,12 +1,7 @@
-import {
-  BadRequestException,
-  HttpException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { JwtService } from '@nestjs/jwt';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -14,78 +9,183 @@ import { ConfigService } from '@nestjs/config';
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService,
-    private mailService: MailService,
     private config: ConfigService,
+    private jwt: JwtService,
+    private mailService: MailService,
   ) {}
 
-  async register(dto: CreateAuthDto) {
-    const { email, name, surname } = dto;
+  async generateTokens(user: any) {
+    const payload = {
+      userId: user.id,
+      email: user.email,
+      name: user.name,
+      surname: user.surname,
+      profile_pic: user.profile_pic,
+    };
 
-    let user = await this.prisma.user.findFirst({ where: { email } });
-
-    if (user) {
-      throw new HttpException('This email already used', 403);
-    }
-
-    user = await this.prisma.user.create({
-      data: {
-        name,
-        surname,
-        email,
-        google_id: '',
-      },
+    const access = this.jwt.sign(payload, {
+      expiresIn: '15m',
+      secret: this.config.getOrThrow('JWT_SECRET'),
     });
 
-    const token = await this.generateJwt(user);
+    const refresh = this.jwt.sign(
+      { userId: user.id },
+      {
+        expiresIn: '7d',
+        secret: this.config.getOrThrow('JWT_SECRET'),
+      },
+    );
 
-    const link = `${this.config.getOrThrow('FRONTEND_URL')}/auth/verify-token?token=${token}`;
+    return { access, refresh };
+  }
 
-    this.mailService.sendVerificationLink(email, link);
+  async validateGoogleUser(userData: {
+    google_id: string;
+    email: string;
+    name: string;
+    surname: string;
+    picture: string;
+  }) {
+    let user = await this.prisma.user.findUnique({
+      where: { google_id: userData.google_id },
+    });
+
+    if (user) {
+      user = await this.prisma.user.update({
+        where: { google_id: userData.google_id },
+        data: {
+          email: userData.email,
+          name: userData.name,
+          surname: userData.surname,
+          profile_pic: userData.picture,
+        },
+      });
+    } else {
+      user = await this.prisma.user.create({
+        data: {
+          google_id: userData.google_id,
+          email: userData.email,
+          name: userData.name,
+          surname: userData.surname,
+          profile_pic: userData.picture,
+          is_verified: true,
+        },
+      });
+    }
+
+    const token = this.jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        profile_pic: user.profile_pic,
+      },
+      { expiresIn: '15m' },
+    );
+    const magic_link = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${token}`;
+
+    await this.mailService.sendVerificationLink(user.email, magic_link);
+
+    return user;
+  }
+
+  async refresh(token: string) {
+    try {
+      const decoded = this.jwt.verify(token, {
+        secret: this.config.getOrThrow('JWT_SECRET'),
+      });
+
+      const user = await this.prisma.user.findUnique({
+        where: { id: decoded.userId },
+      });
+      if (!user) throw new HttpException('User topilmadi', 404);
+
+      return this.generateTokens(user);
+    } catch {
+      throw new HttpException(
+        'Refresh token noto‘g‘ri yoki muddati tugagan',
+        401,
+      );
+    }
+  }
+
+  async register(dto: CreateAuthDto) {
+    const { name, email, surname } = dto;
+
+    const exist = await this.prisma.user.findUnique({ where: { email } });
+    if (exist) throw new HttpException('Bu user mavjud', 409);
+
+    await this.prisma.user.create({
+      data: { name, surname, email },
+    });
+
+    const verifyToken = this.jwt.sign(
+      { email },
+      {
+        expiresIn: '15m',
+        secret: this.config.getOrThrow('JWT_SECRET'),
+      },
+    );
+
+    const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}?token=${verifyToken}`;
+    await this.mailService.sendVerificationLink(email, magicLink);
+
+    return { message: 'Emailingizga tasdiqlash linki yuborildi' };
+  }
+
+  async login(dto: CreateAuthDto) {
+    const { email } = dto;
+
+    const user = await this.prisma.user.findFirst({ where: { email } });
+
+    if (!user) {
+      throw new HttpException('Bunday user mavjud emas', 404);
+    }
+
+    const payload = { email };
+
+    const token = this.jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        profile_pic: user.profile_pic,
+      },
+      { expiresIn: '15m' },
+    );
+    const magic_link = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${token}`;
+
+    await this.mailService.sendVerificationLink(email, magic_link);
+
     return {
-      message: 'accaount created',
       access_token: token,
       user: user,
     };
   }
 
-  async login(email: string) {
-    const user = await this.prisma.user.findFirst({ where: { email } });
+  async verify(token: string) {
+    try {
+      const decoded: any = this.jwt.verify(token, {
+        secret: this.config.getOrThrow('JWT_SECRET'),
+      });
 
-    if (!user) {
-      throw new HttpException('User not Found', 404);
-    } else {
-      const token = this.generateJwt(user);
+      const user = await this.prisma.user.update({
+        where: { email: decoded.email },
+        data: { is_verified: true },
+      });
+
+      // Foydalanuvchiga access va refresh qaytar
+      const tokens = await this.generateTokens(user);
 
       return {
-        message: 'login succesfull',
-        access_token: token,
+        message: 'User tasdiqlandi',
         user,
+        ...tokens,
       };
-    }
-  }
-
-  async generateJwt(user) {
-    const payload = { sub: user.id, email: user.email };
-    return this.jwtService.signAsync(payload, { expiresIn: '7d' });
-  }
-  async verifyJwt(token: string) {
-    try {
-      const payload: any = this.jwtService.verify(token, {
-        secret: process.env.JWT_SECRET,
-      });
-      const user = await this.prisma.user.findUnique({
-        where: { email: payload.email },
-      });
-      if (user) {
-        await this.prisma.user.update({
-          where: { id: user.id },
-          data: { is_verified: true },
-        });
-      }
-      return user;
-    } catch (err) {
-      return null; // token invalid yoki expired
+    } catch {
+      throw new HttpException('Invalid or expired token', 400);
     }
   }
 }

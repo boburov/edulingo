@@ -1,6 +1,4 @@
 {
-  "/(auth)/signup/page": "app/(auth)/signup/page.js",
-  "/(auth)/verification/page": "app/(auth)/verification/page.js",
   "/(root)/page": "app/(root)/page.js",
   "/_not-found/page": "app/_not-found/page.js"
 }
