@@ -10,6 +10,14 @@ const lessonService = {
       throw error;
     }
   },
+
+  update: async (unique_name: string, id: string, data: CreateLessonData) => {
+    try {
+      return api.put(apiEndpoints.updateLesson(unique_name, id), data);
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default lessonService;

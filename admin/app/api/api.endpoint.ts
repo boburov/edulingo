@@ -11,6 +11,7 @@ const apiEndpoints = {
 
   // lessons
   createNewLesson: (unique_name: string) => `/playlists/${unique_name}/lessons/new`,
+  updateLesson: (unique_name: string, id: string) => `/playlists/${unique_name}/lessons/${id}`
 };
 
 export default apiEndpoints;

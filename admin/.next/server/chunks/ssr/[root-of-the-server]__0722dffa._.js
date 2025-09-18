@@ -266,7 +266,8 @@ const apiEndpoints = {
     getPlaylistByName: (unique_name)=>`/playlists/${unique_name}`,
     getAllPlaylists: "/playlists",
     // lessons
-    createNewLesson: (unique_name)=>`/playlists/${unique_name}/lessons/new`
+    createNewLesson: (unique_name)=>`/playlists/${unique_name}/lessons/new`,
+    updateLesson: (unique_name, id)=>`/playlists/${unique_name}/lessons/${id}`
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 }}),

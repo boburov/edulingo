@@ -283,7 +283,8 @@ const apiEndpoints = {
     getPlaylistByName: (unique_name)=>`/playlists/${unique_name}`,
     getAllPlaylists: "/playlists",
     // lessons
-    createNewLesson: (unique_name)=>`/playlists/${unique_name}/lessons/new`
+    createNewLesson: (unique_name)=>`/playlists/${unique_name}/lessons/new`,
+    updateLesson: (unique_name, id)=>`/playlists/${unique_name}/lessons/${id}`
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 }}),
@@ -510,7 +511,6 @@ function RootLayout({ children }) {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         GetPlaylist();
     }, []);
-    console.log(playlist);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$roboto_b76959d5$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].className} antialiased w-full space-y-5`,
         children: [
@@ -524,7 +524,7 @@ function RootLayout({ children }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                        lineNumber: 67,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -534,19 +534,19 @@ function RootLayout({ children }) {
                             "Ortga ",
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$undo$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Undo2$3e$__["Undo2"], {}, void 0, false, {
                                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                                lineNumber: 69,
+                                lineNumber: 67,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                        lineNumber: 68,
+                        lineNumber: 66,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                lineNumber: 66,
+                lineNumber: 64,
                 columnNumber: 7
             }, this),
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -554,19 +554,19 @@ function RootLayout({ children }) {
                 children: error
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                lineNumber: 73,
+                lineNumber: 71,
                 columnNumber: 9
             }, this),
             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "w-full flex justify-center items-center py-20",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$global_components$292f$Loader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                    lineNumber: 79,
+                    lineNumber: 77,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                lineNumber: 78,
+                lineNumber: 76,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                 children: playlist ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -576,7 +576,7 @@ function RootLayout({ children }) {
                             playlist: playlist
                         }, void 0, false, {
                             fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                            lineNumber: 85,
+                            lineNumber: 83,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -589,18 +589,18 @@ function RootLayout({ children }) {
                                 children: children
                             }, void 0, false, {
                                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                                lineNumber: 87,
+                                lineNumber: 85,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                            lineNumber: 86,
+                            lineNumber: 84,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                    lineNumber: 84,
+                    lineNumber: 82,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "w-full items-center justify-center py-20",
@@ -609,19 +609,19 @@ function RootLayout({ children }) {
                         message: "Keyinroq qayta urunib ko'ring"
                     }, void 0, false, {
                         fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                        lineNumber: 94,
+                        lineNumber: 92,
                         columnNumber: 15
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-                    lineNumber: 93,
+                    lineNumber: 91,
                     columnNumber: 13
                 }, this)
             }, void 0, false)
         ]
     }, void 0, true, {
         fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/layout.tsx",
-        lineNumber: 65,
+        lineNumber: 63,
         columnNumber: 5
     }, this);
 }
