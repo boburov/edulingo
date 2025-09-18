@@ -1,4 +1,7 @@
 {
+  "/(auth)/signup/page": "app/(auth)/signup/page.js",
+  "/(auth)/verify/page": "app/(auth)/verify/page.js",
   "/(root)/page": "app/(root)/page.js",
-  "/_not-found/page": "app/_not-found/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/panel/page": "app/panel/page.js"
 }
