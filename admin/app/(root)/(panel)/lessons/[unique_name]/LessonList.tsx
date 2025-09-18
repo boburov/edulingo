@@ -7,12 +7,13 @@ import LessonCard from "./LessonCard";
 export default function LessonsList() {
   const { playlist } = useContext(GlobalContext);
   const lessons: Lesson[] = playlist.lessons;
+  const lessons_in_order = lessons.sort((a, b) => a.order - b.order);
 
   return (
     <div>
       {lessons.length > 0 ? (
         <div className="space-y-4">
-          {lessons.map((l: Lesson) => (
+          {lessons_in_order.map((l: Lesson) => (
             <LessonCard lesson={l} key={l.id} />
           ))}
         </div>

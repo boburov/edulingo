@@ -94,19 +94,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$2
 function LessonsList() {
     const { playlist } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useContext"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$292f$lessons$2f5b$unique_name$5d2f$layout$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["GlobalContext"]);
     const lessons = playlist.lessons;
+    const lessons_in_order = lessons.sort((a, b)=>a.order - b.order);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: lessons.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "space-y-4",
-            children: lessons.map((l)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$292f$lessons$2f5b$unique_name$5d2f$LessonCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+            children: lessons_in_order.map((l)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f28$root$292f28$panel$292f$lessons$2f5b$unique_name$5d2f$LessonCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     lesson: l
                 }, l.id, false, {
                     fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/LessonList.tsx",
-                    lineNumber: 16,
+                    lineNumber: 17,
                     columnNumber: 13
                 }, this))
         }, void 0, false, {
             fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/LessonList.tsx",
-            lineNumber: 14,
+            lineNumber: 15,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "py-10",
@@ -115,17 +116,17 @@ function LessonsList() {
                 message: "Yaratilgan seriyalar shu yerda saqlanadi!"
             }, void 0, false, {
                 fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/LessonList.tsx",
-                lineNumber: 21,
+                lineNumber: 22,
                 columnNumber: 11
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/LessonList.tsx",
-            lineNumber: 20,
+            lineNumber: 21,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/(root)/(panel)/lessons/[unique_name]/LessonList.tsx",
-        lineNumber: 12,
+        lineNumber: 13,
         columnNumber: 5
     }, this);
 }
