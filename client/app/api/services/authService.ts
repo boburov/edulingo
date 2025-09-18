@@ -30,8 +30,12 @@ const authService = {
 
   getProfile: async () => {
     try {
-      const user: User = await api.get(apiEndpoints.profile);
-      return user;
+      const res = await api.get(apiEndpoints.profile, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+      return res.data as User;
     } catch (error) {
       throw error;
     }

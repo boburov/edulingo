@@ -1,28 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { JwtModule } from '@nestjs/jwt';
-import { PrismaModule } from '../prisma/prisma.module';
+import { PrismaModule } from 'src/prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
-import { GoogleStrategy } from './strategies/google.strategies';
+import { JwtModule } from '@nestjs/jwt';
+import { GoogleStrategy } from './google.strartegy';
 import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   imports: [
+    MailModule,
     PrismaModule,
-    MailModule,
-    MailModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'super_secret',
-      signOptions: { expiresIn: '7d' },
-    }),
-    PassportModule.register({ session: false }),
-  ],
-  providers: [
-    AuthService,
-    GoogleStrategy,   // ✅ strategy provider sifatida qo‘shildi
+    PassportModule.register({ defaultStrategy: 'jwt' }), // optional
+    JwtModule.register({ secret: 'secretKey' }),
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  providers: [AuthService, GoogleStrategy],
 })
-export class AuthModule { }
+export class AuthModule {}
