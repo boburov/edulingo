@@ -3,10 +3,10 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { LessonsService } from './lessons.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
@@ -26,23 +26,22 @@ export class LessonsController {
     return this.lessonsService.create(unique_name, data);
   }
 
-  @Get()
-  findAll() {
-    return this.lessonsService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.lessonsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLessonDto: UpdateLessonDto) {
-    return this.lessonsService.update(+id, updateLessonDto);
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Param('unique_name') unique_name: string,
+    @Body() data: UpdateLessonDto,
+  ) {
+    return this.lessonsService.update(unique_name, id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.lessonsService.remove(+id);
+  remove(@Param('id') id: string, @Param('unique_name') unique_name: string) {
+    return this.lessonsService.remove(unique_name, id);
   }
 }

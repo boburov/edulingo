@@ -37,19 +37,24 @@ export class LessonsService {
     return newLesson;
   }
 
-  findAll() {
-    return `This action returns all lessons`;
-  }
-
   findOne(id: number) {
     return `This action returns a #${id} lesson`;
   }
 
-  update(id: number, updateLessonDto: UpdateLessonDto) {
-    return `This action updates a #${id} lesson`;
+  async update(unique_name: string, id: string, data: UpdateLessonDto) {
+    const updating = await this.prisma.lessons.update({
+      where: { id: id, playlist: { unique_name: unique_name } },
+      data,
+    });
+    return updating;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lesson`;
+  async remove(unique_name: string, id: string) {
+    await this.prisma.lessons.delete({
+      where: { id: id, playlist: { unique_name: unique_name } },
+    });
+    return {
+      deleted: true,
+    };
   }
 }
