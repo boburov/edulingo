@@ -52,7 +52,8 @@ const apiEndpoints = {
     signin: "auth/singin",
     profile: "/auth/profile",
     resetToken: (token)=>"/auth/reset/?token=".concat(token),
-    verify_magic_link: (token)=>"/auth/verify-token/?token=".concat(token),
+    verify_magic_link: (token)=>"/auth/verify/?token=".concat(token),
+    verify_token: (token)=>"/verify/?token=".concat(token),
     google: "/auth/google"
 };
 const __TURBOPACK__default__export__ = apiEndpoints;

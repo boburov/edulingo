@@ -34,6 +34,11 @@ export class AuthController {
     return this.authService.verify(token);
   }
 
+  @Get('profile')
+  async profile(@Req() req) {
+    return req.user;
+  }
+
   @Post('refresh')
   async refresh(@Body('refresh') refresh: string) {
     return this.authService.refresh(refresh);
@@ -48,7 +53,7 @@ export class AuthController {
   async googleRedirect(@Req() req, @Res() res) {
     const tokens = await this.authService.generateTokens(req.user);
     res.redirect(
-      `${this.config.get('FRONTEND_URL')}/auth/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
+      `${this.config.get('FRONTEND_URL')}/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
     );
   }
 }
