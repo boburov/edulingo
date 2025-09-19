@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "/(root)/(panel)/lessons/[unique_name]/ep/[order]/page": "app/(root)/(panel)/lessons/[unique_name]/ep/[order]/page.js",
   "/(root)/(panel)/lessons/[unique_name]/ep/[order]/update/page": "app/(root)/(panel)/lessons/[unique_name]/ep/[order]/update/page.js",
   "/(root)/(panel)/lessons/[unique_name]/page": "app/(root)/(panel)/lessons/[unique_name]/page.js",
@@ -7,4 +8,10 @@
   "/(root)/(panel)/lessons/page": "app/(root)/(panel)/lessons/page.js",
   "/(root)/(panel)/page": "app/(root)/(panel)/page.js",
   "/(root)/validation/page": "app/(root)/validation/page.js"
+=======
+  "/(root)/(panel)/lessons/page": "app/(root)/(panel)/lessons/page.js",
+  "/(root)/(panel)/page": "app/(root)/(panel)/page.js",
+  "/(root)/validation/page": "app/(root)/validation/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
+>>>>>>> refs/remotes/origin/main
 }

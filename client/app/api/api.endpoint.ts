@@ -1,14 +1,8 @@
-const apiEndpoints = {
-  home: "/",
-
-  // auth
-  signup: "/auth/signup",
-  signin: "auth/singin",
+export const api_endpoint = {
+  register: "/auth/register",
+  login: "/auth/login",
+  verify: "/auth/verify",
   profile: "/auth/profile",
-  resetToken: (token: string) => `/auth/reset/?token=${token}`,
-  verify_magic_link: (token: string) => `/auth/verify/?token=${token}`,
-  verify_token: (token: string) => `/verify/?token=${token}`,
-  google: "/auth/google",
+  google:"auth/google"
+  
 };
-
-export default apiEndpoints;

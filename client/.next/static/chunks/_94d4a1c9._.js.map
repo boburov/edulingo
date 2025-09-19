@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/boburov/Desktop/edulingo/client/app/%28auth%29/onboarding/BoardingMessage.tsx"],"sourcesContent":["\"use client\";\nimport { useSearchParams } from \"next/navigation\";\n\nexport default function BoardingMessage() {\n  const searchParams = useSearchParams();\n  const email = searchParams.get(\"email\");\n  return (\n    <p>\n      We have send magic link to{\" \"}\n      <span className=\"font-semibold\">{email ? email : \"your email\"}</span>, you\n      can verify your email by just clicking to it, it will redirect you to{\" \"}\n      <span className=\"font-semibold\">Dashboard of Svalve</span>\n    </p>\n  );\n}\n"],"names":[],"mappings":";;;;;AACA;;;AADA;;AAGe,SAAS;;IACtB,MAAM,eAAe,IAAA,wJAAe;IACpC,MAAM,QAAQ,aAAa,GAAG,CAAC;IAC/B,qBACE,6LAAC;;YAAE;YAC0B;0BAC3B,6LAAC;gBAAK,WAAU;0BAAiB,QAAQ,QAAQ;;;;;;YAAoB;YACC;0BACtE,6LAAC;gBAAK,WAAU;0BAAgB;;;;;;;;;;;;AAGtC;GAXwB;;QACD,wJAAe;;;KADd","debugId":null}},
-    {"offset": {"line": 61, "column": 0}, "map": {"version":3,"sources":["file:///home/boburov/Desktop/edulingo/client/node_modules/next/navigation.js"],"sourcesContent":["module.exports = require('./dist/client/components/navigation')\n"],"names":[],"mappings":"AAAA,OAAO,OAAO","ignoreList":[0],"debugId":null}}]
-}

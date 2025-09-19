@@ -4,6 +4,7 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -116,8 +117,8 @@ export class AuthService {
     const exist = await this.prisma.user.findUnique({ where: { email } });
     if (exist) throw new HttpException('Bu user mavjud', 409);
 
-    await this.prisma.user.create({
-      data: { name, surname, email },
+    const user = await this.prisma.user.create({
+      data: { name, surname, email, is_verified: false },
     });
 
     const verifyToken = this.jwt.sign(
@@ -128,15 +129,19 @@ export class AuthService {
       },
     );
 
-    const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}?token=${verifyToken}`;
+    const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${verifyToken}`;
     await this.mailService.sendVerificationLink(email, magicLink);
 
-    return { message: 'Emailingizga tasdiqlash linki yuborildi' };
+    const tokens = await this.generateTokens(user);
+
+    return {
+      message: 'Emailingizga tasdiqlash linki yuborildi',
+      user,
+      ...tokens,
+    };
   }
 
-  async login(dto: CreateAuthDto) {
-    const { email } = dto;
-
+  async login(email) {
     const user = await this.prisma.user.findFirst({ where: { email } });
 
     if (!user) {
@@ -156,7 +161,6 @@ export class AuthService {
       { expiresIn: '15m' },
     );
     const magic_link = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${token}`;
-
     await this.mailService.sendVerificationLink(email, magic_link);
 
     return {
@@ -166,26 +170,38 @@ export class AuthService {
   }
 
   async verify(token: string) {
-    try {
-      const decoded: any = this.jwt.verify(token, {
-        secret: this.config.getOrThrow('JWT_SECRET'),
-      });
+  try {
+    const decoded: any = this.jwt.verify(token, {
+      secret: this.config.getOrThrow('JWT_SECRET'),
+    });
 
-      const user = await this.prisma.user.update({
+    let user: User | null = null; 
+
+    if (decoded.email) {
+      user = await this.prisma.user.update({
         where: { email: decoded.email },
         data: { is_verified: true },
       });
-
-      // Foydalanuvchiga access va refresh qaytar
-      const tokens = await this.generateTokens(user);
-
-      return {
-        message: 'User tasdiqlandi',
-        user,
-        ...tokens,
-      };
-    } catch {
-      throw new HttpException('Invalid or expired token', 400);
+    } else if (decoded.userId) {
+      user = await this.prisma.user.update({
+        where: { id: decoded.userId },
+        data: { is_verified: true },
+      });
     }
+
+    if (!user) {
+      throw new HttpException('User topilmadi', 404);
+    }
+
+    const tokens = await this.generateTokens(user);
+
+    return {
+      message: 'User tasdiqlandi ✅',
+      user,
+      ...tokens,
+    };
+  } catch (err) {
+    throw new HttpException('Invalid or expired token', 400);
   }
+}
 }
