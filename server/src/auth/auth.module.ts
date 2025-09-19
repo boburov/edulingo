@@ -7,13 +7,19 @@ import { JwtModule } from '@nestjs/jwt';
 import { GoogleStrategy } from './google.strartegy';
 import { MailModule } from 'src/mail/mail.module';
 import { JwtStrategy } from './jwt.strategy';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     MailModule,
     PrismaModule,
     PassportModule.register({ defaultStrategy: 'jwt' }), // optional
-    JwtModule.register({ secret: 'secretKey' }),
+    JwtModule.registerAsync({
+      useFactory: (config: ConfigService) => ({
+        secret: config.getOrThrow('JWT_SECRET'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService, GoogleStrategy, JwtStrategy],

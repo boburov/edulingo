@@ -25,8 +25,8 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Req() req) {
-    return this.authService.login(req.body);
+  async login(@Body('email') email: string) {
+    return this.authService.login(email);
   }
 
   @Get('verify')
@@ -45,16 +45,21 @@ export class AuthController {
     return this.authService.refresh(refresh);
   }
 
+  @Get('profile')
+  async getProfile(@Req() req) {
+    return req.user;
+  }
+
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req) {}
+  async googleAuth() {}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleRedirect(@Req() req, @Res() res) {
     const tokens = await this.authService.generateTokens(req.user);
     res.redirect(
-      `${this.config.get('FRONTEND_URL')}/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
+      `${this.config.getOrThrow('FRONTEND_URL')}/auth/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
     );
   }
 }
