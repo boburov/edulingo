@@ -64,16 +64,21 @@ export class LessonsService {
     if (!lesson) throw new HttpException('Lesson not defined', 404);
 
     await this.prisma.lessons.delete({ where: { id: lesson.id } });
-    const lessons = lesson.playlist?.lessons;
 
-    const updates = lessons?.map((l, i) => {
-      return this.prisma.lessons.update({
-        where: { id: l.id },
-        data: { order: i + 1 },
-      });
-    }) ?? [];
+    if (!lesson.playlist)
+      throw new HttpException('Lessons are not defined', 404);
 
-    await this.prisma.$transaction(updates)
+    const lessons = lesson.playlist.lessons.filter((l) => l.id !== lesson.id);
+
+    const updates =
+      lessons.map((l, i) => {
+        return this.prisma.lessons.update({
+          where: { id: l.id },
+          data: { order: i + 1 },
+        });
+      }) ?? [];
+
+    await this.prisma.$transaction(updates);
 
     return {
       deleted: true,

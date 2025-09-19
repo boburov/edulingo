@@ -26,6 +26,13 @@ const lessonService = {
         } catch (error) {
             throw error;
         }
+    },
+    delete: async (unique_name, id)=>{
+        try {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$config$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$api$2f$api$2e$endpoint$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].deleteLesson(unique_name, id));
+        } catch (error) {
+            throw error;
+        }
     }
 };
 const __TURBOPACK__default__export__ = lessonService;

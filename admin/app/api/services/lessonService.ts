@@ -18,6 +18,14 @@ const lessonService = {
       throw error;
     }
   },
+
+  delete: async (unique_name: string, id: string) => {
+    try {
+      return api.delete(apiEndpoints.deleteLesson(unique_name, id));
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default lessonService;
