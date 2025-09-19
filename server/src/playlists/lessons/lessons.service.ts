@@ -50,9 +50,31 @@ export class LessonsService {
   }
 
   async remove(unique_name: string, id: string) {
-    await this.prisma.lessons.delete({
+    const lesson = await this.prisma.lessons.findUnique({
       where: { id: id, playlist: { unique_name: unique_name } },
+      include: {
+        playlist: {
+          include: {
+            lessons: true,
+          },
+        },
+      },
     });
+
+    if (!lesson) throw new HttpException('Lesson not defined', 404);
+
+    await this.prisma.lessons.delete({ where: { id: lesson.id } });
+    const lessons = lesson.playlist?.lessons;
+
+    const updates = lessons?.map((l, i) => {
+      return this.prisma.lessons.update({
+        where: { id: l.id },
+        data: { order: i + 1 },
+      });
+    }) ?? [];
+
+    await this.prisma.$transaction(updates)
+
     return {
       deleted: true,
     };
