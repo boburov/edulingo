@@ -9,7 +9,7 @@ import { createContext } from "react";
 import PageMessage from "@/app/(global_components)/PageMessage";
 import { GlobalContext } from "../../layout";
 import Link from "next/link";
-import { Edit } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -39,9 +39,12 @@ export default function RootLayout({
         <Link href={current_link}>
           <Heading>Seriya #{order}</Heading>
         </Link>
-        <div>
+        <div className="flex gap-3 items-center">
           <Link href={current_link + "/update"} className="basic_button2">
             <Edit /> Tahrirlash
+          </Link>
+          <Link href={current_link + "/remove"} className="basic_button2 hover:text-red-500">
+            <Trash2 />
           </Link>
         </div>
       </div>

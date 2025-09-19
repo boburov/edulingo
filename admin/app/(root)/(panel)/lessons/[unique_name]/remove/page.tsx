@@ -89,7 +89,7 @@ export default function PlaylistRemovePage() {
           </label>
           <button
             type="submit"
-            className={`basic_button ${doesMatch ? "" : "opacity-50"}`}
+            className={`basic_button3 ${doesMatch ? "" : "opacity-50"}`}
             disabled={!doesMatch}
           >
             {loading ? "O'chirilmoqda..." : "O'chirish"}
