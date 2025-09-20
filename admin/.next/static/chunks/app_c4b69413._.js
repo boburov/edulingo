@@ -215,7 +215,8 @@ const apiEndpoints = {
     deleteLesson: (unique_name, id)=>`/playlists/${unique_name}/lessons/${id}`,
     // vocs
     createVocs: (lesson_id)=>`/playlists/lessons/${lesson_id}/vocs`,
-    getVocs: (lesson_id)=>`/playlists/lessons/${lesson_id}/vocs`
+    getVocs: (lesson_id)=>`/playlists/lessons/${lesson_id}/vocs`,
+    deleteVoc: (lesson_id, id)=>`/playlists/lessons/${lesson_id}/vocs/${id}`
 };
 const __TURBOPACK__default__export__ = apiEndpoints;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

@@ -18,6 +18,14 @@ const vocsService = {
       throw error;
     }
   },
+
+  delete: async (lesson_id: string, id: string) => {
+    try {
+      return await api.delete(apiEndpoints.deleteVoc(lesson_id, id));
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default vocsService;

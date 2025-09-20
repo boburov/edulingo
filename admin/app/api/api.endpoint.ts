@@ -20,6 +20,8 @@ const apiEndpoints = {
   // vocs
   createVocs: (lesson_id: string) => `/playlists/lessons/${lesson_id}/vocs`,
   getVocs: (lesson_id: string) => `/playlists/lessons/${lesson_id}/vocs`,
+  deleteVoc: (lesson_id: string, id: string) =>
+    `/playlists/lessons/${lesson_id}/vocs/${id}`,
 };
 
 export default apiEndpoints;
