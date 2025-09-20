@@ -71,7 +71,7 @@ model lessons {
 model vocabulary {
   id          String   @id @default(uuid())
   word        String
-  org_version String
+  translation String
   lessons     lessons? @relation(fields: [lessonsId], references: [id])
   lessonsId   String?
 }
