@@ -24,22 +24,21 @@ export class VocsController {
   }
 
   @Get()
-  findAll() {
-    return this.vocsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vocsService.findOne(+id);
+  findAll(@Param('lesson_id') lesson_id: string) {
+    return this.vocsService.findAll(lesson_id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVocDto: UpdateVocDto) {
-    return this.vocsService.update(+id, updateVocDto);
+  update(
+    @Param('lesson_id') lesson_id: string,
+    @Param('id') id: string,
+    @Body() data: UpdateVocDto,
+  ) {
+    return this.vocsService.update(lesson_id, id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vocsService.remove(+id);
+  remove(@Param('lesson_id') lesson_id: string, @Param('id') id: string) {
+    return this.vocsService.remove(lesson_id, id);
   }
 }

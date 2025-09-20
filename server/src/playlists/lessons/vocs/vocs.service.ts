@@ -29,19 +29,35 @@ export class VocsService {
     return new_lesson;
   }
 
-  findAll() {
-    return `This action returns all vocs`;
+  async findAll(lesson_id: string) {
+    const vocs = await this.prisma.vocabulary.findMany({
+      where: { lessonsId: lesson_id },
+    });
+    return vocs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} voc`;
+  async update(lesson_id: string, id: string, data: UpdateVocDto) {
+    const updating = await this.prisma.vocabulary.update({
+      where: { id: id, lessonsId: lesson_id },
+      data,
+    });
+
+    if (!updating) {
+      throw new HttpException(
+        'something went wrong, please try again later',
+        404,
+      );
+    }
+
+    return updating;
   }
 
-  update(id: number, updateVocDto: UpdateVocDto) {
-    return `This action updates a #${id} voc`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} voc`;
+  async remove(lesson_id: string, id: string) {
+    await this.prisma.vocabulary.delete({
+      where: { id: id, lessonsId: lesson_id },
+    });
+    return {
+      deleted: true,
+    };
   }
 }
