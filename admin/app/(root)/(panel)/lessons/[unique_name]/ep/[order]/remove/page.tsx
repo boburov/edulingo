@@ -5,7 +5,6 @@ import { LessonContext } from "../layout";
 import Heading from "@/app/(global_components)/Heading";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import lessonService from "@/app/api/services/lessonService";
 import { Playlist } from "@/app/types/User";
 
