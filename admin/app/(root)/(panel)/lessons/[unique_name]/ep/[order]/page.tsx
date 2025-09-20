@@ -36,7 +36,7 @@ export default function LessonDetails() {
             })}
           </span>
         </div>
-        <VocManager lesson={lesson} />
+        <VocManager />
       </div>
     </div>
   );

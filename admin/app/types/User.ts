@@ -25,5 +25,13 @@ export interface Lesson {
   description: string;
   order: number;
   playlistId: string;
+  vocabulary: Voc[];
   created_at: Date;
+}
+
+export interface Voc {
+  id: string;
+  word: string;
+  translation: string;
+  lessonId: string;
 }

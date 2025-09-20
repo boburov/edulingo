@@ -10,6 +10,14 @@ const vocsService = {
       throw error;
     }
   },
+
+  get: async (lesson_id: string) => {
+    try {
+      return await api.get(apiEndpoints.getVocs(lesson_id));
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default vocsService;
