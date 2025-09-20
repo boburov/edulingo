@@ -27,7 +27,7 @@ export default function RootLayout({
         <div className={`${roboto.className} antialiased min-h-screen flex flex-col`}>
           <Header />
           <main className="main_body py-5 flex-1 flex flex-col">
-            <div className="flex-1">{children}</div> <Footer />
+            <div className="flex-1 pb-10">{children}</div> <Footer />
           </main>
         </div>
       )}

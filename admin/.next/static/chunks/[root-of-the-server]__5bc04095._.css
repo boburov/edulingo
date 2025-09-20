@@ -1093,6 +1093,10 @@
     padding-top: calc(var(--spacing) * 2);
   }
 
+  .pb-10 {
+    padding-bottom: calc(var(--spacing) * 10);
+  }
+
   .text-center {
     text-align: center;
   }

@@ -28,6 +28,7 @@ export class VocsController {
     return this.vocsService.findAll(lesson_id);
   }
 
+  @UseGuards(AdminAccessGuard)
   @Patch(':id')
   update(
     @Param('lesson_id') lesson_id: string,
@@ -37,6 +38,7 @@ export class VocsController {
     return this.vocsService.update(lesson_id, id, data);
   }
 
+  @UseGuards(AdminAccessGuard)
   @Delete(':id')
   remove(@Param('lesson_id') lesson_id: string, @Param('id') id: string) {
     return this.vocsService.remove(lesson_id, id);
