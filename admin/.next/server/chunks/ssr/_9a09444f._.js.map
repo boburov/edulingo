@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 30, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28global_components%29/Heading.tsx"],"sourcesContent":["import React from \"react\";\n\nexport default function Heading({ children }: { children: React.ReactNode }) {\n  return <h1 className=\"text-2xl font-semibold text_color\">{children}</h1>;\n}\n"],"names":[],"mappings":";;;;;AAEe,SAAS,QAAQ,EAAE,QAAQ,EAAiC;IACzE,qBAAO,8OAAC;QAAG,WAAU;kBAAqC;;;;;;AAC5D","debugId":null}},
-    {"offset": {"line": 51, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/%5Bunique_name%5D/ep/%5Border%5D/page.tsx"],"sourcesContent":["import Heading from \"@/app/(global_components)/Heading\";\nimport { useParams } from \"next/navigation\";\n\nexport default function LessonDetails() {\n  const { order } = useParams();\n  return (\n    <div>\n      <Heading>Seriya #{order}</Heading>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAAA;AACA;AAAA;;;;AAEe,SAAS;IACtB,MAAM,EAAE,KAAK,EAAE,GAAG,CAAA,GAAA,qLAAA,CAAA,YAAS,AAAD;IAC1B,qBACE,8OAAC;kBACC,cAAA,8OAAC,wIAAA,CAAA,UAAO;;gBAAC;gBAAS;;;;;;;;;;;;AAGxB","debugId":null}}]
-}

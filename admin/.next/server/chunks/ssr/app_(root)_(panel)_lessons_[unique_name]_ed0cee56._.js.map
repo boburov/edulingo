@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/xamidov/devs/edulingo/admin/app/%28root%29/%28panel%29/lessons/%5Bunique_name%5D/LessonList.tsx"],"sourcesContent":["export default function LessonsList() {\n  return (\n    <div>\n      <p>List of lessons</p>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;kBACC,cAAA,8OAAC;sBAAE;;;;;;;;;;;AAGT","debugId":null}}]
-}
