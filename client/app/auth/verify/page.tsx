@@ -15,25 +15,19 @@ const Page = () => {
   const token = useSearchParams().get("token");
 
   useEffect(() => {
-    const verifyUser = async () => {
-      if (!token) return;
-
-      try {
-        const user: User = await auth_service.profile(token);
-
-        // avval storagega yozamiz
-        localStorage.setItem("token", token);
-        localStorage.setItem("userId", user.id);
-
-        window.location.href = `/dashboard/${user.id}`;
-      } catch (error) {
-        console.error("Token verification failed:", error);
-        window.location.href = "/login";
+    const res = auth_service.verify(String(token)).then((res) => {
+      alert("Email tasdiqlandi");
+      localStorage.setItem("user", JSON.stringify(res.user as User));
+      localStorage.setItem("token", res.access);
+      localStorage.setItem("userId", res.user.id);
+      const userId = localStorage.getItem("userId");
+      if (!userId || userId === undefined) {
+        return (window.location.href = "/auth/signup");
+      }else{
+        window.location.href = "/dashboard/" + userId;
       }
-    };
-
-    verifyUser();
-  }, [token]);
+    });
+  }, []);
 
   return <div>Verifying...</div>;
 };
