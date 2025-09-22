@@ -63,4 +63,13 @@ export class PlaylistsController {
   remove(@Param('unique_name') unique_name: string) {
     return this.playlistsService.remove(unique_name);
   }
+
+  @UseGuards(AdminAccessGuard)
+  @Post(':unique_name/add_new_user/:user_id')
+  addNewUser(
+    @Param('unique_name') unique_name: string,
+    @Param('user_id') user_id: string,
+  ) {
+    return this.playlistsService.addNewUser(unique_name, user_id);
+  }
 }

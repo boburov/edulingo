@@ -81,4 +81,8 @@ export class PlaylistsService {
     await this.prisma.playlist.delete({ where: { unique_name: unique_name } });
     return { deleted: true };
   }
+
+  async addNewUser(unique_name: string, user_id: string) {
+    return;
+  }
 }

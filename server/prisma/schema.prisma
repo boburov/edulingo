@@ -29,12 +29,11 @@ model User {
 }
 
 model Courses {
-  id        String @id @default(uuid())
-  title     String @unique
-  course_id String @unique
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  id         String   @id @default(uuid())
+  playlist   playlist @relation(fields: [playlistId], references: [id])
+  playlistId String
+  User       User     @relation(fields: [userId], references: [id])
+  userId     String
 }
 
 model show_history {
@@ -54,6 +53,7 @@ model playlist {
   thumbnail   String
   lessons     lessons[]
   created_at  DateTime  @default(now())
+  users       Courses[]
 }
 
 model lessons {
