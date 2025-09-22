@@ -83,6 +83,29 @@ export class PlaylistsService {
   }
 
   async addNewUser(unique_name: string, user_id: string) {
-    return;
+    const existing = await this.prisma.courses.findFirst({
+      where: { playlist: { unique_name: unique_name }, userId: user_id },
+    });
+    if (existing)
+      throw new HttpException(
+        'Ushbu foidalanuvchi, bu darslarda allaqachon bor',
+        404,
+      );
+    const newCourse = await this.prisma.courses.create({
+      data: {
+        playlist: {
+          connect: {
+            unique_name: unique_name,
+          },
+        },
+        User: {
+          connect: {
+            id: user_id,
+          },
+        },
+      },
+    });
+
+    return newCourse;
   }
 }

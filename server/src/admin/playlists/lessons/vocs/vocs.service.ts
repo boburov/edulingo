@@ -10,7 +10,7 @@ export class VocsService {
     const new_voc = await this.prisma.vocabulary.create({
       data: {
         ...data,
-        lessons: {
+        lesson: {
           connect: {
             id: lesson_id,
           },
