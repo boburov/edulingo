@@ -20,7 +20,6 @@
 @layer theme {
   :root, :host {
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --color-red-400: #ff6568;
     --color-green-50: #f0fdf4;
@@ -795,10 +794,6 @@
 
   .font-sans {
     font-family: var(--font-sans);
-  }
-
-  .font-serif {
-    font-family: var(--font-serif);
   }
 
   .text-2xl {
