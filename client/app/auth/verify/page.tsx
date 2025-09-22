@@ -29,7 +29,11 @@ const Page = () => {
     });
   }, []);
 
+<<<<<<< HEAD
   return <div className="min-h-screen flex items-center justify-center">Verifying...</div>;
+=======
+  return <div>Verifying...</div>;
+>>>>>>> 54e9012c1ffb5f21f63f02f4572604092863ea20
 };
 
 export default Page;
