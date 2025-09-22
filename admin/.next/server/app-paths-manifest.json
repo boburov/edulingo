@@ -1,6 +1,5 @@
 {
   "/(root)/(panel)/lessons/page": "app/(root)/(panel)/lessons/page.js",
   "/(root)/(panel)/page": "app/(root)/(panel)/page.js",
-  "/(root)/validation/page": "app/(root)/validation/page.js",
-  "/_not-found/page": "app/_not-found/page.js"
+  "/(root)/validation/page": "app/(root)/validation/page.js"
 }
