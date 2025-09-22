@@ -29,7 +29,7 @@ const Page = () => {
     });
   }, []);
 
-  return <div>Verifying...</div>;
+  return <div className="min-h-screen flex items-center justify-center">Verifying...</div>;
 };
 
 export default Page;
