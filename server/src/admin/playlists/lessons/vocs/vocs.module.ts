@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { LessonsService } from './lessons.service';
-import { LessonsController } from './lessons.controller';
+import { VocsService } from './vocs.service';
+import { VocsController } from './vocs.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -12,7 +12,7 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '7d' },
     }),
   ],
-  controllers: [LessonsController],
-  providers: [LessonsService],
+  controllers: [VocsController],
+  providers: [VocsService],
 })
-export class LessonsModule {}
+export class VocsModule {}

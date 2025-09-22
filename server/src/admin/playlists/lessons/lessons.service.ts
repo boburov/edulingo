@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -50,11 +50,34 @@ export class LessonsService {
   }
 
   async remove(unique_name: string, id: string) {
-    await this.prisma.lessons.delete({
-      where: { id: id, playlist: { unique_name: unique_name } },
+    const lesson = await this.prisma.lessons.findUnique({
+      where: { id, playlist: { unique_name: unique_name } },
+      include: {
+        playlist: {
+          include: {
+            lessons: true,
+          },
+        },
+      },
     });
-    return {
-      deleted: true,
-    };
+    if (!lesson) throw new NotFoundException('Lesson not found');
+    if (!lesson.playlist) throw new NotFoundException('Playlist not found');
+
+    await this.prisma.lessons.delete({ where: { id: lesson.id } });
+
+    // Shift orders
+    const lessons = await lesson.playlist.lessons.filter(
+      (l) => l.id !== lesson.id,
+    );
+
+    const updates = lessons.map((l, i) =>
+      this.prisma.lessons.update({
+        where: { id: l.id },
+        data: { order: i + 1 },
+      }),
+    );
+    await this.prisma.$transaction(updates);
+
+    return { deleted: true };
   }
 }

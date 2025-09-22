@@ -69,11 +69,11 @@ model lessons {
 }
 
 model vocabulary {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   word        String
-  org_version String
-  lessons     lessons? @relation(fields: [lessonsId], references: [id])
-  lessonsId   String?
+  translation String
+  lesson      lessons @relation(fields: [lessonsId], references: [id])
+  lessonsId   String
 }
 
 model Admin {
