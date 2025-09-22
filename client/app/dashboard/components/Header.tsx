@@ -1,5 +1,6 @@
 "use client";
 
+import { RootState } from "@/app/store/store";
 import {
   Bell,
   BookMarked,
@@ -11,13 +12,16 @@ import {
   Settings,
   UserCircle,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userId } = useParams();
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <header className="border-b border-gray-200 text-gray-800">
@@ -52,9 +56,11 @@ const Header = () => {
             className="border border-gray-300 px-3 py-1.5 rounded-full flex items-center gap-2 hover:bg-gray-100 transition"
           >
             <Menu size={22} />
-            <span className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold">
-              A
-            </span>
+            <img
+              className="w-6 h-6 rounded-full"
+              src={user.profile_pic}
+              alt={user.name}
+            />
           </button>
         </div>
 

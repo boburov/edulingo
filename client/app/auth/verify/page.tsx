@@ -1,39 +1,36 @@
 "use client";
 
 import { auth_service } from "@/app/api/service/auth.service";
+import { setUser } from "@/app/features/userSlice";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-
-interface User {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-}
+import { useDispatch } from "react-redux";
 
 const Page = () => {
   const token = useSearchParams().get("token");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const res = auth_service.verify(String(token)).then((res) => {
-      alert("Email tasdiqlandi");
-      localStorage.setItem("user", JSON.stringify(res.user as User));
-      localStorage.setItem("token", res.access);
-      localStorage.setItem("userId", res.user.id);
-      const userId = localStorage.getItem("userId");
-      if (!userId || userId === undefined) {
-        return (window.location.href = "/auth/signup");
-      }else{
-        window.location.href = "/dashboard/" + userId;
-      }
-    });
-  }, []);
+    if (!token) return;
 
-<<<<<<< HEAD
-  return <div className="min-h-screen flex items-center justify-center">Verifying...</div>;
-=======
-  return <div>Verifying...</div>;
->>>>>>> 54e9012c1ffb5f21f63f02f4572604092863ea20
+    auth_service.verify(token).then((res) => {
+      alert("Email tasdiqlandi ✅");
+
+      dispatch(setUser(res.user));
+      console.log(res.user);
+      localStorage.setItem("token", res.access);
+      console.log("User:", res.user);
+      console.log("Token:", res.access);
+
+      window.location.href = "/dashboard/" + res.user.id;
+    });
+  }, [token, dispatch]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Verifying...
+    </div>
+  );
 };
 
 export default Page;
