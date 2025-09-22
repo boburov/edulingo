@@ -4,10 +4,12 @@ import { api_endpoint } from "../api.endpoint";
 export const auth_service = {
   register: async (data: { email: string; name: string; surname: string }) => {
     const res = await api.post(api_endpoint.register, data);
+    localStorage.setItem("token", res.data.token);
     return res.data;
   },
   login: async (email: any) => {
     const res = await api.post(api_endpoint.login, email);
+    localStorage.setItem("token", res.data.token);
     return res.data;
   },
 

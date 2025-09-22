@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="pt-32 flex flex-col items-center gap-y-4">
-      <h1 className="text-6xl font-bold text-gray-800 tracking-wide mb-2 text-center">
+    <div className="pt-32 flex flex-col items-center gap-y-4 ">
+      <h1 className="text-6xl font-bold text-gray-800 uppercase tracking-wider mb-2 text-center">
         edulingo - platforma
         <br /> ta'lim bizdan boshlanadi
       </h1>

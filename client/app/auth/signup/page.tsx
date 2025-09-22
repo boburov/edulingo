@@ -1,8 +1,75 @@
+"use client";
+
+import { auth_service } from "@/app/api/service/auth.service";
 import Google from "@/app/components/Google";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
+  const router = useRouter();
+  const [userDate, setUserDate] = useState({
+    name: "",
+    surname: "",
+    email: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !userDate.name.trim() ||
+      !userDate.surname.trim() ||
+      !userDate.email.trim() ||
+      !userDate.email.includes("@gmail.com")
+    )
+      return toast.error("malumotlarni to'ldring", {
+        position: "top-center",
+        autoClose: 700,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    router.push("/auth/onboard");
+
+    auth_service
+      .register(userDate)
+      .then((res) => {
+        alert("ro'yxatdan o'tdingiz");
+        setUserDate({
+          name: "",
+          surname: "",
+          email: "",
+        });
+        toast.success("Ro'yxatdan o'tildi", {
+          position: "top-center",
+          autoClose: 700,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((err) => {
+        toast.error("Email band", {
+          position: "top-center",
+          autoClose: 700,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        router.push("/auth/signin");
+      });
+  };
+
   return (
     <div className="container min-h-screen flex items-center justify-center">
       <form
@@ -13,22 +80,30 @@ const page = () => {
           Ro'yxatdan o'tish
         </h1>
         <div className="flex flex-col items-start w-full">
-          <label htmlFor="ism">ism</label>
+          <label htmlFor="name">name</label>
           <input
             type="text"
             className="border border-gray-300 px-3 py-2 rounded-xl w-full"
-            placeholder="ism"
-            id="ism"
+            placeholder="name"
+            id="name"
+            value={userDate.name}
+            onChange={(e) => setUserDate({ ...userDate, name: e.target.value })}
           />
         </div>
 
         <div className="flex flex-col items-start w-full">
-          <label htmlFor="familya">familya</label>
+          <label htmlFor="surname" className="font-sans">
+            surname
+          </label>
           <input
             type="text"
             className="border border-gray-300 px-3 py-2 rounded-xl w-full"
-            placeholder="familya"
-            id="familya"
+            placeholder="surname"
+            id="surname"
+            value={userDate.surname}
+            onChange={(e) =>
+              setUserDate({ ...userDate, surname: e.target.value })
+            }
           />
         </div>
 
@@ -39,9 +114,16 @@ const page = () => {
             className="border border-gray-300 px-3 py-2 rounded-xl w-full"
             placeholder="email"
             id="email"
+            value={userDate.email}
+            onChange={(e) =>
+              setUserDate({ ...userDate, email: e.target.value })
+            }
           />
         </div>
-        <button className="col-start-1 col-end-3 bg-green-300 text-green-900 py-2.5 mt-3 rounded-xl">
+        <button
+          onClick={handleSubmit}
+          className="col-start-1 col-end-3 bg-green-300 text-green-900 py-2.5 mt-3 rounded-xl"
+        >
           yuborish
         </button>
         <div className="col-start-1 col-end-3 flex items-center gap-3">

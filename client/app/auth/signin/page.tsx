@@ -3,22 +3,51 @@ import { auth_service } from "@/app/api/service/auth.service";
 import Google from "@/app/components/Google";
 import Link from "next/link";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const loading = useState(false);
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   const login = async (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
+      if (email.trim() === "" || !email.includes("@gmail.com")) {
+        return toast.error("malumotlarni to'ldring", {
+          position: "top-center",
+          autoClose: 700,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
       const res = await auth_service.login({ email });
-      console.log("Login response:", res);
-
       localStorage.setItem("access_token", res.access_token);
-
+      toast.success("Login qilindi", {
+        position: "top-center",
+        autoClose: 700,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       window.location.href = "/auth/onboard";
     } catch (err) {
-      console.error("Login error:", err);
+      toast.error("Email Mavjud emas", {
+        position: "top-center",
+        autoClose: 700,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
