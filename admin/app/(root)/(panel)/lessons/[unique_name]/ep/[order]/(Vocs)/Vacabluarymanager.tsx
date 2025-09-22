@@ -54,18 +54,18 @@ export default function VocManager() {
   }
   return (
     <>
-      <div className="border-y border-gray-300 py-5">
+      <div className="border-y border-gray-300 py-5 space-y-5">
         <p className="text-xl text-gray-800 font-semibold">Lugat</p>
         <NewVocForm />
       </div>
       {lesson.vocabulary && lesson.vocabulary.length > 0 ? (
-        <div>
+        <div className="w-full pb-10">
           {lesson.vocabulary.map((vc: Vocs, i: number) => (
-            <VocCard voc={vc} i={i} />
+            <VocCard voc={vc} i={i + 1} key={vc.id} />
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center pb-10">
+        <div className="flex items-center justify-center pb-20">
           <PageMessage
             title="Lugatda so'zlar yo'q"
             message="Hoziroq so'z yaratishingiz mumkin"
