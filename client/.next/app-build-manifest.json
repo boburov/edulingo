@@ -67,8 +67,6 @@
       "static/chunks/_a0ff3932._.js",
       "static/chunks/turbopack-_cdba956c._.js"
     ],
-<<<<<<< HEAD
-=======
     "/auth/verify/page": [
       "static/chunks/[root-of-the-server]__28bc9c2a._.css",
       "static/chunks/node_modules_8710347e._.js",
@@ -104,7 +102,6 @@
       "static/chunks/_a0ff3932._.js",
       "static/chunks/turbopack-_cdba956c._.js"
     ],
->>>>>>> 42c391e (fixed)
     "/page": [
       "static/chunks/[root-of-the-server]__28bc9c2a._.css",
       "static/chunks/node_modules_8710347e._.js",
