@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,10 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  handleCron() {
+    this.prisma.user.deleteMany({ where: { is_verified: false } });
+  }
   async generateTokens(user: any) {
     const payload = {
       userId: user.id,
@@ -48,12 +53,12 @@ export class AuthService {
     picture: string;
   }) {
     let user = await this.prisma.user.findUnique({
-      where: { google_id: userData.google_id },
+      where: { email: userData.email },
     });
 
     if (user) {
       user = await this.prisma.user.update({
-        where: { google_id: userData.google_id },
+        where: { email: userData.email },
         data: {
           email: userData.email,
           name: userData.name,
@@ -132,12 +137,20 @@ export class AuthService {
     const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${verifyToken}`;
     await this.mailService.sendVerificationLink(email, magicLink);
 
-    const tokens = await this.generateTokens(user);
-
+    const token = this.jwt.sign(
+      {
+        userId: user.id,
+        email: user.email,
+        name: user.name,
+        surname: user.surname,
+        profile_pic: user.profile_pic,
+      },
+      { expiresIn: '15m' },
+    );
     return {
       message: 'Emailingizga tasdiqlash linki yuborildi',
       user,
-      ...tokens,
+      token,
     };
   }
 
@@ -147,8 +160,6 @@ export class AuthService {
     if (!user) {
       throw new HttpException('Bunday user mavjud emas', 404);
     }
-
-    const payload = { email };
 
     const token = this.jwt.sign(
       {
@@ -170,38 +181,38 @@ export class AuthService {
   }
 
   async verify(token: string) {
-  try {
-    const decoded: any = this.jwt.verify(token, {
-      secret: this.config.getOrThrow('JWT_SECRET'),
-    });
-
-    let user: User | null = null; 
-
-    if (decoded.email) {
-      user = await this.prisma.user.update({
-        where: { email: decoded.email },
-        data: { is_verified: true },
+    try {
+      const decoded: any = this.jwt.verify(token, {
+        secret: this.config.getOrThrow('JWT_SECRET'),
       });
-    } else if (decoded.userId) {
-      user = await this.prisma.user.update({
-        where: { id: decoded.userId },
-        data: { is_verified: true },
-      });
+
+      let user: User | null = null;
+
+      if (decoded.email) {
+        user = await this.prisma.user.update({
+          where: { email: decoded.email },
+          data: { is_verified: true },
+        });
+      } else if (decoded.userId) {
+        user = await this.prisma.user.update({
+          where: { id: decoded.userId },
+          data: { is_verified: true },
+        });
+      }
+
+      if (!user) {
+        throw new HttpException('User topilmadi', 404);
+      }
+
+      const tokens = await this.generateTokens(user);
+
+      return {
+        message: 'User tasdiqlandi ✅',
+        user,
+        ...tokens,
+      };
+    } catch (err) {
+      throw new HttpException('Invalid or expired token', 400);
     }
-
-    if (!user) {
-      throw new HttpException('User topilmadi', 404);
-    }
-
-    const tokens = await this.generateTokens(user);
-
-    return {
-      message: 'User tasdiqlandi ✅',
-      user,
-      ...tokens,
-    };
-  } catch (err) {
-    throw new HttpException('Invalid or expired token', 400);
   }
-}
 }

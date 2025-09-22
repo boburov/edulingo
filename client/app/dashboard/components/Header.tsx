@@ -1,48 +1,135 @@
-import { CrossIcon, Menu, Plus, User, User2, UserCircle } from "lucide-react";
+"use client";
+
+import {
+  Bell,
+  BookMarked,
+  BookOpen,
+  ClipboardList,
+  LayoutDashboard,
+  Menu,
+  Plus,
+  Settings,
+  UserCircle,
+} from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { userId } = useParams();
+
   return (
-    <header className="border-b border-gray-300 text-gray-800">
-      <div className="container py-3 flex items-center justify-between ">
-        <Link href="/" className="text-3xl font-extrabold font-mono">
+    <header className="border-b border-gray-200 text-gray-800">
+      <div className="container py-3 flex items-center justify-between">
+        <Link href="/" className="text-3xl font-extrabold font-mono text-black">
           edulingo
         </Link>
 
         <div className="flex items-center gap-10">
-          <nav>
-            <ul className="flex items-center gap-5">
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-6 text-gray-600 font-medium">
               <li>
-                <Link href="/courses">kurslar</Link>
+                <Link href="/courses" className="hover:text-black transition">
+                  Kurslar
+                </Link>
               </li>
               <li>
-                <Link href="/courses">o'qtuvchilar</Link>
+                <Link href="/teachers" className="hover:text-black transition">
+                  O‘qituvchilar
+                </Link>
               </li>
               <li>
-                <Link href="/courses">bog'lanish</Link>
+                <Link href="/contact" className="hover:text-black transition">
+                  Bog‘lanish
+                </Link>
               </li>
             </ul>
           </nav>
-          <button className="border border-gray-300 px-2 py-1 rounded-full flex items-center gap-2 cursor-pointer">
-            <Menu size={25} />
-            <span className="w-7 h-7 bg-black rounded-full flex items-center justify-center text-white font-bold">
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="border border-gray-300 px-3 py-1.5 rounded-full flex items-center gap-2 hover:bg-gray-100 transition"
+          >
+            <Menu size={22} />
+            <span className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold">
               A
             </span>
-          </button> 
+          </button>
         </div>
-        <div className="fixed w-1/6 min-h-screen border border-gray-300 top-0 right-0 bg-white py-5 pr-1 pl-5">
-          <span className="w-full h-5 flex items-center justify-end">
-            <Plus className="rotate-45" size={30} />
-          </span>
 
-          <nav className="pt-10">
-            <ul>
-              <li className="flex items-center h-7  gap-2 text-xl">
-                <UserCircle size={25} />
-                <p className="h-7 pt-0.5">Profile</p>
+        <div
+          className={`fixed top-0 right-0 h-screen bg-white shadow-2xl transition-all ease-in-out duration-300 ${
+            isOpen ? "w-96" : "w-0"
+          } overflow-hidden flex flex-col`}
+        >
+          <div className="flex justify-end p-5">
+            <button onClick={() => setIsOpen(false)}>
+              <Plus
+                className="rotate-45 text-gray-500 hover:text-red-500 transition"
+                size={28}
+              />
+            </button>
+          </div>
+
+          <nav className="flex-1 px-6">
+            <ul className="space-y-6">
+              <li>
+                <Link
+                  href={`${userId}/profile"`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <UserCircle size={22} /> Profile
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`"/dashboard/${userId}`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <LayoutDashboard size={22} /> Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${userId}/courses"`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <BookOpen size={22} /> Kurslar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${userId}/quizzes"`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <ClipboardList size={22} /> Savvolar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${userId}/sozlar"`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <BookMarked size={22} /> Sozlar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={`${userId}/settings"`}
+                  className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
+                >
+                  <Settings size={22} /> Sozlamalar
+                </Link>
               </li>
             </ul>
           </nav>
+
+          <div className="p-6">
+            <button className="w-full bg-red-500 text-white font-semibold rounded-xl py-2.5 hover:bg-red-600 transition">
+              Chiqish
+            </button>
+          </div>
         </div>
       </div>
     </header>

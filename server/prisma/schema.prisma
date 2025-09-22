@@ -20,7 +20,7 @@ model User {
   surname      String?
   email        String         @unique
   profile_pic  String?        @default("")
-  google_id    String?        @unique @default("")
+  google_id    String?        @default("")
   role         Role           @default(USER)
   is_verified  Boolean        @default(false)
   show_history show_history[]

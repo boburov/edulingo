@@ -38,21 +38,10 @@ const page = () => {
     auth_service
       .register(userDate)
       .then((res) => {
-        alert("ro'yxatdan o'tdingiz");
         setUserDate({
           name: "",
           surname: "",
           email: "",
-        });
-        toast.success("Ro'yxatdan o'tildi", {
-          position: "top-center",
-          autoClose: 700,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
         });
       })
       .catch((err) => {
@@ -66,7 +55,6 @@ const page = () => {
           progress: undefined,
           theme: "light",
         });
-        router.push("/auth/signin");
       });
   };
 
