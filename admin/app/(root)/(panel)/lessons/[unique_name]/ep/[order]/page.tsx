@@ -1,7 +1,7 @@
 "use client";
 import { useContext } from "react";
 import PageMessage from "@/app/(global_components)/PageMessage";
-import VocManager from "./Vacabluarymanager";
+import VocManager from "./(Vocs)/Vacabluarymanager";
 import { LessonContext } from "./layout";
 
 export default function LessonDetails() {
@@ -34,7 +34,7 @@ export default function LessonDetails() {
               })}
             </span>
           </div>
-          <VocManager lesson={lesson} />
+          <VocManager />
         </div>
       ) : (
         <div className="py-10">
