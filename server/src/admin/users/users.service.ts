@@ -1,26 +1,59 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { SearchUserParamsDto } from './dto/search-user.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
-  findAll() {
-    return `This action returns all users`;
-  }
+  async search(query: SearchUserParamsDto) {
+    const skip = (query.page - 1) * query.limit;
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+    const [data, total] = await Promise.all([
+      this.prisma.user.findMany({
+        where: {
+          name: {
+            contains: query.name,
+            mode: 'insensitive',
+          },
+          surname: {
+            contains: query.surname,
+            mode: 'insensitive',
+          },
+          email: {
+            contains: query.email,
+            mode: 'insensitive',
+          },
+        },
+        skip,
+        take: query.limit,
+        orderBy: { created_at: 'desc' },
+      }),
+      this.prisma.user.count({
+        where: {
+          name: {
+            contains: query.name,
+            mode: 'insensitive',
+          },
+          surname: {
+            contains: query.surname,
+            mode: 'insensitive',
+          },
+          email: {
+            contains: query.email,
+            mode: 'insensitive',
+          },
+        },
+      }),
+    ]);
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    return {
+      data,
+      meta: {
+        total: total,
+        page: query.page,
+        last_page: Math.ceil(total / query.limit),
+      },
+    };
   }
 }

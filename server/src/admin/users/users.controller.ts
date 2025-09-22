@@ -1,6 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AdminAccessGuard } from 'src/guards/admin-access/admin-access.guard';
+import { SearchUserParamsDto } from './dto/search-user.dto';
 
 @Controller('admin/users')
 export class UsersController {
@@ -8,7 +9,7 @@ export class UsersController {
 
   @UseGuards(AdminAccessGuard)
   @Get('search')
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() q: SearchUserParamsDto) {
+    return this.usersService.search(q);
   }
 }

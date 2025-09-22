@@ -1,9 +1,23 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class SearchUserParams {
+export class SearchUserParamsDto {
   @IsString()
-  title: string;
+  name: string = '';
 
   @IsString()
-  description: string;
+  surname: string = '';
+
+  @IsString()
+  email: string = '';
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  page: number = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  limit: number = 10;
 }
