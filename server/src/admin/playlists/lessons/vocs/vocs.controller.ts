@@ -26,7 +26,7 @@ export class VocsController {
     return this.vocsService.findAll(lesson_id);
   }
 
-  @Delete('remove/:id')
+  @Delete(':id/remove')
   remove(@Param('lesson_id') lesson_id: string, @Param('id') id: string) {
     return this.vocsService.remove(lesson_id, id);
   }
