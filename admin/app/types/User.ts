@@ -1,10 +1,12 @@
 export interface User {
   id: string;
   name: string;
-  username: string;
+  surname: string;
   email: string;
-  provider: string;
-  provider_id: string;
+  profile_pic: string;
+  google_id: string;
+  role: "USER" | "ADMIN"; // extendable if you add more roles
+  is_verified: boolean;
   created_at: Date;
 }
 

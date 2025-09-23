@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { HashLoader } from "react-spinners";
-import { ShieldAlert } from "lucide-react";
 import userService from "@/app/api/services/userService";
 import { User } from "@/app/types/User";
 import UserCard from "./UserCard";
 import PageMessage from "@/app/(global_components)/PageMessage";
+import Loader from "@/app/(global_components)/Loader";
+import Heading from "@/app/(global_components)/Heading";
 
 export default function UserSearchEngine() {
   const [error, setError] = useState("");
@@ -56,7 +56,10 @@ export default function UserSearchEngine() {
             {error}
           </p>
         )}
-        <form className="w-full grid grid-cols-2 gap-5 text_color" onSubmit={HandleSearch}>
+        <form
+          className="w-full grid grid-cols-2 gap-5 text_color"
+          onSubmit={HandleSearch}
+        >
           <div className="w-full flex flex-col space-y-1">
             <label htmlFor="name">ism</label>
             <input
@@ -83,7 +86,7 @@ export default function UserSearchEngine() {
           <div className="w-full flex flex-col space-y-1">
             <label htmlFor="email">email</label>
             <input
-              type="email"
+              type="text"
               name="email"
               id="email"
               value={email}
@@ -95,6 +98,7 @@ export default function UserSearchEngine() {
             <label>tasdiqlash</label>
             <button
               className="py-2 text-center rounded-lg base_bg text-white cursor-pointer"
+              disabled={isLoading}
               type="submit"
             >
               {isLoading ? "Qidirilmoqda..." : "Qidirish"}
@@ -102,14 +106,15 @@ export default function UserSearchEngine() {
           </div>
         </form>
       </div>
+      <Heading>Natijasi</Heading>
       {isLoading ? (
         <div className="flex justify-center items-center py-20">
-          <HashLoader color="#7c3aed" size={58} />
+          <Loader />
         </div>
       ) : (
         <div className="w-full">
           {users && users.length > 0 ? (
-            <div className="w-full space-y-5">
+            <div className="w-full gap-5 grid grid-cols-3">
               {users.map((user: User) => (
                 <UserCard key={user.id} user={user} />
               ))}
