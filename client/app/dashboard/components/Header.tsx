@@ -82,7 +82,7 @@ const Header = () => {
             <ul className="space-y-6">
               <li>
                 <Link
-                  href={`${userId}/profile"`}
+                  href={`/dashboard/${userId}`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <UserCircle size={22} /> Profile
@@ -90,7 +90,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href={`"/dashboard/${userId}`}
+                  href={`/dashboard/${userId}`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <LayoutDashboard size={22} /> Dashboard
@@ -98,7 +98,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href={`${userId}/courses"`}
+                  href={`${userId}/courses`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <BookOpen size={22} /> Kurslar
@@ -106,7 +106,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href={`${userId}/quizzes"`}
+                  href={`${userId}/quizzes`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <ClipboardList size={22} /> Savvolar
@@ -114,7 +114,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href={`${userId}/sozlar"`}
+                  href={`${userId}/sozlar`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <BookMarked size={22} /> Sozlar
@@ -122,7 +122,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href={`${userId}/settings"`}
+                  href={`${userId}/settings`}
                   className="flex items-center gap-3 text-lg text-gray-700 hover:bg-gray-100 p-2 rounded-xl transition"
                 >
                   <Settings size={22} /> Sozlamalar

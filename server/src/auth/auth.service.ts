@@ -116,6 +116,16 @@ export class AuthService {
     }
   }
 
+  async profile(userId: string) {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        courses: true,
+        show_history: true,
+      },
+    });
+  }
+
   async register(dto: CreateAuthDto) {
     const { name, email, surname } = dto;
 

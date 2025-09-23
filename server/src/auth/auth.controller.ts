@@ -46,8 +46,10 @@ export class AuthController {
   }
 
   @Get('profile')
+  @UseGuards(AuthGuard('jwt'))
   async getProfile(@Req() req) {
-    return req.user;
+    const userId = req.user.id;
+    return this.authService.profile(userId);
   }
 
   @Get('google')

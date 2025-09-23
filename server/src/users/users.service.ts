@@ -10,4 +10,13 @@ export class UsersService {
   getAll() {
     return this.prisma.user.findMany();
   }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
+    
+    return this.prisma.user.findUnique({ where: { id: user.id } });
+  }
 }

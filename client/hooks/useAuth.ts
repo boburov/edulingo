@@ -14,7 +14,7 @@ export const useAuth = () => {
 
     auth_service
       .profile(token) 
-      .then((res) => {
+      .then((res) => {        
         dispatch(setUser(res));
       })
       .catch(() => {

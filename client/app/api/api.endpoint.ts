@@ -3,6 +3,6 @@ export const api_endpoint = {
   login: "/auth/login",
   verify: "/auth/verify",
   profile: "/auth/profile",
-  google:"auth/google"
-  
+  google: "auth/google",
+  edit_profile: (user_id: string) => `/users/${user_id}`,
 };

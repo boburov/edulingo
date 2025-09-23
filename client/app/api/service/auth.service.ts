@@ -25,6 +25,16 @@ export const auth_service = {
     return res.data;
   },
 
+  edit_profile: async (
+    data: { name: string; surname: string; email: string },
+    user_id: string
+  ) => {
+    const res = await api.put(api_endpoint.edit_profile(user_id), data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    return res.data;
+  },
+
   google: async () => {
     const res = await api.get(api_endpoint.google);
     return res.data;
