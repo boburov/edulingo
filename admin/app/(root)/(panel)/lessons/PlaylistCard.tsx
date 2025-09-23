@@ -11,13 +11,15 @@ export default function PlaylistCard({ playlists }: Props) {
   return (
     <div className="space-y-4">
       {playlists.map((p) => (
-        <Link
-          href={`/lessons/${p.unique_name}`}
+        <div
           key={p.id}
           className="flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition border border-gray-300"
         >
           {/* Thumbnail */}
-          <div className="w-44 h-28 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+          <Link
+            href={`/lessons/${p.unique_name}`}
+            className="h-34 aspect-video flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+          >
             <img
               src={p.thumbnail}
               alt={p.title}
@@ -27,7 +29,7 @@ export default function PlaylistCard({ playlists }: Props) {
                   "/images/placeholder-16x9.png";
               }}
             />
-          </div>
+          </Link>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
@@ -40,10 +42,12 @@ export default function PlaylistCard({ playlists }: Props) {
                   @{p.unique_name}
                 </p>
               </div>
-
-              <button className="px-3 py-1.5 rounded-lg bg-[#26a269] text-white text-sm font-medium hover:bg-[#1f8a57] transition">
+              <Link
+                href={`/lessons/${p.unique_name}`}
+                className="px-3 py-1.5 rounded-lg bg-[#26a269] text-white text-sm font-medium hover:bg-[#1f8a57] transition"
+              >
                 Open
-              </button>
+              </Link>
             </div>
 
             {/* Description */}
@@ -62,16 +66,22 @@ export default function PlaylistCard({ playlists }: Props) {
               </span>
 
               <div className="flex gap-2">
-                <button className="px-2 py-1 rounded-md border border-gray-200 text-gray-700 text-xs hover:bg-gray-50 transition">
+                <Link
+                  href={`/lessons/${p.unique_name}/update`}
+                  className="px-2 py-1 rounded-md border border-gray-200 text-gray-700 text-xs hover:bg-gray-50 transition"
+                >
                   Edit
-                </button>
-                <button className="px-2 py-1 rounded-md border border-red-200 text-red-600 text-xs hover:bg-red-50 transition">
+                </Link>
+                <Link
+                  href={`/lessons/${p.unique_name}/delete`}
+                  className="px-2 py-1 rounded-md border border-red-200 text-red-600 text-xs hover:bg-red-50 transition"
+                >
                   Delete
-                </button>
+                </Link>
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
