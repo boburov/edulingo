@@ -4,5 +4,6 @@ export const api_endpoint = {
   verify: "/auth/verify",
   profile: "/auth/profile",
   google: "auth/google",
+  refresh:"auth/refresh",
   edit_profile: (user_id: string) => `/users/${user_id}`,
 };

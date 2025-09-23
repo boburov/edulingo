@@ -17,6 +17,6 @@ yarn-error.log*
 .vscode/
 coverage/
 .nyc_output
-
+.next/
 /generated/prisma
 client

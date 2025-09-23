@@ -147,20 +147,12 @@ export class AuthService {
     const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${verifyToken}`;
     await this.mailService.sendVerificationLink(email, magicLink);
 
-    const token = this.jwt.sign(
-      {
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        surname: user.surname,
-        profile_pic: user.profile_pic,
-      },
-      { expiresIn: '15m' },
-    );
+    const tokens = await this.generateTokens(user);
+
     return {
       message: 'Emailingizga tasdiqlash linki yuborildi',
       user,
-      token,
+      ...tokens,
     };
   }
 
@@ -171,21 +163,11 @@ export class AuthService {
       throw new HttpException('Bunday user mavjud emas', 404);
     }
 
-    const token = this.jwt.sign(
-      {
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        surname: user.surname,
-        profile_pic: user.profile_pic,
-      },
-      { expiresIn: '15m' },
-    );
-    const magic_link = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${token}`;
-    await this.mailService.sendVerificationLink(email, magic_link);
+    const tokens = await this.generateTokens(user);
 
     return {
-      access_token: token,
+      access_token: tokens.access,
+      refresh_token: tokens.refresh,
       user: user,
     };
   }

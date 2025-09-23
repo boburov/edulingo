@@ -13,13 +13,18 @@ export const useAuth = () => {
     if (!token) return;
 
     auth_service
-      .profile(token) 
-      .then((res) => {        
+      .profile(token)
+      .then((res) => {
         dispatch(setUser(res));
       })
       .catch(() => {
-        dispatch(logout());
-        localStorage.removeItem("token");
+        const refresh_token = localStorage.getItem("refresh_token");
+        if (!refresh_token) return dispatch(logout());
+        auth_service.refresh(refresh_token).catch(() => {
+          dispatch(logout());
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+        });
       });
   }, [dispatch]);
 };
