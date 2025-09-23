@@ -1,6 +1,7 @@
 import Heading from "@/app/(global_components)/Heading";
 import { Undo2 } from "lucide-react";
 import Link from "next/link";
+import UserSearchEngine from "./(components)/UserSearchEngine";
 
 export default function UsersPage() {
   return (
@@ -11,6 +12,7 @@ export default function UsersPage() {
           Orqaga <Undo2 />
         </Link>
       </div>
+      <UserSearchEngine />
     </div>
   );
 }

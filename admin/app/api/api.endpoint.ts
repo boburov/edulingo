@@ -24,8 +24,14 @@ const apiEndpoints = {
     `/playlists/lessons/${lesson_id}/vocs/${id}/remove`,
 
   // userss
-  searchUsers: (page: number, limit: number, name: string = "", surname: string = "", email: string = "") => `/organizations/${org_id}/clients/search/?page=${page}&limit=${limit}&name=${name}&surname=${surname}${born_in ? `&born_in=${born_in}` : ""}${type_id ? `&type_id=${type_id}` : ""}`,
-
+  searchUsers: (
+    page: number,
+    limit: number,
+    name: string = "",
+    surname: string = "",
+    email: string = ""
+  ) =>
+    `/admin/users/search/?page=${page}&limit=${limit}&name=${name}&surname=${surname}&email=${email}`,
 };
 
 export default apiEndpoints;

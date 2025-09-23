@@ -2,38 +2,29 @@
 import { useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 import { ShieldAlert } from "lucide-react";
+import userService from "@/app/api/services/userService";
+import { User } from "@/app/types/User";
+import UserCard from "./UserCard";
+import PageMessage from "@/app/(global_components)/PageMessage";
 
-export default function ClientSearchEngine({
-  organization,
-}: {
-  organization: Organization;
-}) {
+export default function UserSearchEngine() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [origin, setOrigin] = useState(organization.origin);
   const [page, setPage] = useState(1);
   const [meta, setMeta] = useState({ total: 0, page: 1, last_page: 1 });
-  const [clients, setClients] = useState([]);
+  const [users, setUsers] = useState([]);
 
   // form-data
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [email, setTypeId] = useState("");
+  const [email, setEmail] = useState("");
 
   async function GetClients() {
     setIsLoading(true);
     try {
-      const res: any = await .search(
-        organization.id,
-        page,
-        10,
-        name,
-        surname,
-        born_in_valid,
-        type_id_valid
-      );
+      const res: any = await userService.search(page, 10, name, surname, email);
       const { data, meta } = res;
-      setClients(data);
+      setUsers(data);
       setMeta(meta);
       setError("");
       setIsLoading(false);
@@ -61,35 +52,13 @@ export default function ClientSearchEngine({
     <div className="space-y-8">
       <div className="p-5 bg-white border border-gray-300 shadow-md rounded-2xl space-y-5">
         {error !== "" && (
-          <Alert variant="destructive">
-            <ShieldAlert />
-            <AlertTitle>Warning</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
+          <p className="text-red-600 bg-red-50 rounded-xl px-4 py-2 text-center">
+            {error}
+          </p>
         )}
-        <form className="w-full grid grid-cols-2 gap-5" onSubmit={HandleSearch}>
-          <div className="w-full flex flex-col space-y-1 justify-between">
-            <label htmlFor="type_id">type</label>
-            <TypeInput
-              setTypeId={setTypeId}
-              organization={organization}
-              setError={setError}
-            />
-          </div>
+        <form className="w-full grid grid-cols-2 gap-5 text_color" onSubmit={HandleSearch}>
           <div className="w-full flex flex-col space-y-1">
-            <label htmlFor="born_in">birth year</label>
-            <input
-              type="number"
-              name="born_in"
-              id="born_in"
-              value={born_in}
-              onChange={(e) => setBornIn(e.target.value)}
-              className="global_input"
-              placeholder="Search by birth year..."
-            />
-          </div>
-          <div className="w-full flex flex-col space-y-1">
-            <label htmlFor="name">name</label>
+            <label htmlFor="name">ism</label>
             <input
               type="text"
               name="name"
@@ -98,11 +67,10 @@ export default function ClientSearchEngine({
               onChange={(e) => setName(e.target.value)}
               className="global_input"
               autoFocus
-              placeholder="Search by name..."
             />
           </div>
           <div className="w-full flex flex-col space-y-1">
-            <label htmlFor="surname">surname</label>
+            <label htmlFor="surname">familiya</label>
             <input
               type="text"
               name="surname"
@@ -110,15 +78,28 @@ export default function ClientSearchEngine({
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
               className="global_input"
-              placeholder="Search by surname..."
             />
           </div>
-          <button
-            className="py-2 text-center rounded-lg bg-violet-600 text-white cursor-pointer"
-            type="submit"
-          >
-            {isLoading ? "searching..." : "Search"}
-          </button>
+          <div className="w-full flex flex-col space-y-1">
+            <label htmlFor="email">email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="global_input"
+            />
+          </div>
+          <div className="w-full flex flex-col space-y-1">
+            <label>tasdiqlash</label>
+            <button
+              className="py-2 text-center rounded-lg base_bg text-white cursor-pointer"
+              type="submit"
+            >
+              {isLoading ? "Qidirilmoqda..." : "Qidirish"}
+            </button>
+          </div>
         </form>
       </div>
       {isLoading ? (
@@ -126,17 +107,17 @@ export default function ClientSearchEngine({
           <HashLoader color="#7c3aed" size={58} />
         </div>
       ) : (
-        <div className="w-full p-5 rounded-xl border border-gray-300">
-          {clients && clients.length > 0 ? (
+        <div className="w-full">
+          {users && users.length > 0 ? (
             <div className="w-full space-y-5">
-              {clients.map((client: Client) => (
-                <ClientCard key={client.id} client={client} />
+              {users.map((user: User) => (
+                <UserCard key={user.id} user={user} />
               ))}
             </div>
           ) : (
-            <ErrorMessage
-              text="There is no clients found!"
-              desc="try something else"
+            <PageMessage
+              title="Foidalanuvchilar topilmadi!"
+              message="Boshqa malumotni kiritib koring"
             />
           )}
         </div>
@@ -146,7 +127,7 @@ export default function ClientSearchEngine({
           <button
             className={`${
               page <= 1 && "opacity-50"
-            } border-gray-300 border text-gray-800 py-2 px-4 rounded-full cursor-pointer hover:text-white hover:bg-violet-600 hover:border-violet-600 transition-all`}
+            } border-gray-300 border text-gray-800 py-2 px-4 rounded-full cursor-pointer hover:text-white hover:bg-[#26a269] hover:border-[#26a269] transition-all`}
             disabled={page <= 1}
             onClick={() => setPage(page - 1)}
           >
@@ -158,7 +139,7 @@ export default function ClientSearchEngine({
           <button
             className={`${
               page >= meta.last_page && "opacity-50"
-            } border-gray-300 border text-gray-800 py-2 px-4 rounded-full cursor-pointer hover:text-white hover:bg-violet-600 hover:border-violet-600 transition-all`}
+            } border-gray-300 border text-gray-800 py-2 px-4 rounded-full cursor-pointer hover:text-white hover:bg-[#26a269] hover:border-[#26a269] transition-all`}
             disabled={page >= meta.last_page}
             onClick={() => setPage(page + 1)}
           >
