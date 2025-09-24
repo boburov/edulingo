@@ -72,4 +72,13 @@ export class PlaylistsController {
   ) {
     return this.playlistsService.addNewUser(unique_name, user_id);
   }
+
+  @UseGuards(AdminAccessGuard)
+  @Delete(':unique_name/remove_user/:user_id')
+  removeUser(
+    @Param('unique_name') unique_name: string,
+    @Param('user_id') user_id: string,
+  ) {
+    return this.playlistsService.removeUser(unique_name, user_id);
+  }
 }

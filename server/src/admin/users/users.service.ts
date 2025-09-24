@@ -63,6 +63,7 @@ export class UsersService {
       include: {
         courses: {
           select: {
+            id: true,
             playlist: true,
           },
         },

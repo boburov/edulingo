@@ -8,6 +8,10 @@ const apiEndpoints = {
   createplaylist: "/playlists/new",
   getPlaylistByName: (unique_name: string) => `/playlists/${unique_name}`,
   getAllPlaylists: "/playlists",
+  addUserToPlaylist: (unique_name: string, user_id: string) =>
+    `/playlists/${unique_name}/add_new_user/${user_id}`,
+  removeUserFromPlaylist: (unique_name: string, user_id: string) =>
+    `/playlists/${unique_name}/remove_user/${user_id}`,
 
   // lessons
   createNewLesson: (unique_name: string) =>
@@ -23,7 +27,7 @@ const apiEndpoints = {
   deleteVoc: (lesson_id: string, id: string) =>
     `/playlists/lessons/${lesson_id}/vocs/${id}/remove`,
 
-  // userss
+  // users
   searchUsers: (
     page: number,
     limit: number,

@@ -104,8 +104,18 @@ export class PlaylistsService {
           },
         },
       },
+      include: {
+        playlist: true,
+      },
     });
 
     return newCourse;
+  }
+
+  async removeUser(unique_name: string, user_id: string) {
+    await this.prisma.courses.deleteMany({
+      where: { playlist: { unique_name: unique_name }, userId: user_id },
+    });
+    return { deleted: true };
   }
 }

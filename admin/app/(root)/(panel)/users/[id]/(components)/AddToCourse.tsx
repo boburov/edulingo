@@ -49,6 +49,18 @@ export default function AddToCourse({ user }: { user: User }) {
     );
   }
 
+  const PLids = user.courses.map((cs: Courses) => cs.playlist.id);
+  function IsIncluded(id: string) {
+    if (PLids.includes(id)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  const avaible_playlists = playlists.filter((pl: Playlist) =>
+    IsIncluded(pl.id)
+  );
+
   return (
     <div>
       {error && (
@@ -61,16 +73,27 @@ export default function AddToCourse({ user }: { user: User }) {
           Qoshish Mumkun bolgan darslar
         </h2>
         <div className="flex flex-wrap gap-5 w-full">
-          {playlists.map((pl: Playlist) => {
-            return <PlaylistCards playlist={pl} key={pl.id} />;
-          })}
+          {avaible_playlists && avaible_playlists.length > 0 ? (
+            <>
+              {avaible_playlists.map((pl: Playlist) => {
+                return <PlaylistCards user={user} playlist={pl} key={pl.id} />;
+              })}
+            </>
+          ) : (
+            <div className="flex items-center justify-center py-10 w-full">
+              <PageMessage
+                title="Darslar qolmadi"
+                message="Sizda qoshish mumkun bolgan darslar yoq"
+              />
+            </div>
+          )}
         </div>
         <h2 className="text-xl font-semibold text_color">Mavjut darslar</h2>
         <div className="flex flex-wrap gap-5 w-full">
           {user.courses && user.courses.length > 0 ? (
             <>
               {user.courses.map((cs: Courses) => {
-                return <CourseCard course={cs} />;
+                return <CourseCard course={cs} key={cs.id + 3298} />;
               })}
             </>
           ) : (
