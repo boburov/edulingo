@@ -59,9 +59,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleRedirect(@Req() req, @Res() res) {
-    const tokens = await this.authService.generateTokens(req.user);
-    res.redirect(
-      `${this.config.getOrThrow('FRONTEND_URL')}/auth/verify?token=${tokens.access}&refresh=${tokens.refresh}`,
-    );
+    const redirectUrl = await this.authService.googleRedirect(req.user);
+    return res.redirect(redirectUrl);
   }
 }

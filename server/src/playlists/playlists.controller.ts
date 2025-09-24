@@ -21,7 +21,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class PlaylistsController {
   constructor(private readonly playlistsService: PlaylistsService) {}
 
-  @UseGuards(AdminAccessGuard)
+  // @UseGuards(AdminAccessGuard)
   @UseInterceptors(FileInterceptor('thumbnail', multerOptions))
   @Post('new')
   create(
@@ -31,13 +31,11 @@ export class PlaylistsController {
     return this.playlistsService.create(data, thumbnail);
   }
 
-  @UseGuards(AdminAccessGuard)
   @Get()
   findAll() {
     return this.playlistsService.findAll();
   }
 
-  @UseGuards(AdminAccessGuard)
   @Get(':unique_name')
   findOne(@Param('unique_name') unique_name: string) {
     return this.playlistsService.findOne(unique_name);

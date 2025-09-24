@@ -1,11 +1,13 @@
 "use client";
 import { auth_service } from "@/app/api/service/auth.service";
 import Google from "@/app/components/Google";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const page = () => {
+  useAuthRedirect();
   const loading = useState(false);
   const [email, setEmail] = useState("");
 
@@ -36,7 +38,7 @@ const page = () => {
         progress: undefined,
         theme: "light",
       });
-      window.location.href = "/auth/onboard";
+      window.location.href = `/dashboard/${res.user.id}`;
     } catch (err) {
       toast.error("Email Mavjud emas", {
         position: "top-center",

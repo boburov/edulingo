@@ -52,4 +52,8 @@ export class UploadService {
 
     return `https://${this.bucket_name}.s3.amazonaws.com/${command.input.Key}`;
   }
+
+  async pfp(file: Express.Multer.File) {
+    return this.image(file, { w: 300, h: 300, q: 80 });
+  }
 }

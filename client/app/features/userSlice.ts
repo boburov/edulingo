@@ -8,7 +8,6 @@ interface UserState {
   profile_pic: string;
   role: string;
   courses: [];
-  showed_lessons: [];
   created_at?: string;
   is_verified: boolean;
   isLoggedIn: boolean;
@@ -22,7 +21,6 @@ const initialState: UserState = {
   profile_pic: "",
   role: "",
   courses: [],
-  showed_lessons: [],
   is_verified: false,
   created_at: undefined,
   isLoggedIn: false,
@@ -37,7 +35,6 @@ const userSlice = createSlice({
         ...state,
         ...action.payload,
         courses: action.payload.courses || [],
-        showed_lessons: action.payload.showed_lessons || [],
         isLoggedIn: true,
       };
     },

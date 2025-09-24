@@ -18,8 +18,11 @@ export class AuthService {
 
   @Cron(CronExpression.EVERY_10_MINUTES)
   handleCron() {
-    this.prisma.user.deleteMany({ where: { is_verified: false } });
+    console.log('user ochirildi');
+
+    return this.prisma.user.deleteMany({ where: { is_verified: false } });
   }
+
   async generateTokens(user: any) {
     const payload = {
       userId: user.id,
@@ -60,10 +63,10 @@ export class AuthService {
       user = await this.prisma.user.update({
         where: { email: userData.email },
         data: {
-          email: userData.email,
           name: userData.name,
           surname: userData.surname,
           profile_pic: userData.picture,
+          is_verified: true,
         },
       });
     } else {
@@ -79,21 +82,16 @@ export class AuthService {
       });
     }
 
-    const token = this.jwt.sign(
-      {
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        surname: user.surname,
-        profile_pic: user.profile_pic,
-      },
-      { expiresIn: '15m' },
-    );
-    const magic_link = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${token}`;
+    const tokens = await this.generateTokens(user);
+    return { user, ...tokens }; // req.user shu formatda keladi
+  }
 
-    await this.mailService.sendVerificationLink(user.email, magic_link);
+  async googleRedirect(user: any) {
+    const redirectUrl = `${this.config.getOrThrow(
+      'FRONTEND_URL',
+    )}/auth/verify?token=${user.access}&refresh=${user.refresh}`;
 
-    return user;
+    return redirectUrl;
   }
 
   async refresh(token: string) {
@@ -136,23 +134,13 @@ export class AuthService {
       data: { name, surname, email, is_verified: false },
     });
 
-    const verifyToken = this.jwt.sign(
-      { email },
-      {
-        expiresIn: '15m',
-        secret: this.config.getOrThrow('JWT_SECRET'),
-      },
-    );
+    const verifyToken = this.generateTokens(user);
 
     const magicLink = `${this.config.getOrThrow('VERIFY_EMAIL_URL')}${verifyToken}`;
     await this.mailService.sendVerificationLink(email, magicLink);
 
-    const tokens = await this.generateTokens(user);
-
     return {
       message: 'Emailingizga tasdiqlash linki yuborildi',
-      user,
-      ...tokens,
     };
   }
 

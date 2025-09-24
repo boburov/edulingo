@@ -2,12 +2,14 @@
 
 import { auth_service } from "@/app/api/service/auth.service";
 import Google from "@/app/components/Google";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const page = () => {
+  useAuthRedirect();
   const router = useRouter();
   const [userDate, setUserDate] = useState({
     name: "",
@@ -33,8 +35,6 @@ const page = () => {
         progress: undefined,
         theme: "light",
       });
-    router.push("/auth/onboard");
-
     auth_service
       .register(userDate)
       .then((res) => {
@@ -43,6 +43,7 @@ const page = () => {
           surname: "",
           email: "",
         });
+        router.push(`/dashboard/${res.user.id}`);
       })
       .catch((err) => {
         toast.error("Email band", {
