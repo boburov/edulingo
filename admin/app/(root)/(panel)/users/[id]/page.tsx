@@ -7,6 +7,7 @@ import { Undo2 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import AddToCourse from "./(components)/AddToCourse";
 
 export default function UserDetailsPage() {
   const { id } = useParams();
@@ -55,6 +56,8 @@ export default function UserDetailsPage() {
   if (!user) {
     return;
   }
+
+  console.log(user);
 
   return (
     <div className="w-full space-y-5">
@@ -109,6 +112,8 @@ export default function UserDetailsPage() {
           </span>
         </div>
       </div>
+      <Heading>Mavjud darslari</Heading>
+      <AddToCourse user={user} />
     </div>
   );
 }

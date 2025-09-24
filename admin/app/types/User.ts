@@ -8,6 +8,12 @@ export interface User {
   role: "USER" | "ADMIN"; // extendable if you add more roles
   is_verified: boolean;
   created_at: Date;
+  courses: Courses[];
+}
+
+export interface Courses {
+  id: string;
+  playlist: Playlist;
 }
 
 export interface Playlist {
