@@ -1,21 +1,13 @@
 "use client";
-import Heading from "@/app/(global_components)/Heading";
-import { useParams } from "next/navigation";
 import { useContext } from "react";
-import { GlobalContext } from "../../layout";
-import { Lesson } from "@/app/types/User";
 import PageMessage from "@/app/(global_components)/PageMessage";
-import VocManager from "./Vacabluarymanager";
+import VocManager from "./(Vocs)/Vacabluarymanager";
+import { LessonContext } from "./layout";
 
 export default function LessonDetails() {
-  const { order } = useParams();
-  const { playlist } = useContext(GlobalContext);
-  const lessons: Lesson[] = playlist.lessons;
-
-  const lesson = lessons.find((le) => le.order === Number(order));
+  const { lesson } = useContext(LessonContext);
   return (
     <div className="space-y-5">
-      <Heading>Seriya #{order}</Heading>
       {lesson ? (
         <div className="space-y-4">
           <div className="w-full aspect-video rounded-xl bg-gray-300 overflow-hidden">
@@ -42,7 +34,7 @@ export default function LessonDetails() {
               })}
             </span>
           </div>
-          <VocManager lesson={lesson} />
+          <VocManager />
         </div>
       ) : (
         <div className="py-10">

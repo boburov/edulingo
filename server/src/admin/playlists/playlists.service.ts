@@ -81,4 +81,41 @@ export class PlaylistsService {
     await this.prisma.playlist.delete({ where: { unique_name: unique_name } });
     return { deleted: true };
   }
+
+  async addNewUser(unique_name: string, user_id: string) {
+    const existing = await this.prisma.courses.findFirst({
+      where: { playlist: { unique_name: unique_name }, userId: user_id },
+    });
+    if (existing)
+      throw new HttpException(
+        'Ushbu foidalanuvchi, bu darslarda allaqachon bor',
+        404,
+      );
+    const newCourse = await this.prisma.courses.create({
+      data: {
+        playlist: {
+          connect: {
+            unique_name: unique_name,
+          },
+        },
+        User: {
+          connect: {
+            id: user_id,
+          },
+        },
+      },
+      include: {
+        playlist: true,
+      },
+    });
+
+    return newCourse;
+  }
+
+  async removeUser(unique_name: string, user_id: string) {
+    await this.prisma.courses.deleteMany({
+      where: { playlist: { unique_name: unique_name }, userId: user_id },
+    });
+    return { deleted: true };
+  }
 }

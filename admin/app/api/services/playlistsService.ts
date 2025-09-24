@@ -42,6 +42,24 @@ const playlistService = {
       throw error;
     }
   },
+
+  addNewUser: async (unique_name: string, user_id: string) => {
+    try {
+      return api.post(apiEndpoints.addUserToPlaylist(unique_name, user_id));
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  removeUser: async (unique_name: string, user_id: string) => {
+    try {
+      return api.delete(
+        apiEndpoints.removeUserFromPlaylist(unique_name, user_id)
+      );
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default playlistService;

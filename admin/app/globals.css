@@ -151,6 +151,10 @@
   @apply text-gray-700 bg-gray-700/5 py-2 px-4 rounded-full cursor-pointer flex items-center justify-center gap-2;
 }
 
+.basic_button3 {
+  @apply text-white bg-red-500 py-2 px-4 rounded-full cursor-pointer flex items-center justify-center gap-2;
+}
+
 .basic_field {
   @apply py-2 px-4 rounded-lg outline-none border border-gray-300;
 }

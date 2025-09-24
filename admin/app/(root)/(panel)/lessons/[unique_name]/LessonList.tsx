@@ -6,7 +6,8 @@ import LessonCard from "./LessonCard";
 
 export default function LessonsList() {
   const { playlist } = useContext(GlobalContext);
-  const lessons: Lesson[] = playlist.lessons;
+  let lessons: Lesson[] = playlist.lessons;
+  lessons = lessons.sort((a, b) => a.order - b.order);
 
   return (
     <div>

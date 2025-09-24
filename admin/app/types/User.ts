@@ -1,11 +1,19 @@
 export interface User {
   id: string;
   name: string;
-  username: string;
+  surname: string;
   email: string;
-  provider: string;
-  provider_id: string;
+  profile_pic: string;
+  google_id: string;
+  role: "USER" | "ADMIN"; // extendable if you add more roles
+  is_verified: boolean;
   created_at: Date;
+  courses: Courses[];
+}
+
+export interface Courses {
+  id: string;
+  playlist: Playlist;
 }
 
 export interface Playlist {
@@ -25,5 +33,13 @@ export interface Lesson {
   description: string;
   order: number;
   playlistId: string;
+  vocabulary: Vocs[];
   created_at: Date;
+}
+
+export interface Vocs {
+  id: string;
+  word: string;
+  translation: string;
+  lessonId: string;
 }

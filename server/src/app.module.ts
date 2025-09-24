@@ -6,7 +6,7 @@ import { MailModule } from './mail/mail.module';
 import { UploadModule } from './upload/upload.module';
 import { AdminModule } from './admin/admin.module';
 import { JobsModule } from './jobs/jobs.module';
-import { PlaylistsModule } from './playlists/playlists.module';
+import { PlaylistsModule } from './admin/playlists/playlists.module';
 import { GlobalModule } from './global/global.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
