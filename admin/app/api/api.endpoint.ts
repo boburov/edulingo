@@ -32,6 +32,7 @@ const apiEndpoints = {
     email: string = ""
   ) =>
     `/admin/users/search/?page=${page}&limit=${limit}&name=${name}&surname=${surname}&email=${email}`,
+  getUserById: (id: string) => `/admin/users/unique/${id}`,
 };
 
 export default apiEndpoints;

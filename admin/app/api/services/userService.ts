@@ -17,6 +17,14 @@ const userService = {
       throw error;
     }
   },
+
+  getById: async (id: string) => {
+    try {
+      return api.get(apiEndpoints.getUserById(id));
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default userService;

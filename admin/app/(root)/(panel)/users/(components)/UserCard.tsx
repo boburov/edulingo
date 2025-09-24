@@ -33,7 +33,7 @@ export default function UserCard({ user }: { user: User }) {
 
       {/* Google ID */}
       <div className=" w-full pt-5">
-        <Link href={"#"} className="basic_button">
+        <Link href={`/users/${user.id}`} className="basic_button">
           <Eye /> Batafsil
         </Link>
       </div>
