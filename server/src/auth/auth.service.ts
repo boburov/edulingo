@@ -33,7 +33,7 @@ export class AuthService {
     };
 
     const access = this.jwt.sign(payload, {
-      expiresIn: '15m',
+      expiresIn: '7d',
       secret: this.config.getOrThrow('JWT_SECRET'),
     });
 

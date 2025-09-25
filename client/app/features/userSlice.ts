@@ -8,6 +8,7 @@ interface UserState {
   profile_pic: string;
   role: string;
   courses: [];
+  show_history: [];
   created_at?: string;
   is_verified: boolean;
   isLoggedIn: boolean;
@@ -21,6 +22,7 @@ const initialState: UserState = {
   profile_pic: "",
   role: "",
   courses: [],
+  show_history: [],
   is_verified: false,
   created_at: undefined,
   isLoggedIn: false,

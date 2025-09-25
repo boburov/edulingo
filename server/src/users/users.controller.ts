@@ -11,9 +11,9 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ShowedDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -34,12 +34,8 @@ export class UsersController {
   }
 
   @Put('showed/:userId')
-  showed(
-    @Param('id') userId: string,
-    @Body() courseId: string,
-    lessonId: string,
-  ) {
-    return this.usersService.showed(userId, courseId, lessonId);
+  showed(@Param('userId') userId: string, @Body() body: ShowedDto) {
+    return this.usersService.showed(userId, body.courseId, body.lessonId);
   }
 
   @Put(':id')
