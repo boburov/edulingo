@@ -64,7 +64,9 @@ export default function RootLayout({
   return (
     <div className={`${roboto.className} antialiased w-full space-y-5`}>
       <div className="flex justify-between items-center w-full">
-        <Heading>Batafsil @{unique_name}</Heading>
+        <div className="flex-1 truncate">
+          <Heading>Batafsil @{unique_name}</Heading>
+        </div>
         <Link href={"/lessons"} className="basic_button2">
           Ortga <Undo2 />
         </Link>
@@ -81,9 +83,9 @@ export default function RootLayout({
       ) : (
         <>
           {playlist ? (
-            <main className="main_body flex gap-5 items-start">
+            <main className="main_body flex flex-col md:flex-row gap-5 items-start">
               <PlaylistDetails playlist={playlist} />
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <GlobalContext.Provider value={{ playlist, setPlaylist }}>
                   {children}
                 </GlobalContext.Provider>

@@ -49,9 +49,9 @@ export default function Statistics() {
       )}
       {!is_loading ? (
         <div className="w-full space-y-5">
-          <div className="w-full grid grid-cols-4 gap-5">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             <div className="p-5 rounded-xl bg-gradient-to-r from-green-600 to-green-400 text-white">
-              <h2 className="text-xl font-semibold">Foidalanuvchilar</h2>
+              <h2 className="text-xl font-semibold">Foydalanuvchilar</h2>
               <p className="font-bold text-2xl">{statistics.total_users} ta</p>
             </div>
             <div className="p-5 rounded-xl bg-gradient-to-r from-red-600 to-red-400 text-white">
@@ -67,7 +67,7 @@ export default function Statistics() {
               </p>
             </div>
             <div className="p-5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 text-white">
-              <h2 className="text-xl font-semibold">Lugatlar</h2>
+              <h2 className="text-xl font-semibold">Lug'atlar</h2>
               <p className="font-bold text-2xl">
                 {statistics.total_vocabulary} ta
               </p>

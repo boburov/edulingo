@@ -26,7 +26,6 @@ ChartJS.register(
   Legend
 );
 
-import { useState } from "react";
 import Heading from "@/app/(global_components)/Heading";
 import { Stats } from "@/app/types/User";
 
@@ -56,9 +55,9 @@ export default function Chart({ data }: { data: Stats }) {
   };
 
   return (
-    <div className="p-5 space-y-5 rounded-2xl border border-gray-300 shadow-md border-b-3 border-b-violet-600 flex-1">
-      <Heading>Playlistlar</Heading>
-      <div className="w-full h-[300px]">
+    <div className="p-5 space-y-5 rounded-2xl border border-gray-300 shadow-md border-b-3 border-b-violet-600 flex-1 overflow-scroll md:overflow-hidden">
+      <Heading>Pleylistlar</Heading>
+      <div className="w-[700px] md:w-full h-[300px]">
         <Bar options={options} data={chartData} className="w-full h-full" />
       </div>
     </div>

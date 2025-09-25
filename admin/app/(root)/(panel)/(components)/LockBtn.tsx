@@ -25,7 +25,7 @@ export default function LockButton() {
       onClick={Lock}
       className="text-gray-600 flex gap-2 items-center rounded-full border border-gray-300 py-2 px-4 hover:bg-[#26a269] hover:text-white hover:border-[#26a269] transition-all cursor-pointer"
     >
-      <LockKeyholeIcon /> Qulflash
+      <LockKeyholeIcon /> <p className="hidden sm:block">Qulflash</p>
     </button>
   );
 }

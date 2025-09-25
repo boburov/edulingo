@@ -13,12 +13,12 @@ export default function PlaylistCard({ playlists }: Props) {
       {playlists.map((p) => (
         <div
           key={p.id}
-          className="flex gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition border border-gray-300"
+          className="flex flex-col sm:flex-row gap-4 items-start bg-white dark:bg-slate-800 shadow-md rounded-2xl p-4 hover:shadow-lg transition border border-gray-300"
         >
           {/* Thumbnail */}
           <Link
             href={`/lessons/${p.unique_name}`}
-            className="h-34 aspect-video flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+            className="h-auto w-full sm:w-auto sm:h-34 aspect-video flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
           >
             <img
               src={p.thumbnail}

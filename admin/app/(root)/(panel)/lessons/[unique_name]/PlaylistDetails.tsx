@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function PlaylistDetails({ playlist }: { playlist: Playlist }) {
   return (
-    <div className="max-w-sm w-full rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg transition p-4 space-y-3">
+    <div className="max-w-full md:max-w-sm w-full rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm hover:shadow-lg transition p-4 space-y-3">
       {/* Thumbnail */}
       <Link
         href={`/lessons/${playlist.unique_name}`}

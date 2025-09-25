@@ -51,8 +51,10 @@ export default function VocCard({ voc, i }: { voc: Vocs; i: number }) {
         } items-center justify-between`}
       >
         <p className="p-2">{i}</p>
-        <p className="p-2 flex-1 border-r border-r-gray-400">{voc.word}</p>
-        <p className="p-2 flex-1">{voc.translation}</p>
+        <p className="p-2 flex-1 border-r border-r-gray-400 truncate">
+          {voc.word}
+        </p>
+        <p className="p-2 flex-1 truncate">{voc.translation}</p>
         <button
           className="p-2 text-red-500 cursor-pointer"
           disabled={loading}

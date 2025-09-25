@@ -70,18 +70,18 @@ export default function UserDetailsPage() {
             Orqaga <Undo2 />
           </Link>
         </div>
-        <div className="flex items-center bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
+        <div className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
           {/* Left side - Profile pic */}
           <div className="bg-gray-100 p-4 flex items-center justify-center">
             <img
               src={user.profile_pic}
               alt={`${user.name} ${user.surname}`}
-              className="h-20 w-20 rounded-full object-cover shadow-md border-2 border-white"
+              className="h-24 w-24 rounded-full object-cover shadow-md border-2 border-white"
             />
           </div>
 
           {/* Right side - Info */}
-          <div className="flex flex-col justify-center p-5 flex-1">
+          <div className="flex flex-col justify-center p-5 flex-1 items-center sm:items-start">
             {/* Name & verification */}
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-bold text-gray-800">

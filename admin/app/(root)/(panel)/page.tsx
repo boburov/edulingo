@@ -12,13 +12,13 @@ export default function Home() {
           href={"/lessons"}
           className="p-4 rounded-xl bg-gray-50 border-gray-300 border flex gap-4 hover:border-[#26a269] hover:bg-[#26a269] hover:text-white transition-all"
         >
-          <BookMarked /> Darslar & Playlistlar
+          <BookMarked /> Darslar & Pleylistlar
         </Link>
         <Link
           href={"/users"}
           className="p-4 rounded-xl bg-gray-50 border-gray-300 border flex gap-4 hover:border-[#26a269] hover:bg-[#26a269] hover:text-white transition-all"
         >
-          <Contact /> Foidalanuvchilarni Qidirish
+          <Contact /> Foydalanuvchilarni Qidirish
         </Link>
         <Link
           href={"/password"}
