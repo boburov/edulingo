@@ -3,6 +3,7 @@ const apiEndpoints = {
 
   // admin
   verifyAdmin: "/admin/verify",
+  updatePassword: "/admin/update_password",
 
   // playlists
   createplaylist: "/playlists/new",
