@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AdminAccessGuard } from 'src/guards/admin-access/admin-access.guard';
 import { UpdatePasswordDto } from './dtos/password-update.dto';
@@ -16,5 +16,11 @@ export class AdminController {
   @Put('update_password')
   updatePassword(@Body() data: UpdatePasswordDto) {
     return this.adminService.updatePassword(data);
+  }
+
+  @UseGuards(AdminAccessGuard)
+  @Get('stats')
+  getStats() {
+    return;
   }
 }

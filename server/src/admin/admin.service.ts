@@ -50,4 +50,31 @@ export class AdminService {
     });
     return { message: "Paro'l, muaffaqiyatli o'zgartirildi" };
   }
+
+  async getStats() {
+    const total_users = await this.prisma.user.count();
+    const total_playlists = await this.prisma.playlist.count();
+    const total_vocabulary = await this.prisma.vocabulary.count();
+    const total_lessons = await this.prisma.lessons.count();
+
+    const data = await this.prisma.playlist.findMany({
+      select: {
+        id: true,
+        title: true,
+        _count: {
+          select: {
+            users: true,
+          },
+        },
+      },
+    });
+
+    return {
+      total_users,
+      total_playlists,
+      total_lessons,
+      total_vocabulary,
+      data,
+    };
+  }
 }
