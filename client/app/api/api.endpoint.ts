@@ -15,6 +15,9 @@ export const api_endpoint = {
   sendmail_code: "users/verify_mail",
   change_mail: "users/change_mail",
 
+  // vocs
+  get_vocs: (lesson_id: string) => `playlists/lessons/${lesson_id}/vocs/all`,
+
   // lessons
   lessons: (courseId: string) => `/courses/${courseId}/lessons`,
   lesson: (courseId: string, lessonId: string) =>
@@ -22,5 +25,6 @@ export const api_endpoint = {
 
   // history
   history: (userId: string) => `history/${userId}`,
+  write_history: "history/show",
   edit_profile: (user_id: string) => `/users/${user_id}`,
 };

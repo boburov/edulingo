@@ -2,24 +2,37 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="pt-32 flex flex-col items-center gap-y-4 ">
-      <h1 className="text-6xl font-bold text-gray-800 uppercase tracking-wider mb-2 text-center">
-        edulingo - platforma
-        <br /> ta'lim bizdan boshlanadi
+    <section className="pt-24 md:pt-32 px-6 text-center flex flex-col items-center gap-y-6">
+      {/* Title */}
+      <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight tracking-wide">
+        Edulingo — Platforma
+        <br />
+        <span className="text-green-600">Ta’lim bizdan boshlanadi</span>
       </h1>
-      <p className="text-2xl font-medium tracking-wide text-gray-600 mb-5">
-        biz orqali chet tillarini oson va qizqarli tarzda o'zlashtring
+
+      {/* Subtitle */}
+      <p className="text-base sm:text-lg md:text-2xl font-medium text-gray-600 max-w-2xl">
+        Biz orqali chet tillarini <span className="text-green-600">oson</span> va{" "}
+        <span className="text-green-600">qiziqarli</span> tarzda o‘zlashtiring
       </p>
 
-      <div className="flex items-center gap-10">
-        <Link href={'/auth/signup'} className="px-20 pt-4 pb-3.5 bg-green-300/50 text-green-900 rounded-2xl">
-          boshlash
+      {/* CTA buttons */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-4">
+        <Link
+          href="/auth/signup"
+          className="w-full sm:w-auto px-10 sm:px-16 py-3 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-semibold shadow-md transition"
+        >
+          Boshlash
         </Link>
-        <Link href={'https://t.me/boburovdev'} className="px-20 pt-4 pb-3.5 border-green-300/50 border-2 text-green-900 rounded-2xl">
-          kurs haqida
+        <Link
+          href="https://t.me/boburovdev"
+          target="_blank"
+          className="w-full sm:w-auto px-10 sm:px-16 py-3 border-2 border-green-600 text-green-700 rounded-2xl font-semibold hover:bg-green-50 transition"
+        >
+          Kurs haqida
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 
