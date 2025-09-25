@@ -1,5 +1,5 @@
 import Heading from "@/app/(global_components)/Heading";
-import { BookMarked, Contact } from "lucide-react";
+import { BookMarked, Contact, LockKeyhole } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -18,6 +18,12 @@ export default function Home() {
           className="p-4 rounded-xl bg-gray-50 border-gray-300 border flex gap-4 hover:border-[#26a269] hover:bg-[#26a269] hover:text-white transition-all"
         >
           <Contact /> Foidalanuvchilarni Qidirish
+        </Link>
+        <Link
+          href={"/password"}
+          className="p-4 rounded-xl bg-gray-50 border-gray-300 border flex gap-4 hover:border-[#26a269] hover:bg-[#26a269] hover:text-white transition-all"
+        >
+          <LockKeyhole /> Paro'lni tahrirlash
         </Link>
       </div>
     </div>
