@@ -1,6 +1,7 @@
 import Heading from "@/app/(global_components)/Heading";
 import { Undo2 } from "lucide-react";
 import Link from "next/link";
+import UpdatePassword from "./UpdatePassword";
 
 export default function PasswordPage() {
   return (
@@ -11,6 +12,7 @@ export default function PasswordPage() {
           Orqaga <Undo2 />
         </Link>
       </div>
+      <UpdatePassword />
     </div>
   );
 }
