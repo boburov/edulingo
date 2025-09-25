@@ -45,5 +45,13 @@ export interface Vocs {
 }
 
 export interface Stats {
-  
+  total_lessons: number;
+  total_playlists: number;
+  total_users: number;
+  total_vocabulary: number;
+  data: {
+    id: string;
+    title: string;
+    _count: { users: number };
+  }[];
 }

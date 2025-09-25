@@ -21,6 +21,6 @@ export class AdminController {
   @UseGuards(AdminAccessGuard)
   @Get('stats')
   getStats() {
-    return;
+    return this.adminService.getStats();
   }
 }
