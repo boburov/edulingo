@@ -1,6 +1,7 @@
 import Heading from "@/app/(global_components)/Heading";
 import { BookMarked, Contact, LockKeyhole } from "lucide-react";
 import Link from "next/link";
+import Statistics from "./(components)/Statistics";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
           <LockKeyhole /> Paro'lni tahrirlash
         </Link>
       </div>
+      <Statistics />
     </div>
   );
 }

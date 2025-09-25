@@ -27,6 +27,7 @@ export default function ValidationForm() {
     e.preventDefault();
     try {
       setLoading(true);
+      setError("");
       if (password.length < 1) {
         return setError("Iltimos paro'lni kiriting");
       }

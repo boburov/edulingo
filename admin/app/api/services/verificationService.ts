@@ -18,6 +18,14 @@ const validationService = {
       throw error;
     }
   },
+
+  getStats: async () => {
+    try {
+      return api.get(apiEndpoints.getStats);
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default validationService;
