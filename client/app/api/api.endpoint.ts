@@ -11,6 +11,10 @@ export const api_endpoint = {
   courses: "/playlists",
   course: (unique_name: string) => `/playlists/${unique_name}`,
 
+  //edit profile
+  sendmail_code: "users/verify_mail",
+  change_mail: "users/change_mail",
+
   // lessons
   lessons: (courseId: string) => `/courses/${courseId}/lessons`,
   lesson: (courseId: string, lessonId: string) =>

@@ -33,6 +33,18 @@ export class UsersController {
     return this.usersService.updatePFP(id, file);
   }
 
+  @Post('verify_mail')
+  async verify_mail(
+    @Body() dto: { new_mail: string; old_mail: string; code: number },
+  ) {
+    return this.usersService.verify_mail(dto.new_mail, dto.old_mail, dto.code);
+  }
+
+  @Post('change_mail')
+  async change_mail(@Body() dto: { oldMail: string; newMail: string }) {
+    return this.usersService.change_mail(dto.newMail, dto.oldMail);
+  }
+
   @Put('showed/:userId')
   showed(@Param('userId') userId: string, @Body() body: ShowedDto) {
     return this.usersService.showed(userId, body.courseId, body.lessonId);

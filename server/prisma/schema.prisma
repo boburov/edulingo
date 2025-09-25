@@ -41,10 +41,10 @@ model show_history {
   category_id String
   lesson_id   String
   showed_at   DateTime @default(now())
-  User        User?    @relation(fields: [userId], references: [id])
+  User        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
 
-  lesson lessons @relation(fields: [lesson_id], references: [id])
+  lesson lessons @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
 }
 
 model playlist {
