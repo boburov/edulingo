@@ -43,3 +43,7 @@ export interface Vocs {
   translation: string;
   lessonId: string;
 }
+
+export interface Stats {
+  
+}

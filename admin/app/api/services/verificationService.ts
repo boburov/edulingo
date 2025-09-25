@@ -21,7 +21,7 @@ const validationService = {
 
   getStats: async () => {
     try {
-      return api.get(apiEndpoints.getStats);
+      return await api.get(apiEndpoints.getStats);
     } catch (error) {
       throw error;
     }
