@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/app/(global_components)/Loader";
 import validationService from "@/app/api/services/verificationService";
 import { clearValidation, validateAdmin } from "@/app/store/slices/adminSlice";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -26,6 +27,7 @@ export default function ValidationForm() {
     e.preventDefault();
     try {
       setLoading(true);
+      setError("");
       if (password.length < 1) {
         return setError("Iltimos paro'lni kiriting");
       }
@@ -82,6 +84,11 @@ export default function ValidationForm() {
           <p className="text-red-600 bg-red-600/10 rounded-xl px-4 py-2 text-center">
             {error}
           </p>
+        )}
+        {loading && (
+          <div className="w-full flex items-center justify-center">
+            <Loader />
+          </div>
         )}
       </div>
     </div>

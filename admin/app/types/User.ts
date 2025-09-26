@@ -43,3 +43,15 @@ export interface Vocs {
   translation: string;
   lessonId: string;
 }
+
+export interface Stats {
+  total_lessons: number;
+  total_playlists: number;
+  total_users: number;
+  total_vocabulary: number;
+  data: {
+    id: string;
+    title: string;
+    _count: { users: number };
+  }[];
+}

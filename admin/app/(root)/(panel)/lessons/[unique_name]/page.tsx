@@ -6,7 +6,7 @@ import CreateLessonButton from "./NewLessonBtn";
 
 export default function PlaylistDetailsPage() {
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 w-full">
       <Heading>Seriyalar</Heading>
       <CreateLessonButton />
       <LessonsList />

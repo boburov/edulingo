@@ -57,7 +57,7 @@ export default function UserSearchEngine() {
           </p>
         )}
         <form
-          className="w-full grid grid-cols-2 gap-5 text_color"
+          className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 text_color"
           onSubmit={HandleSearch}
         >
           <div className="w-full flex flex-col space-y-1">
@@ -114,14 +114,14 @@ export default function UserSearchEngine() {
       ) : (
         <div className="w-full">
           {users && users.length > 0 ? (
-            <div className="w-full gap-5 grid grid-cols-3">
+            <div className="w-full gap-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {users.map((user: User) => (
                 <UserCard key={user.id} user={user} />
               ))}
             </div>
           ) : (
             <PageMessage
-              title="Foidalanuvchilar topilmadi!"
+              title="Foydalanuvchilar topilmadi!"
               message="Boshqa malumotni kiritib koring"
             />
           )}
