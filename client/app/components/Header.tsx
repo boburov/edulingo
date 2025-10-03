@@ -21,13 +21,7 @@ const Header = () => {
           <nav>
             <ul className="flex items-center gap-5">
               <li>
-                <Link href="/courses">Kurslar</Link>
-              </li>
-              <li>
-                <Link href="/courses">O‘qituvchilar</Link>
-              </li>
-              <li>
-                <Link href="/courses">Bog‘lanish</Link>
+                <Link href="/contact">Bog‘lanish</Link>
               </li>
             </ul>
           </nav>
